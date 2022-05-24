@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 774006321}
   - component: {fileID: 774006323}
   - component: {fileID: 774006322}
+  - component: {fileID: 774006324}
   m_Layer: 0
   m_Name: Meter
   m_TagString: Untagged
@@ -436,6 +437,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 774006320}
   m_CullTransparentMesh: 1
+--- !u!114 &774006324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774006320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4233ec8b21045bc4d941c9aa58f8dd87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stability: 0
+  displayValue: 0
 --- !u!1 &925399497
 GameObject:
   m_ObjectHideFlags: 0
