@@ -7,22 +7,26 @@ public class ValueText : MonoBehaviour
 {
     private TextMeshProUGUI textComponent;
 
-    // Should be fetched from game manager
-    public int value = 0;
+    private GameManager gameManager;
 
     void Awake()
     {
         textComponent = GetComponent<TextMeshProUGUI>();
     }
 
+    private void Start()
+    {
+        gameManager = GameManager.GetInstance();
+    }
+
     void Update()
     {
         string text = "";
-        if (value < 0)
+        if (gameManager.portfolioValue < 0)
         {
             text += "-";
         }
-        text += "$" + Mathf.Abs(value).ToString("N0");
+        text += "$" + Mathf.Abs(gameManager.portfolioValue).ToString("N0");
         textComponent.text = text;
     }
 }

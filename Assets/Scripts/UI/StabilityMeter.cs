@@ -6,22 +6,25 @@ public class StabilityMeter : MonoBehaviour
 {
     private const int maxY = 225;
 
-    // This value should be pulled from game manager, only here for testing purposes
-    // should be between -1 and 1?
-    public float stability = 0;
+    private GameManager gameManager;
 
     public float displayValue = 0;
 
+	private void Start()
+	{
+		gameManager = GameManager.GetInstance();
+	}
 
-    // Update is called once per frame
-    void Update()
+
+	// Update is called once per frame
+	void Update()
     {
         // Animate the motion of the slider
-        float diff = stability - displayValue;
+        float diff = gameManager.stability - displayValue;
 
 		displayValue += diff / 50;
 
-        if (Mathf.Abs(diff) < 0.005) displayValue = stability;
+        if (Mathf.Abs(diff) < 0.005) displayValue = gameManager.stability;
 
 		transform.localPosition = new Vector2(transform.localPosition.x, maxY * displayValue);
     }

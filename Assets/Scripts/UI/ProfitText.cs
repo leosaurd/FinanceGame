@@ -6,23 +6,26 @@ using TMPro;
 public class ProfitText : MonoBehaviour
 {
     private TextMeshProUGUI textComponent;
-
-    // Should be fetched from game manager
-    public int profit = 0;
+    private GameManager gameManager;
 
     void Awake()
 	{
         textComponent = GetComponent<TextMeshProUGUI>();
 	}
 
-    void Update()
+	private void Start()
+	{
+        gameManager = GameManager.GetInstance();
+	}
+
+	void Update()
     {
         string text = "";
-        if(profit < 0)
+        if(gameManager.profits < 0)
 		{
             text += "-";
 		}
-        text += "$" + Mathf.Abs(profit).ToString("N0");
+        text += "$" + Mathf.Abs(gameManager.profits).ToString("N0");
         textComponent.text = text;
     }
 }
