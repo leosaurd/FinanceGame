@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 217211291}
   - component: {fileID: 217211293}
   - component: {fileID: 217211292}
+  - component: {fileID: 217211294}
   m_Layer: 0
   m_Name: Portfolio Value
   m_TagString: Untagged
@@ -258,6 +259,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217211290}
   m_CullTransparentMesh: 1
+--- !u!114 &217211294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217211290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c60c14430f1df444b6af0225480c3c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &760722955
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,6 +993,7 @@ GameObject:
   - component: {fileID: 1633931648}
   - component: {fileID: 1633931650}
   - component: {fileID: 1633931649}
+  - component: {fileID: 1633931651}
   m_Layer: 0
   m_Name: Profits Value
   m_TagString: Untagged
@@ -1104,6 +1118,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633931647}
   m_CullTransparentMesh: 1
+--- !u!114 &1633931651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633931647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f80cdb9db20469e4b88a805d6e41cece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1710142540
 GameObject:
   m_ObjectHideFlags: 0
