@@ -8,10 +8,12 @@ public class BlockStats : MonoBehaviour
     public float stability;
     public float profit;
     public float cost;
+    public string newname;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.name = newname;
     }
 
     // Update is called once per frame
