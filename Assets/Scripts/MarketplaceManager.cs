@@ -22,6 +22,11 @@ public class MarketplaceManager : MonoBehaviour
 			Destroy(gameObject);
 		}
 
+		
+	}
+
+	private void Start()
+	{
 		RefreshShop();
 	}
 
@@ -33,7 +38,8 @@ public class MarketplaceManager : MonoBehaviour
 		shop.Clear();
 		foreach (Block b in SOM.blocks)
 		{
-			shop.Add(b.GenerateBlock());
+			BlockInstance blockInstance = b.GenerateBlock();
+			shop.Add(blockInstance);
 		}
 	}
 }
