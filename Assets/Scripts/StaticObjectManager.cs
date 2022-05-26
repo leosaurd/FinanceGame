@@ -23,4 +23,9 @@ public class StaticObjectManager : MonoBehaviour
 		}
 	}
 
+	public Block[] blocks =
+	{
+		new Block(BlockType.Insurance, new IntRange(1000, 5000), new IntRange(-500, 50), new FloatRange(0.05f, 0.2f)),
+		new Block(BlockType.Risky, new IntRange(50, 1000), new IntRange(100, 500), new FloatRange(-0.05f, -0.3f)),
+	};
 }

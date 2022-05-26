@@ -12,7 +12,7 @@ public class IntRange
 		this.max = max;
 	}
 
-	public int New()
+	public int Generate()
 	{
 		return Random.Range(min, max);
 	}

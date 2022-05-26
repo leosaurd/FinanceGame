@@ -25,7 +25,7 @@ public class MarketplaceManager : MonoBehaviour
 		RefreshShop();
 	}
 
-	public List<BlockStats> shop = new();
+	public List<BlockInstance> shop = new();
 
 	public void RefreshShop()
 	{

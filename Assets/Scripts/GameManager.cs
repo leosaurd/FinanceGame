@@ -22,4 +22,6 @@ public class GameManager : MonoBehaviour
 	public float stability = 0;
 	public int portfolioValue = 0;
 	public int profits = 0;
+
+	public List<BlockInstance> ownedBlocks = new List<BlockInstance>();
 }

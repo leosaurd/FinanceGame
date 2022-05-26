@@ -12,7 +12,7 @@ public class FloatRange
 		this.max = max;
 	}
 
-	public float New()
+	public float Generate()
 	{
 		return Random.Range(min, max);
 	}

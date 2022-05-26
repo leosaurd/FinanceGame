@@ -4,30 +4,19 @@ using UnityEngine;
 
 public class NameGenerator
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    public static string GenerateName(BlockStats.blockType blocktype)
+    public static string GenerateName(BlockType blocktype)
     {
         //Get value from nameValues, return one from the array.
         //Generate name here.
-        return "name";
+        string[] names = nameValues[blocktype];
+        return names[Random.Range(0, names.Length)];
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     
-    readonly Dictionary<int, string[]> nameValues = new Dictionary<int, string[]>()
+    private static readonly Dictionary<BlockType, string[]> nameValues = new Dictionary<BlockType, string[]>()
     {
-        {1, new string[] {"Hello", "World"} },
-        {2, new string[] {"Hello", "World"} },
-        {3, new string[] {"Hello", "World"} },
-        {4, new string[] {"Hello", "World"} }
+        {BlockType.Insurance, new string[] {"Hello", "World"} },
+        {BlockType.Risky, new string[] {"Hello", "World"} },
+        {BlockType.Neutral, new string[] {"Hello", "World"} },
+        {BlockType.Valuable, new string[] {"Hello", "World"} }
     };
 }
