@@ -11,6 +11,7 @@ public class NameGenerator
 
     public static string GenerateName(BlockStats.blockType blocktype)
     {
+        //Get value from nameValues, return one from the array.
         //Generate name here.
         return "name";
     }
@@ -18,6 +19,15 @@ public class NameGenerator
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
+    
+    readonly Dictionary<int, string[]> nameValues = new Dictionary<int, string[]>()
+    {
+        {1, new string[] {"Hello", "World"} },
+        {2, new string[] {"Hello", "World"} },
+        {3, new string[] {"Hello", "World"} },
+        {4, new string[] {"Hello", "World"} }
+    };
 }
