@@ -29,6 +29,11 @@ public class MarketplaceManager : MonoBehaviour
 
 	public void RefreshShop()
 	{
-		// Generate new blocks for the shop
+		StaticObjectManager SOM = StaticObjectManager.GetInstance();
+		shop.Clear();
+		foreach (Block b in SOM.blocks)
+		{
+			shop.Add(b.GenerateBlock());
+		}
 	}
 }
