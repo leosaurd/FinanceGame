@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,13 +16,13 @@ public class StabilityMeter : MonoBehaviour
 	}
 
 
-	// Update is called once per frame
-	void Update()
+	
+	void FixedUpdate()
     {
         // Animate the motion of the slider
         float diff = gameManager.stability - displayValue;
 
-		displayValue += diff / 50;
+		displayValue += diff / 20;
 
         if (Mathf.Abs(diff) < 0.005) displayValue = gameManager.stability;
 
