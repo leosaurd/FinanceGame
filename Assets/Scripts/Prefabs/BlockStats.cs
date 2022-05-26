@@ -8,12 +8,14 @@ public class BlockStats : MonoBehaviour
     public float stability;
     public float profit;
     public float cost;
-    public string newname;
-
+    blockType blkType;
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.name = newname;
+        //Assign Block Type
+        blkType = blockType.GroupA;
+        //Generate a name of the object based upon the group. 
+        gameObject.name = NameGenerator.GenerateName(blkType);
     }
 
     // Update is called once per frame
@@ -21,4 +23,12 @@ public class BlockStats : MonoBehaviour
     {
        
     }
+
+    public enum blockType
+    {
+        GroupA,
+        GroupB,
+        GroupC,
+        GroupD
+    };
 }
