@@ -6,17 +6,17 @@ public class BlockInstance
 {
     //Values to be configured upon block creation
     public float stability;
+    public int value;
     public int profit;
-    public int cost;
     public BlockType blockType;
     public string name;
 
-    public BlockInstance(BlockType blockType, float stability, int profit, int cost)
+    public BlockInstance(BlockType blockType, float stability, int value, int profit)
 	{
         this.blockType = blockType;
         this.stability = stability;
-        this.cost = cost;
         this.profit = profit;
+        this.value = value;
 
         name = NameGenerator.GenerateName(blockType);
 	}

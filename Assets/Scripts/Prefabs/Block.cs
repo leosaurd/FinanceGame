@@ -6,15 +6,15 @@ public class Block
 {
 	public string name;
 	public BlockType blockType;
-	public IntRange defaultCost;
 	public IntRange defaultProfit;
+	public IntRange defaultValue;
 	public FloatRange defaultStability;
 
-	public Block(BlockType blockType, IntRange defaultCost, IntRange defaultProfit, FloatRange defaultStability)
+	public Block(BlockType blockType, IntRange defaultProfit, IntRange defaultValue, FloatRange defaultStability)
 	{
 		this.blockType = blockType;
-		this.defaultCost = defaultCost;
 		this.defaultProfit = defaultProfit;
+		this.defaultValue = defaultValue;
 		this.defaultStability = defaultStability;
 	}
 
@@ -22,8 +22,8 @@ public class Block
 	{
 		float stability = defaultStability.Generate();
 		int profit = defaultProfit.Generate();
-		int cost = defaultCost.Generate();
+		int value = defaultValue.Generate();
 
-		return new BlockInstance(blockType, stability, profit, cost);
+		return new BlockInstance(blockType, stability, value, profit);
 	}
 }

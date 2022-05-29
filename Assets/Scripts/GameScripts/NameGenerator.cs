@@ -14,9 +14,9 @@ public class NameGenerator
     
     private static readonly Dictionary<BlockType, string[]> nameValues = new Dictionary<BlockType, string[]>()
     {
-        {BlockType.Insurance, new string[] {"Hello", "World"} },
-        {BlockType.Risky, new string[] {"Hello", "World"} },
-        {BlockType.Neutral, new string[] {"Hello", "World"} },
-        {BlockType.Valuable, new string[] {"Hello", "World"} }
+        {BlockType.Insurance, new string[] {"InsuranceA", "InsuranceB"} },
+        {BlockType.Risky, new string[] {"RiskyA", "RiskyB"} },
+        {BlockType.Neutral, new string[] {"NeutralA", "NeutralB"} },
+        {BlockType.Valuable, new string[] {"ValuableA", "ValuableB"} }
     };
 }
