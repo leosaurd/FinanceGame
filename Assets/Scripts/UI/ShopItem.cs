@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopItem : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class ShopItem : MonoBehaviour
 	private Transform costObj;
 	private Transform profitObj;
 	private Transform stabilityObj;
+
+	public Sprite[] stabilityImages;
 
     void Start()
 	{
@@ -24,7 +27,7 @@ public class ShopItem : MonoBehaviour
 		nameObj.GetComponent<TextMeshProUGUI>().text = block.name;
 
 		string costText = "COST ";
-		costText += "$" + Mathf.Abs(block.value);
+		costText += "$" + block.cost;
 		costObj.GetComponent<TextMeshProUGUI>().text = costText;
 
 		string profitText = "PROFITS ";
@@ -34,6 +37,35 @@ public class ShopItem : MonoBehaviour
 		profitObj.GetComponent<TextMeshProUGUI>().text = profitText;
 
 
+		Image stabilityImage = stabilityObj.GetComponentInChildren<Image>();
+		if (block.stability < -0.5)
+		{
+			stabilityImage.sprite = stabilityImages[0];
+		}
+		else if (block.stability < -0.3)
+		{
+			stabilityImage.sprite = stabilityImages[1];
+		}
+		else if (block.stability < -0.05)
+		{
+			stabilityImage.sprite = stabilityImages[2];
+		}
+		else if (block.stability < 0.05)
+		{
+			stabilityImage.sprite = stabilityImages[3];
+		}
+		else if (block.stability < 0.3)
+		{
+			stabilityImage.sprite = stabilityImages[4];
+		}
+		else if(block.stability < 0.5)
+		{
+			stabilityImage.sprite = stabilityImages[5];
+		}
+		else
+		{
+			stabilityImage.sprite = stabilityImages[6];
+		}
 	}
 
 	public void Buy()

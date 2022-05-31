@@ -55,6 +55,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd3c31fff0d0d44b8095ea8b16ed22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stabilityImages:
+  - {fileID: 21300000, guid: a32851ca1997ed7429f3708d73c07550, type: 3}
+  - {fileID: 21300000, guid: 1579c2d4ef95cb641adabf2054733e5f, type: 3}
+  - {fileID: 21300000, guid: f73ac35c2f1bf114fa2ca1b965fbce93, type: 3}
+  - {fileID: 21300000, guid: 8d3953961ca12d64c9953c2d29d46c75, type: 3}
+  - {fileID: 21300000, guid: 94642546448c91b4298640332fa051a1, type: 3}
+  - {fileID: 21300000, guid: 3bc56effd15ea5b42bcefe15379ec3da, type: 3}
+  - {fileID: 21300000, guid: f855a751fca38954f86c6df72a166926, type: 3}
 --- !u!1 &1038168193586091611
 GameObject:
   m_ObjectHideFlags: 0

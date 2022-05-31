@@ -42,7 +42,6 @@ public class MarketplaceUI : MonoBehaviour
         StaticObjectManager SOM = StaticObjectManager.GetInstance();
         shop.Clear();
         // TODO randomise order it grabs blocktype from SOM
-        // TODO Stability Image Graphics
         // TODO Showcase
         for ( int i = 0; i < SOM.blocks.Length; i++)
         {
@@ -59,7 +58,7 @@ public class MarketplaceUI : MonoBehaviour
 	{
         GameManager GM = GameManager.GetInstance();
         GM.profits += block.profit;
-        GM.portfolioValue += block.value;
+        GM.portfolioValue -= block.cost;
         GM.stability += block.stability;
         RefreshShop();
 	}
