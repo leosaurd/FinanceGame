@@ -24,4 +24,9 @@ public class GameManager : MonoBehaviour
 	public int profits = 0;
 
 	public List<BlockInstance> ownedBlocks = new List<BlockInstance>();
+
+	public void AddBlock(BlockInstance block)
+	{
+		ownedBlocks.Add(block);
+	}
 }
