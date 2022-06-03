@@ -21,6 +21,15 @@ public class BlockInstance
         name = NameGenerator.GenerateName(blockType);
 	}
 
+    public BlockInstance(string name, BlockType blockType, float stability, int cost, int profit)
+    {
+        this.name = name;
+        this.blockType = blockType;
+        this.stability = stability;
+        this.profit = profit;
+        this.cost = cost;
+    }
+
     // This will create the visual block we see on screen
     // that block will have a seperate script for animating
     // etc

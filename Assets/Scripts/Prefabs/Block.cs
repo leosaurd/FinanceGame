@@ -26,4 +26,5 @@ public class Block
 
 		return new BlockInstance(blockType, stability, value, profit);
 	}
+
 }

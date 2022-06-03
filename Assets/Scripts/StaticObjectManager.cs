@@ -28,8 +28,10 @@ public class StaticObjectManager : MonoBehaviour
 	public Block[] blocks =
 	{
 		new Block(BlockType.Insurance, new IntRange(-1000, -200), new IntRange(50, 500), new FloatRange(0.05f, 0.2f)),
-		new Block(BlockType.Risky, new IntRange(50, 500), new IntRange(100, 500), new FloatRange(-0.3f, -0.1f)),
-		new Block(BlockType.Neutral, new IntRange(50, 200), new IntRange(50, 250), new FloatRange(-0.15f, 0.15f)),
-		new Block(BlockType.Valuable, new IntRange(200, 1000), new IntRange(50, 500), new FloatRange(-0.2f, 0.05f)),
+		new Block(BlockType.HighRiskInvestment, new IntRange(-1000, -200), new IntRange(50, 500), new FloatRange(0.05f, 0.2f)),
+		new Block(BlockType.LowRiskInvestment, new IntRange(-1000, -200), new IntRange(50, 500), new FloatRange(0.05f, 0.2f))
+		//new Block(BlockType.Risky, new IntRange(50, 500), new IntRange(100, 500), new FloatRange(-0.3f, -0.1f)),
+		//new Block(BlockType.Neutral, new IntRange(50, 200), new IntRange(50, 250), new FloatRange(-0.15f, 0.15f)),
+		//new Block(BlockType.Valuable, new IntRange(200, 1000), new IntRange(50, 500), new FloatRange(-0.2f, 0.05f)),
 	};
 }

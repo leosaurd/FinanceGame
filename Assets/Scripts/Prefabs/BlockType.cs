@@ -3,9 +3,11 @@
 	// High cost, low profit, increase stability
 	Insurance,
 	// Low cost, high profit, reduce stability
-	Risky,
+	//Risky,
 	// Medium cost, medium proft, medium stability
-	Neutral,
+	//Neutral,
 	// High cost, high profit, reduce stability
-	Valuable
+	//Valuable
+	LowRiskInvestment,
+	HighRiskInvestment
 }

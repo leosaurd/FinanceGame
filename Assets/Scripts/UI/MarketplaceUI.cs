@@ -46,12 +46,33 @@ public class MarketplaceUI : MonoBehaviour
         for ( int i = 0; i < SOM.blocks.Length; i++)
         {
             Block b = SOM.blocks[i];
-            BlockInstance blockInstance = b.GenerateBlock();
+            //BlockInstance blockInstance = b.GenerateBlock();
+            BlockInstance staticBlockInstance = NameGenerator.GenerateStaticBlock(b.blockType);
             GameObject item = Instantiate(ShopItemPrefab, transform);
             item.transform.localPosition = new Vector3(-15, 49f - 98 * i, 0);
-            item.GetComponent<ShopItem>().block = blockInstance;
+            item.GetComponent<ShopItem>().block = staticBlockInstance;
             shop.Add(item);
         }
+        shop = Shuffle(shop);
+    }
+
+    //A way to force randomization in the shop without exclusivity.
+    public void RefreshShopRandomized()
+    {
+        for (int i = 0; i < shop.Count; i++)
+        {
+            Destroy(shop[i]);
+        }
+        shop.Clear();
+        for (int i = 0; i < 4; i++)
+        {
+            BlockInstance staticBlockInstance = NameGenerator.GenerateStaticBlock((BlockType)Random.Range(0,3));
+            GameObject item = Instantiate(ShopItemPrefab, transform);
+            item.transform.localPosition = new Vector3(-15, 49f - 98 * i, 0);
+            item.GetComponent<ShopItem>().block = staticBlockInstance;
+            shop.Add(item);
+        }
+        shop = Shuffle(shop);
     }
 
     public void Buy(BlockInstance block)
@@ -63,4 +84,32 @@ public class MarketplaceUI : MonoBehaviour
         GM.AddBlock(block);
         RefreshShop();
 	}
+
+    //Shuffle method
+    private List<GameObject> Shuffle(List<GameObject> l)
+    {
+        //saving vector positions before shuffling.
+        List<Vector3> v = new List<Vector3>();
+
+        for (int i = 0; i < l.Count; i++)
+        {
+            v.Add(l[i].transform.position);
+        }
+        //shuffle
+        for (int i = 0; i < l.Count; i++)
+        {
+            GameObject temp = l[i];
+            int randomIndex = Random.Range(i, l.Count);
+            l[i] = l[randomIndex];
+            //inherit position?
+            l[randomIndex] = temp;
+        }
+        //Inherit original positions
+        for (int i = 0; i < l.Count; i++)
+        {
+            l[i].transform.position = v[i];
+        }
+
+        return l;
+    }
 }

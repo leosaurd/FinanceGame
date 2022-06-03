@@ -38,27 +38,27 @@ public class ShopItem : MonoBehaviour
 
 
 		Image stabilityImage = stabilityObj.GetComponentInChildren<Image>();
-		if (block.stability < -0.5)
+		if (block.stability < -0.40)
 		{
 			stabilityImage.sprite = stabilityImages[0];
 		}
-		else if (block.stability < -0.3)
+		else if (block.stability < -0.25)
 		{
 			stabilityImage.sprite = stabilityImages[1];
 		}
-		else if (block.stability < -0.05)
+		else if (block.stability < -0.1)
 		{
 			stabilityImage.sprite = stabilityImages[2];
 		}
-		else if (block.stability < 0.05)
+		else if (block.stability < 0.10)
 		{
 			stabilityImage.sprite = stabilityImages[3];
 		}
-		else if (block.stability < 0.3)
+		else if (block.stability < 0.25)
 		{
 			stabilityImage.sprite = stabilityImages[4];
 		}
-		else if(block.stability < 0.5)
+		else if(block.stability < 0.40)
 		{
 			stabilityImage.sprite = stabilityImages[5];
 		}
