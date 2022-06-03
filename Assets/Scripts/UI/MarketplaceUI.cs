@@ -29,7 +29,7 @@ public class MarketplaceUI : MonoBehaviour
 
 	void Start()
     {
-        RefreshShop();
+        RefreshShopRandomized();
     }
 
     public void RefreshShop()
@@ -64,9 +64,25 @@ public class MarketplaceUI : MonoBehaviour
             Destroy(shop[i]);
         }
         shop.Clear();
+        List<BlockInstance> l = new List<BlockInstance>();
         for (int i = 0; i < 4; i++)
         {
+            //TODO non-repeating names
             BlockInstance staticBlockInstance = NameGenerator.GenerateStaticBlock((BlockType)Random.Range(0,3));
+
+            //Lazymans method for non-repeating names
+            if (l.Contains(staticBlockInstance))
+            {
+                while (l.Contains(staticBlockInstance))
+                {
+                    staticBlockInstance = NameGenerator.GenerateStaticBlock((BlockType)Random.Range(0, 3));
+                }
+            }
+            else
+            {
+                l.Add(staticBlockInstance);
+            }
+            
             GameObject item = Instantiate(ShopItemPrefab, transform);
             item.transform.localPosition = new Vector3(-15, 49f - 98 * i, 0);
             item.GetComponent<ShopItem>().block = staticBlockInstance;
@@ -82,7 +98,7 @@ public class MarketplaceUI : MonoBehaviour
         GM.portfolioValue -= block.cost;
         GM.stability += block.stability;
         GM.AddBlock(block);
-        RefreshShop();
+        RefreshShopRandomized();
 	}
 
     //Shuffle method
