@@ -34,5 +34,26 @@ public class GameManager : MonoBehaviour
         {
 			portfolioValue += (ownedBlocks[i].profit);
         }
+
+		if (stability < -1)
+		{
+			stability = -1;
+			EndGame(GameOverReason.Stability);
+		}
+		else if (stability > 1)
+		{
+			stability = 1;
+		}
 	}
+
+	public void EndGame(GameOverReason reason)
+	{
+		Debug.Log(reason);
+	}
+}
+
+public enum GameOverReason
+{
+	Stability,
+	Poor,
 }

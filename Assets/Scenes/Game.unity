@@ -986,8 +986,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d46d9367cc7c484c95ecae054c0b730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockPrefab: {fileID: 2340051102920960146, guid: 996ef8a0758038647b7ad1372f8126d4, type: 3}
   stability: 0
-  portfolioValue: 0
+  portfolioValue: 10000
   profits: 0
 --- !u!1 &1534922819
 GameObject:

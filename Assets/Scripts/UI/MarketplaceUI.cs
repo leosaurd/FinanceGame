@@ -29,106 +29,85 @@ public class MarketplaceUI : MonoBehaviour
 
 	void Start()
     {
-        RefreshShopRandomized();
+        RefreshShop();
     }
 
-    public void RefreshShop()
-    {
-        for (int i = 0; i < shop.Count; i++)
-		{
-            Destroy(shop[i]);
-		}
-
-        StaticObjectManager SOM = StaticObjectManager.GetInstance();
-        shop.Clear();
-        // TODO randomise order it grabs blocktype from SOM
-        // TODO Showcase
-        for ( int i = 0; i < SOM.blocks.Length; i++)
-        {
-            Block b = SOM.blocks[i];
-            //BlockInstance blockInstance = b.GenerateBlock();
-            BlockInstance staticBlockInstance = NameGenerator.GenerateStaticBlock(b.blockType);
-            GameObject item = Instantiate(ShopItemPrefab, transform);
-            item.transform.localPosition = new Vector3(-15, 49f - 98 * i, 0);
-            item.GetComponent<ShopItem>().block = staticBlockInstance;
-            shop.Add(item);
-        }
-        shop = Shuffle(shop);
-    }
-
-    //A way to force randomization in the shop without exclusivity.
-    public void RefreshShopRandomized()
-    {
+    private void ClearShop()
+	{
+        // Clear old shop
         for (int i = 0; i < shop.Count; i++)
         {
             Destroy(shop[i]);
         }
         shop.Clear();
-        List<BlockInstance> l = new List<BlockInstance>();
+    }
+
+    private List<BlockInstance> GenerateNewItems()
+	{
+        // Generate new items for the shop
+        List<string> names = new();
+        List<BlockInstance> blocks = new();
+
         for (int i = 0; i < 4; i++)
         {
-            //TODO non-repeating names
-            BlockInstance staticBlockInstance = NameGenerator.GenerateStaticBlock((BlockType)Random.Range(0,3));
+            BlockType blockType = (BlockType)Random.Range(0, 3);
+            string name = NameGenerator.GenerateName(blockType);
 
             //Lazymans method for non-repeating names
-            if (l.Contains(staticBlockInstance))
+            if (names.Contains(name))
             {
-                while (l.Contains(staticBlockInstance))
+                while (names.Contains(name))
                 {
-                    staticBlockInstance = NameGenerator.GenerateStaticBlock((BlockType)Random.Range(0, 3));
+                    blockType = (BlockType)Random.Range(0, 3);
+                    name = NameGenerator.GenerateName(blockType);
                 }
             }
             else
             {
-                l.Add(staticBlockInstance);
+                names.Add(name);
+                blocks.Add(new BlockInstance(name, blockType, StaticObjectManager.BlockStats[name].GenerateStats()));
             }
-            
+        }
+        return blocks;
+    }
+
+    private void CreateShopGameobjects(List<BlockInstance> blocks)
+	{
+        bool canBuySomething = false;
+
+        // Create actual gameobjects for the shop
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            BlockInstance instance = blocks[i];
+
+            if (instance.cost < GameManager.GetInstance().portfolioValue) canBuySomething = true;
+
             GameObject item = Instantiate(ShopItemPrefab, transform);
             item.transform.localPosition = new Vector3(-15, 49f - 98 * i, 0);
-            item.GetComponent<ShopItem>().block = staticBlockInstance;
+            item.GetComponent<ShopItem>().block = instance;
             shop.Add(item);
         }
-        shop = Shuffle(shop);
+
+        if (!canBuySomething)
+        {
+            GameManager.GetInstance().EndGame(GameOverReason.Poor);
+        }
+    }
+
+    public void RefreshShop()
+    {
+        ClearShop();
+        List<BlockInstance> blocks = GenerateNewItems();
+        CreateShopGameobjects(blocks);
     }
 
     public void Buy(BlockInstance block)
 	{
         GameManager GM = GameManager.GetInstance();
-        //TODO actual limitations
         GM.profits += block.profit;
         GM.portfolioValue -= block.cost;
         GM.stability += block.stability;
         GM.AddBlock(block);
-        RefreshShopRandomized();
+        RefreshShop();
 	}
-
-    //Shuffle method
-    private List<GameObject> Shuffle(List<GameObject> l)
-    {
-        //saving vector positions before shuffling.
-        List<Vector3> v = new List<Vector3>();
-
-        for (int i = 0; i < l.Count; i++)
-        {
-            v.Add(l[i].transform.position);
-        }
-
-        //shuffle
-        for (int i = 0; i < l.Count; i++)
-        {
-            GameObject temp = l[i];
-            int randomIndex = Random.Range(i, l.Count);
-            l[i] = l[randomIndex];
-            //inherit position?
-            l[randomIndex] = temp;
-        }
-
-        //Inherit original positions
-        for (int i = 0; i < l.Count; i++)
-        {
-            l[i].transform.position = v[i];
-        }
-
-        return l;
-    }
 }

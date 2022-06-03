@@ -5,33 +5,25 @@ using UnityEngine.UI;
 
 public class StaticObjectManager : MonoBehaviour
 {
-	private static StaticObjectManager instance;
 
-
-	public static StaticObjectManager GetInstance()
+	public static readonly Dictionary<string, StaticBlockStats> BlockStats = new()
 	{
-		return instance;
-	}
+		{ "Health Plan", new StaticBlockStats(150, 1, 2) },
+		{ "Disability Plan", new StaticBlockStats(200, 0, 3) },
+		{ "Term Life Plan", new StaticBlockStats(300, 2, 4) },
+		{ "Life Plan", new StaticBlockStats(450, 1, 5) },
 
-	void Awake()
-	{
-		if (!instance)
-		{
-			instance = this;
-		}
-		else
-		{
-			Destroy(gameObject);
-		}
-	}
+		{ "Treasury Bills", new StaticBlockStats(150, 5, 1) },
+		{ "Government Bonds", new StaticBlockStats(200, 10, 1) },
+		{ "Savings Bonds", new StaticBlockStats(250, 15, 1) },
+		{ "Fixed Deposit", new StaticBlockStats(350, 30, 0) },
+		{ "Dividend-paying stocks", new StaticBlockStats(450, 50, -2) },
 
-	public Block[] blocks =
-	{
-		new Block(BlockType.Insurance, new IntRange(-1000, -200), new IntRange(50, 500), new FloatRange(0.05f, 0.2f)),
-		new Block(BlockType.HighRiskInvestment, new IntRange(-1000, -200), new IntRange(50, 500), new FloatRange(0.05f, 0.2f)),
-		new Block(BlockType.LowRiskInvestment, new IntRange(-1000, -200), new IntRange(50, 500), new FloatRange(0.05f, 0.2f))
-		//new Block(BlockType.Risky, new IntRange(50, 500), new IntRange(100, 500), new FloatRange(-0.3f, -0.1f)),
-		//new Block(BlockType.Neutral, new IntRange(50, 200), new IntRange(50, 250), new FloatRange(-0.15f, 0.15f)),
-		//new Block(BlockType.Valuable, new IntRange(200, 1000), new IntRange(50, 500), new FloatRange(-0.2f, 0.05f)),
+		{ "ETF", new StaticBlockStats(150, 15, -1) },
+		{ "REIT", new StaticBlockStats(200, 25, -2) },
+		{ "Equity Mutual Fund", new StaticBlockStats(250, 35, -3) },
+		{ "Emerging Markets Equities", new StaticBlockStats(300, 50, -5) },
+		{ "High-Yield Bonds", new StaticBlockStats(350, 75, -7) },
+		{ "Cryptocurrencies", new StaticBlockStats(450, 100, -9) },
 	};
 }
