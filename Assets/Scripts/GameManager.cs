@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 	private static GameManager instance;
+	public GameObject blockPrefab;
 
 	public static GameManager GetInstance(){
 		return instance;
@@ -28,5 +29,10 @@ public class GameManager : MonoBehaviour
 	public void AddBlock(BlockInstance block)
 	{
 		ownedBlocks.Add(block);
+		Instantiate(blockPrefab);
+		for(int i = 0; i < ownedBlocks.Count; i++)
+        {
+			portfolioValue += (ownedBlocks[i].profit);
+        }
 	}
 }

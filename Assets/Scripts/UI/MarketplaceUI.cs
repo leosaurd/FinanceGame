@@ -111,6 +111,7 @@ public class MarketplaceUI : MonoBehaviour
         {
             v.Add(l[i].transform.position);
         }
+
         //shuffle
         for (int i = 0; i < l.Count; i++)
         {
@@ -120,6 +121,7 @@ public class MarketplaceUI : MonoBehaviour
             //inherit position?
             l[randomIndex] = temp;
         }
+
         //Inherit original positions
         for (int i = 0; i < l.Count; i++)
         {

@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ShopItem : MonoBehaviour
 {
     public BlockInstance block;
-
 	private Transform imageObj;
 	private Transform nameObj;
 	private Transform costObj;
@@ -71,6 +70,7 @@ public class ShopItem : MonoBehaviour
 	public void Buy()
 	{
 		MarketplaceUI.GetInstance().Buy(block);
+		
 	}
 	
 }
