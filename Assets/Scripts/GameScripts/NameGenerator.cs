@@ -7,7 +7,7 @@ public class NameGenerator
     //Multiplier for the stability values
     public static float stabilityMultiplier = 0.5f;
     //Base multiplier for profit values
-    public static int profitValue = 100;
+    public static int profitValue = 20;
     public static List<BlockInstance> usedValues = new List<BlockInstance>();
     public static string GenerateName(BlockType blocktype)
     {

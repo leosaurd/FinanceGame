@@ -94,6 +94,7 @@ public class MarketplaceUI : MonoBehaviour
     public void Buy(BlockInstance block)
 	{
         GameManager GM = GameManager.GetInstance();
+        //TODO actual limitations
         GM.profits += block.profit;
         GM.portfolioValue -= block.cost;
         GM.stability += block.stability;
