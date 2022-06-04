@@ -5,7 +5,7 @@ using UnityEngine;
 public class StaticBlockStats
 {
 	private readonly float stabilityMultiplier = 0.05f;
-	private readonly float profitsMultiplier = 10.5f;
+	private readonly float profitsMultiplier = 5f;
 
     public int cost;
     public int profit;
@@ -33,7 +33,7 @@ public class StaticBlockStats
 		
 		finalCost += Mathf.RoundToInt(finalCost * costJitter);
 		finalProfits += Mathf.RoundToInt(finalProfits * profitsJitter);
-		finalStability += Mathf.RoundToInt(finalStability * stabilityJitter);
+		finalStability += finalStability * stabilityJitter;
 
 		return new StaticBlockStats(finalCost, finalProfits, finalStability);
 	}

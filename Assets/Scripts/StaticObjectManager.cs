@@ -8,15 +8,15 @@ public class StaticObjectManager : MonoBehaviour
 
 	public static readonly Dictionary<string, StaticBlockStats> BlockStats = new()
 	{
-		{ "Health Plan", new StaticBlockStats(150, 1, 2) },
-		{ "Disability Plan", new StaticBlockStats(200, 0, 3) },
-		{ "Term Life Plan", new StaticBlockStats(300, 2, 4) },
-		{ "Life Plan", new StaticBlockStats(450, 1, 5) },
+		{ "Health Plan", new StaticBlockStats(150, -35, 2) },
+		{ "Disability Plan", new StaticBlockStats(200, -50, 3) },
+		{ "Term Life Plan", new StaticBlockStats(300, -75, 4) },
+		{ "Life Plan", new StaticBlockStats(450, -100, 5) },
 
 		{ "Treasury Bills", new StaticBlockStats(150, 5, 1) },
 		{ "Government Bonds", new StaticBlockStats(200, 10, 1) },
-		{ "Savings Bonds", new StaticBlockStats(250, 15, 1) },
-		{ "Fixed Deposit", new StaticBlockStats(350, 30, 0) },
+		{ "Savings Bonds", new StaticBlockStats(250, 15, -1) },
+		{ "Fixed Deposit", new StaticBlockStats(350, 30, -0.5f) },
 		{ "Dividend-paying stocks", new StaticBlockStats(450, 50, -2) },
 
 		{ "ETF", new StaticBlockStats(150, 15, -1) },

@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
 	public void EndGame(GameOverReason reason)
 	{
-		Debug.Log(reason);
+		GameOver.Instance.ShowGameover(reason);
 	}
 }
 

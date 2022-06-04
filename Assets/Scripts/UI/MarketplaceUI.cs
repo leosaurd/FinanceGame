@@ -54,19 +54,13 @@ public class MarketplaceUI : MonoBehaviour
             string name = NameGenerator.GenerateName(blockType);
 
             //Lazymans method for non-repeating names
-            if (names.Contains(name))
+            while (names.Contains(name))
             {
-                while (names.Contains(name))
-                {
-                    blockType = (BlockType)Random.Range(0, 3);
-                    name = NameGenerator.GenerateName(blockType);
-                }
+                blockType = (BlockType)Random.Range(0, 3);
+                name = NameGenerator.GenerateName(blockType);
             }
-            else
-            {
-                names.Add(name);
-                blocks.Add(new BlockInstance(name, blockType, StaticObjectManager.BlockStats[name].GenerateStats()));
-            }
+            names.Add(name);
+            blocks.Add(new BlockInstance(name, blockType, StaticObjectManager.BlockStats[name]));
         }
         return blocks;
     }
