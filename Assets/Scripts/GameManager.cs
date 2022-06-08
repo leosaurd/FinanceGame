@@ -6,8 +6,6 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
 	private static GameManager instance;
-	public GameObject blockPrefab;
-	public GameObject blockParent;
 
 	public static GameManager GetInstance(){
 		return instance;
@@ -32,16 +30,7 @@ public class GameManager : MonoBehaviour
 	{
 		ownedBlocks.Add(block);
 
-		GameObject blockObj = Instantiate(blockPrefab, blockParent.transform);
-
-		blockObj.transform.localPosition = new Vector3(0, ownedBlocks.Count, 0);
-		blockObj.transform.Find("Name").GetComponent<TextMeshPro>().text = block.name;
-
-		if(ownedBlocks.Count > 7)
-		{
-			Vector3 prevPos = blockParent.transform.localPosition;
-			blockParent.transform.localPosition = new Vector3(prevPos.x, prevPos.y - 1, prevPos.z);
-		}
+		TowerAnimator.Instance.AddBlockToTower(block);
 
 		for(int i = 0; i < ownedBlocks.Count; i++)
         {

@@ -280,6 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 408029561}
+  - component: {fileID: 408029562}
   m_Layer: 0
   m_Name: BlockParent
   m_TagString: Untagged
@@ -302,6 +303,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &408029562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408029560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4c215e561e48d040a5f9039ae210df1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockPrefab: {fileID: 2340051102920960146, guid: 996ef8a0758038647b7ad1372f8126d4, type: 3}
+  targetPos: -4
+  tower: []
 --- !u!1 &561270094
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,8 +1219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d46d9367cc7c484c95ecae054c0b730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockPrefab: {fileID: 2340051102920960146, guid: 996ef8a0758038647b7ad1372f8126d4, type: 3}
-  blockParent: {fileID: 408029560}
   stability: 0
   portfolioValue: 1000
   profits: 0
