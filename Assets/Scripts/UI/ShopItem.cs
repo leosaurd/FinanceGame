@@ -69,8 +69,8 @@ public class ShopItem : MonoBehaviour
 
 	public void Buy()
 	{
-		MarketplaceUI.GetInstance().Buy(block);
-		
+		if(GameManager.GetInstance().portfolioValue - block.cost > 0)
+			MarketplaceUI.GetInstance().Buy(block);
 	}
 	
 }

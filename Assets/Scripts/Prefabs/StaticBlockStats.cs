@@ -21,8 +21,10 @@ public class StaticBlockStats
 	//  Turns a StaticBlockStats with their values into a StaticBlockStats with game usable values, and adds some randomness
 	public StaticBlockStats GenerateStats()
 	{
+		float roundScaling = (GameManager.GetInstance().ownedBlocks.Count + 1) * 0.5f;
+
 		// Scale values to usable level
-		int finalCost = cost;
+		int finalCost = Mathf.RoundToInt(cost * roundScaling);
 		int finalProfits = Mathf.RoundToInt(profit * profitsMultiplier);
 		float finalStability = stability * stabilityMultiplier;
 

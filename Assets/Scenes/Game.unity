@@ -1220,7 +1220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stability: 0
-  portfolioValue: 1000
+  portfolioValue: 10000
   profits: 0
 --- !u!1 &1534922819
 GameObject:
