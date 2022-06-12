@@ -27,6 +27,9 @@ public class BlockAnimator : MonoBehaviour
 			{
 				transform.localPosition = new Vector2(transform.localPosition.x, targetPosition);
 				ps.Play();
+				float stabilityModifier = 1 + block.stability * -1;
+
+				CameraAnimator.Instance.ScreenShake(10 * stabilityModifier / 2, stabilityModifier / 5);
 			}
 			else
 				transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - speed);
