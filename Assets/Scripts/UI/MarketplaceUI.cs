@@ -4,104 +4,92 @@ using UnityEngine;
 
 public class MarketplaceUI : MonoBehaviour
 {
-    private static MarketplaceUI instance;
+	public static MarketplaceUI Instance { get; private set; }
 
-    public GameObject ShopItemPrefab;
+	public GameObject ShopItemPrefab;
 
-    private List<GameObject> shop = new();
-
-    public static MarketplaceUI GetInstance()
-	{
-        return instance;
-	}
+	private List<GameObject> shop = new();
 
 	private void Awake()
 	{
-		if(instance == null)
-		{
-            instance = this;
-		}
-		else
-		{
-            Destroy(gameObject);
-		}
+		if (Instance == null) Instance = this;
 	}
 
 	void Start()
-    {
-        RefreshShop();
-    }
-
-    private void ClearShop()
 	{
-        // Clear old shop
-        for (int i = 0; i < shop.Count; i++)
-        {
-            Destroy(shop[i]);
-        }
-        shop.Clear();
-    }
+		RefreshShop();
+	}
 
-    private List<BlockInstance> GenerateNewItems()
+	private void ClearShop()
 	{
-        // Generate new items for the shop
-        List<string> names = new();
-        List<BlockInstance> blocks = new();
+		// Clear old shop
+		for (int i = 0; i < shop.Count; i++)
+		{
+			Destroy(shop[i]);
+		}
+		shop.Clear();
+	}
 
-        for (int i = 0; i < 4; i++)
-        {
-            BlockType blockType = (BlockType)Random.Range(0, 3);
-            string name = NameGenerator.GenerateName(blockType);
-
-            //Lazymans method for non-repeating names
-            while (names.Contains(name))
-            {
-                blockType = (BlockType)Random.Range(0, 3);
-                name = NameGenerator.GenerateName(blockType);
-            }
-            names.Add(name);
-            blocks.Add(new BlockInstance(name, blockType, StaticObjectManager.BlockStats[name]));
-        }
-        return blocks;
-    }
-
-    private void CreateShopGameobjects(List<BlockInstance> blocks)
+	private List<BlockInstance> GenerateNewItems()
 	{
-        bool canBuySomething = false;
+		// Generate new items for the shop
+		List<string> names = new();
+		List<BlockInstance> blocks = new();
 
-        // Create actual gameobjects for the shop
-        for (int i = 0; i < blocks.Count; i++)
-        {
-            BlockInstance instance = blocks[i];
+		for (int i = 0; i < 4; i++)
+		{
+			BlockType blockType = (BlockType)Random.Range(0, 3);
+			string name = NameGenerator.GenerateName(blockType);
 
-            if (instance.cost < GameManager.GetInstance().portfolioValue) canBuySomething = true;
+			//Lazymans method for non-repeating names
+			while (names.Contains(name))
+			{
+				blockType = (BlockType)Random.Range(0, 3);
+				name = NameGenerator.GenerateName(blockType);
+			}
+			names.Add(name);
+			blocks.Add(new BlockInstance(name, blockType, StaticObjectManager.BlockStats[name]));
+		}
+		return blocks;
+	}
 
-            GameObject item = Instantiate(ShopItemPrefab, transform);
-            item.transform.localPosition = new Vector3(-15, 49f - 98 * i, 0);
-            item.GetComponent<ShopItem>().block = instance;
-            shop.Add(item);
-        }
-
-        if (!canBuySomething)
-        {
-            GameManager.GetInstance().EndGame(GameOverReason.Poor);
-        }
-    }
-
-    public void RefreshShop()
-    {
-        ClearShop();
-        List<BlockInstance> blocks = GenerateNewItems();
-        CreateShopGameobjects(blocks);
-    }
-
-    public void Buy(BlockInstance block)
+	private void CreateShopGameobjects(List<BlockInstance> blocks)
 	{
-        GameManager GM = GameManager.GetInstance();
-        GM.profits += block.profit;
-        GM.portfolioValue -= block.cost;
-        GM.stability += block.stability;
-        GM.AddBlock(block);
-        RefreshShop();
+		bool canBuySomething = false;
+
+		// Create actual gameobjects for the shop
+		for (int i = 0; i < blocks.Count; i++)
+		{
+			BlockInstance instance = blocks[i];
+
+			if (instance.cost < GameManager.Instance.portfolioValue) canBuySomething = true;
+
+			GameObject item = Instantiate(ShopItemPrefab, transform);
+			item.transform.localPosition = new Vector3(-15, 49f - 98 * i, 0);
+			item.GetComponent<ShopItem>().block = instance;
+			shop.Add(item);
+		}
+
+		if (!canBuySomething)
+		{
+			GameManager.Instance.EndGame(GameOverReason.Poor);
+		}
+	}
+
+	public void RefreshShop()
+	{
+		ClearShop();
+		List<BlockInstance> blocks = GenerateNewItems();
+		CreateShopGameobjects(blocks);
+	}
+
+	public void Buy(BlockInstance block)
+	{
+		GameManager GM = GameManager.Instance;
+		GM.profits += block.profit;
+		GM.portfolioValue -= block.cost;
+		GM.stability += block.stability;
+		GM.AddBlock(block);
+		RefreshShop();
 	}
 }

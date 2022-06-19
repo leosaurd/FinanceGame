@@ -15,7 +15,6 @@ public class TowerAnimator : MonoBehaviour
 	private void Awake()
 	{
 		if (Instance == null) Instance = this;
-		else Destroy(gameObject);
 	}
 
 	public void FixedUpdate()
@@ -32,7 +31,7 @@ public class TowerAnimator : MonoBehaviour
 	{
 		GameObject blockObj = Instantiate(blockPrefab, transform);
 		float startingPosition = 10;
-		if(tower.Count > 5)
+		if (tower.Count > 5)
 		{
 			startingPosition = tower.Count + 5;
 		}
@@ -44,7 +43,7 @@ public class TowerAnimator : MonoBehaviour
 		blockAnimator.targetPosition = tower.Count;
 		blockAnimator.block = block;
 
-		
+
 
 		if (tower.Count > 5)
 		{

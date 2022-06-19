@@ -556,7 +556,7 @@ GameObject:
   - component: {fileID: 1052326370764496155}
   - component: {fileID: 5949371602936278451}
   - component: {fileID: 9221899542995289959}
-  - component: {fileID: 7857224452279174389}
+  - component: {fileID: 5631987560437594769}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -622,7 +622,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7857224452279174389
+--- !u!114 &5631987560437594769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -631,9 +631,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4820440890360766955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f848c1203196d004b949d1d218ebaa4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2272fd9286ecee54e9878648b3d81548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Actions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7972772423722444120}
+        m_TargetAssemblyTypeName: ShopItem, Assembly-CSharp
+        m_MethodName: Buy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7765012652901793973
 GameObject:
   m_ObjectHideFlags: 0

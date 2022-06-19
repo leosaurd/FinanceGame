@@ -5,27 +5,27 @@ using TMPro;
 
 public class ProfitText : MonoBehaviour
 {
-    private TextMeshProUGUI textComponent;
-    private GameManager gameManager;
+	private TextMeshProUGUI textComponent;
+	private GameManager gameManager;
 
-    void Awake()
+	void Awake()
 	{
-        textComponent = GetComponent<TextMeshProUGUI>();
+		textComponent = GetComponent<TextMeshProUGUI>();
 	}
 
 	private void Start()
 	{
-        gameManager = GameManager.GetInstance();
+		gameManager = GameManager.Instance;
 	}
 
 	void Update()
-    {
-        string text = "";
-        if(gameManager.profits < 0)
+	{
+		string text = "";
+		if (gameManager.profits < 0)
 		{
-            text += "-";
+			text += "-";
 		}
-        text += "$" + Mathf.Abs(gameManager.profits).ToString("N0");
-        textComponent.text = text;
-    }
+		text += "$" + Mathf.Abs(gameManager.profits).ToString("N0");
+		textComponent.text = text;
+	}
 }

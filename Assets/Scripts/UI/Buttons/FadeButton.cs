@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
+using static UnityEngine.UI.Button;
 
-public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class FadeButton : MonoBehaviour, Button
 {
 	float opacity = 0;
 	float displayOpacity = 0;
 	private Image image;
+	public ButtonClickedEvent Actions;
 
 	void Awake()
 	{
@@ -39,7 +42,6 @@ public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
-		GetComponentInParent<ShopItem>().Buy();
+		Actions.Invoke();
 	}
-
 }

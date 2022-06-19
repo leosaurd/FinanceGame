@@ -9,7 +9,8 @@ public class GameOver : MonoBehaviour
 {
 	public static GameOver Instance { get; private set; }
 
-    private static TextMeshProUGUI message;
+	private static TextMeshProUGUI message;
+	private static TextMeshProUGUI score;
 
 	private static readonly Dictionary<GameOverReason, string> gameoverMessages = new()
 	{
@@ -23,20 +24,31 @@ public class GameOver : MonoBehaviour
 		{
 			Instance = this;
 
-			message = transform.GetChild(0).Find("Message").GetComponent<TextMeshProUGUI>();
-			
+			message = transform.GetChild(0).Find("GameOverSection").Find("Message").GetComponent<TextMeshProUGUI>();
+			score = transform.GetChild(0).Find("Score").GetComponent<TextMeshProUGUI>();
 		}
 		else
 		{
 			Destroy(gameObject);
 		}
-		
+
 	}
 
 	public void ShowGameover(GameOverReason reason)
 	{
+		GameManager gm = GameManager.Instance;
 		message.text = gameoverMessages[reason];
-		// Leaderboard stuffs?
+		score.text = "Score: " + gm.GetScore().ToString("N0");
+
+		if (Leaderboard.Instance.IsTop10())
+		{
+			transform.GetChild(0).Find("GameOverSection").Find("SubmitScoreBtn").gameObject.SetActive(true);
+		}
+		else
+		{
+			transform.GetChild(0).Find("GameOverSection").Find("SubmitScoreBtn").gameObject.SetActive(false);
+		}
+
 		StartCoroutine(FadeIn());
 	}
 

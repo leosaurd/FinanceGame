@@ -5,28 +5,28 @@ using TMPro;
 
 public class ValueText : MonoBehaviour
 {
-    private TextMeshProUGUI textComponent;
+	private TextMeshProUGUI textComponent;
 
-    private GameManager gameManager;
+	private GameManager gameManager;
 
-    void Awake()
-    {
-        textComponent = GetComponent<TextMeshProUGUI>();
-    }
+	void Awake()
+	{
+		textComponent = GetComponent<TextMeshProUGUI>();
+	}
 
-    private void Start()
-    {
-        gameManager = GameManager.GetInstance();
-    }
+	private void Start()
+	{
+		gameManager = GameManager.Instance;
+	}
 
-    void Update()
-    {
-        string text = "";
-        if (gameManager.portfolioValue < 0)
-        {
-            text += "-";
-        }
-        text += "$" + Mathf.Abs(gameManager.portfolioValue).ToString("N0");
-        textComponent.text = text;
-    }
+	void Update()
+	{
+		string text = "";
+		if (gameManager.portfolioValue < 0)
+		{
+			text += "-";
+		}
+		text += "$" + Mathf.Abs(gameManager.portfolioValue).ToString("N0");
+		textComponent.text = text;
+	}
 }

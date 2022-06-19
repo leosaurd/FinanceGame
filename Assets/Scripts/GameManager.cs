@@ -1,23 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-	private static GameManager instance;
+	public static GameManager Instance { get; private set; }
 
-	public static GameManager GetInstance(){
-		return instance;
-	}
-
-    void Awake(){
-		if(!instance){
-			instance = this;
-		}
-		else{
-			Destroy(gameObject);
-		}
+	void Awake()
+	{
+		if (!Instance) Instance = this;
 	}
 
 	public float stability = 0;
@@ -32,10 +25,10 @@ public class GameManager : MonoBehaviour
 
 		TowerAnimator.Instance.AddBlockToTower(block);
 
-		for(int i = 0; i < ownedBlocks.Count; i++)
-        {
+		for (int i = 0; i < ownedBlocks.Count; i++)
+		{
 			portfolioValue += (ownedBlocks[i].profit);
-        }
+		}
 
 		if (stability < -1)
 		{
@@ -48,9 +41,19 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public int GetScore()
+	{
+		return Mathf.RoundToInt(ownedBlocks.Count * profits);
+	}
+
 	public void EndGame(GameOverReason reason)
 	{
 		GameOver.Instance.ShowGameover(reason);
+	}
+
+	public void RestartGame()
+	{
+		SceneManager.LoadScene("Game");
 	}
 }
 

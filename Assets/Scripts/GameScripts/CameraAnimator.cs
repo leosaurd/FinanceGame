@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class CameraAnimator : MonoBehaviour
 {
-    public static CameraAnimator Instance { get; private set; }
+	public static CameraAnimator Instance { get; private set; }
 
 	private Vector3 defaultPosition = new Vector3(0, 0, -10);
 
 	private void Awake()
 	{
 		if (Instance == null) Instance = this;
-		else Destroy(gameObject);
 	}
 
 	public void ScreenShake(float duration, float intensity)

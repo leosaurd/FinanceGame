@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ShopItem : MonoBehaviour
 {
-    public BlockInstance block;
+	public BlockInstance block;
 	private Transform imageObj;
 	private Transform nameObj;
 	private Transform costObj;
@@ -15,7 +15,7 @@ public class ShopItem : MonoBehaviour
 
 	public Sprite[] stabilityImages;
 
-    void Start()
+	void Start()
 	{
 		imageObj = transform.Find("Image");
 		nameObj = transform.Find("Name");
@@ -28,6 +28,10 @@ public class ShopItem : MonoBehaviour
 		string costText = "COST ";
 		costText += "$" + block.cost;
 		costObj.GetComponent<TextMeshProUGUI>().text = costText;
+		if (block.cost > GameManager.Instance.portfolioValue)
+		{
+			costObj.GetComponent<TextMeshProUGUI>().color = Color.red;
+		}
 
 		string profitText = "PROFITS ";
 		if (block.profit < 0)
@@ -57,7 +61,7 @@ public class ShopItem : MonoBehaviour
 		{
 			stabilityImage.sprite = stabilityImages[4];
 		}
-		else if(block.stability < 0.35)
+		else if (block.stability < 0.35)
 		{
 			stabilityImage.sprite = stabilityImages[5];
 		}
@@ -69,8 +73,8 @@ public class ShopItem : MonoBehaviour
 
 	public void Buy()
 	{
-		if(GameManager.GetInstance().portfolioValue - block.cost > 0)
-			MarketplaceUI.GetInstance().Buy(block);
+		if (GameManager.Instance.portfolioValue - block.cost > 0)
+			MarketplaceUI.Instance.Buy(block);
 	}
-	
+
 }
