@@ -17,12 +17,21 @@ public class GameManager : MonoBehaviour
 	public int portfolioValue = 0;
 	public int profits = 0;
 
+	//Chance for event to occur
+	public float eventchance = 0f;
+
 	public List<BlockInstance> ownedBlocks = new List<BlockInstance>();
 
 	public void AddBlock(BlockInstance block)
 	{
-		ownedBlocks.Add(block);
-
+        ownedBlocks.Add(block);
+		//Any time a block is added, the chance for an event increases.
+		eventchance += 5;
+		//If the generated number is less than or equal to event chance, then generate an event.
+		if(Random.Range(0, 100) <= eventchance)
+        {
+			EventGenerator.GenerateEvent();
+        }
 		TowerAnimator.Instance.AddBlockToTower(block);
 
 		for (int i = 0; i < ownedBlocks.Count; i++)
