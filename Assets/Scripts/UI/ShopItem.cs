@@ -14,33 +14,38 @@ public class ShopItem : MonoBehaviour
 	private Transform stabilityObj;
 
 	public Sprite[] stabilityImages;
+	public Sprite image;
+	public Color textColor;
+
 
 	void Start()
 	{
 		imageObj = transform.Find("Image");
 		nameObj = transform.Find("Name");
-		costObj = transform.Find("Cost");
-		profitObj = transform.Find("Profits");
-		stabilityObj = transform.Find("Stability");
+		costObj = transform.Find("CostValue");
+		profitObj = transform.Find("ProfitsValue");
+		stabilityObj = transform.Find("Stability Image");
+
+		imageObj.GetComponent<Image>().sprite = image;
+		nameObj.GetComponent<TextMeshProUGUI>().color = textColor;
 
 		nameObj.GetComponent<TextMeshProUGUI>().text = block.name;
 
-		string costText = "COST ";
-		costText += "$" + block.cost;
+		string costText = "$" + block.cost;
 		costObj.GetComponent<TextMeshProUGUI>().text = costText;
 		if (block.cost > GameManager.Instance.portfolioValue)
 		{
 			costObj.GetComponent<TextMeshProUGUI>().color = Color.red;
 		}
 
-		string profitText = "PROFITS ";
+		string profitText = "";
 		if (block.profit < 0)
 			profitText += "-";
 		profitText += "$" + Mathf.Abs(block.profit);
 		profitObj.GetComponent<TextMeshProUGUI>().text = profitText;
 
 
-		Image stabilityImage = stabilityObj.GetComponentInChildren<Image>();
+		Image stabilityImage = stabilityObj.GetComponent<Image>();
 		if (block.stability < -0.35)
 		{
 			stabilityImage.sprite = stabilityImages[0];
@@ -49,25 +54,21 @@ public class ShopItem : MonoBehaviour
 		{
 			stabilityImage.sprite = stabilityImages[1];
 		}
-		else if (block.stability < -0.05)
+		else if (block.stability < 0)
 		{
 			stabilityImage.sprite = stabilityImages[2];
 		}
-		else if (block.stability < 0.05)
+		else if (block.stability < 0.20)
 		{
 			stabilityImage.sprite = stabilityImages[3];
 		}
-		else if (block.stability < 0.20)
+		else if (block.stability < 0.35)
 		{
 			stabilityImage.sprite = stabilityImages[4];
 		}
-		else if (block.stability < 0.35)
-		{
-			stabilityImage.sprite = stabilityImages[5];
-		}
 		else
 		{
-			stabilityImage.sprite = stabilityImages[6];
+			stabilityImage.sprite = stabilityImages[5];
 		}
 	}
 

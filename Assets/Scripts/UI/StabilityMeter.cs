@@ -1,14 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StabilityMeter : MonoBehaviour
 {
-	private const int maxY = 225;
+	private const int maxY = 130;
 
 	private GameManager gameManager;
 
+	public Gradient stabilityTextGradient;
+
+	private Transform meter;
+	private Image warningImage;
+	private TextMeshProUGUI stabilityText;
+
 	public float displayValue = 0;
+
+	private void Awake()
+	{
+		meter = transform.Find("Meter");
+		stabilityText = transform.Find("ValueText").GetComponent<TextMeshProUGUI>();
+		warningImage = transform.Find("Warning").GetComponent<Image>();
+	}
 
 	private void Start()
 	{
@@ -26,6 +41,21 @@ public class StabilityMeter : MonoBehaviour
 
 		if (Mathf.Abs(diff) < 0.005) displayValue = gameManager.stability;
 
-		transform.localPosition = new Vector2(transform.localPosition.x, maxY * displayValue);
+		meter.localPosition = new Vector2(meter.localPosition.x, maxY * displayValue);
+
+		if (displayValue < -0.33f)
+			stabilityText.text = "Low";
+		else if (displayValue < 0.33f)
+			stabilityText.text = "Average";
+		else
+			stabilityText.text = "High";
+
+		if (displayValue < -0.5f)
+			warningImage.enabled = true;
+		else
+			warningImage.enabled = false;
+
+		stabilityText.color = stabilityTextGradient.Evaluate((displayValue + 1) / 2);
+
 	}
 }

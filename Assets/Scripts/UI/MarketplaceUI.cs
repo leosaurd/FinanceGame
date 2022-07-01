@@ -8,7 +8,25 @@ public class MarketplaceUI : MonoBehaviour
 
 	public GameObject ShopItemPrefab;
 
+	public Transform[] ShopItemLocations;
+
 	private List<GameObject> shop = new();
+
+	public Sprite[] itemImages;
+	public Color[] itemTextColors;
+
+	public int[] indexes = { 0, 1, 2, 3 };
+
+	public T[] ReorderArray<T>(T[] arr)
+	{
+		T[] outArray = (T[])arr.Clone();
+		for (int i = 0; i < arr.Length; i++)
+		{
+			int newLocation = Random.Range(0, arr.Length);
+			(outArray[i], outArray[newLocation]) = (outArray[newLocation], outArray[i]);
+		}
+		return outArray;
+	}
 
 	private void Awake()
 	{
@@ -57,6 +75,8 @@ public class MarketplaceUI : MonoBehaviour
 	{
 		bool canBuySomething = false;
 
+		int[] colorIndexes = ReorderArray(indexes);
+
 		// Create actual gameobjects for the shop
 		for (int i = 0; i < blocks.Count; i++)
 		{
@@ -64,9 +84,11 @@ public class MarketplaceUI : MonoBehaviour
 
 			if (instance.cost < GameManager.Instance.portfolioValue) canBuySomething = true;
 
-			GameObject item = Instantiate(ShopItemPrefab, transform);
-			item.transform.localPosition = new Vector3(-15, 49f - 98 * i, 0);
-			item.GetComponent<ShopItem>().block = instance;
+			GameObject item = Instantiate(ShopItemPrefab, ShopItemLocations[i]);
+			ShopItem shopItem = item.GetComponent<ShopItem>();
+			shopItem.block = instance;
+			shopItem.textColor = itemTextColors[colorIndexes[i]];
+			shopItem.image = itemImages[colorIndexes[i]];
 			shop.Add(item);
 		}
 
@@ -75,6 +97,7 @@ public class MarketplaceUI : MonoBehaviour
 			GameManager.Instance.EndGame(GameOverReason.Poor);
 		}
 	}
+
 
 	public void RefreshShop()
 	{
