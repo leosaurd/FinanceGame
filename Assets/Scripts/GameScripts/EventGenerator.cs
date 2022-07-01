@@ -8,6 +8,7 @@ public class EventGenerator : MonoBehaviour
     public static int[] multiplier = new int[] { 2, 5, 10 };
     public static string[] selector = new string[] { "stability", "profit" };
     public static string[] blockSelector = new string[] { "all blocks", "all blocks of a random type", "all blocks in a random group" };
+
     //Not sure whether I want to use a dictionary for the event.
     private static readonly Dictionary<EventType, string> eventList = new()
     {
@@ -27,7 +28,6 @@ public class EventGenerator : MonoBehaviour
             return "";
         }
 
-
         //For altering parameters.
         string selectType = selector[Random.Range(0, selector.Length)];
         int selectMult = multiplier[Random.Range(0, multiplier.Length)];
@@ -39,11 +39,24 @@ public class EventGenerator : MonoBehaviour
 
         if(eventType == EventType.Multiplier)
         {
+            if (selectType.Equals("stability"))
+            {
+                //*1.5 for x rounds, then removed - How to remove?
+            } else
+            {
 
+            }
         }
         if (eventType == EventType.Fractional)
         {
+            if (selectType.Equals("stability"))
+            {
 
+            }
+            else
+            {
+
+            }
         }
         if (eventType == EventType.BlockRemoval)
         {
@@ -55,7 +68,7 @@ public class EventGenerator : MonoBehaviour
         }
         if (eventType == EventType.BlockNullification)
         {
-
+            //Select varying blocks?
         }
         return printList;
     }

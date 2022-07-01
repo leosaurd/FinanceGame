@@ -50,7 +50,12 @@ public class GameManager : MonoBehaviour
 		{
 			stability = 1;
 		}
-		
+
+		//If there is an ongoing event, count down.
+        if (eventduration > 0)
+        {
+			eventduration--;
+        }
 	}
 
 	public int GetScore()
