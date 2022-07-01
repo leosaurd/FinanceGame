@@ -12,9 +12,6 @@ public class MarketplaceUI : MonoBehaviour
 
 	private List<GameObject> shop = new();
 
-	public Sprite[] itemImages;
-	public Color[] itemTextColors;
-
 	public int[] indexes = { 0, 1, 2, 3 };
 
 	public T[] ReorderArray<T>(T[] arr)
@@ -82,13 +79,13 @@ public class MarketplaceUI : MonoBehaviour
 		{
 			BlockInstance instance = blocks[i];
 
+			instance.towerColor = (TowerColor)colorIndexes[i];
+
 			if (instance.cost < GameManager.Instance.portfolioValue) canBuySomething = true;
 
 			GameObject item = Instantiate(ShopItemPrefab, ShopItemLocations[i]);
 			ShopItem shopItem = item.GetComponent<ShopItem>();
 			shopItem.block = instance;
-			shopItem.textColor = itemTextColors[colorIndexes[i]];
-			shopItem.image = itemImages[colorIndexes[i]];
 			shop.Add(item);
 		}
 

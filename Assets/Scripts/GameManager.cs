@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 	public float stability = 0;
 	public int portfolioValue = 0;
 	public int profits = 0;
+	public int towerHeight = 0;
 
 	//Chance for event to occur
 	public float eventchance = 0f;
@@ -25,15 +26,18 @@ public class GameManager : MonoBehaviour
 
 	public void AddBlock(BlockInstance block)
 	{
-        ownedBlocks.Add(block);
+		ownedBlocks.Add(block);
+
+
+
 		//Any time a block is added, the chance for an event increases.
 		eventchance += 5;
 		//If the generated number is less than or equal to event chance, then generate an event.
-		if(Random.Range(0, 100) <= eventchance)
-        {
-            //Randomly picks from one of the 5 events available in EventType.
-            EventGenerator.GenerateEvent((EventType)Random.Range(0, 5));
-        }
+		if (Random.Range(0, 100) <= eventchance)
+		{
+			//Randomly picks from one of the 5 events available in EventType.
+			EventGenerator.GenerateEvent((EventType)Random.Range(0, 5));
+		}
 		TowerAnimator.Instance.AddBlockToTower(block);
 
 		for (int i = 0; i < ownedBlocks.Count; i++)
@@ -52,15 +56,15 @@ public class GameManager : MonoBehaviour
 		}
 
 		//If there is an ongoing event, count down.
-        if (eventduration > 0)
-        {
+		if (eventduration > 0)
+		{
 			eventduration--;
-        } 
+		}
 	}
 
 	public int GetScore()
 	{
-		return Mathf.RoundToInt(ownedBlocks.Count * profits);
+		return Mathf.RoundToInt(towerHeight * profits);
 	}
 
 	public void EndGame(GameOverReason reason)

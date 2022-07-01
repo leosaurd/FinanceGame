@@ -8,7 +8,7 @@ public class TowerAnimator : MonoBehaviour
 	public static TowerAnimator Instance { get; private set; }
 	public GameObject blockPrefab;
 
-	public float targetPos = -4;
+	public float targetPos = -0.775f;
 
 	public List<GameObject> tower = new List<GameObject>();
 
@@ -40,14 +40,15 @@ public class TowerAnimator : MonoBehaviour
 
 
 		BlockAnimator blockAnimator = blockObj.GetComponent<BlockAnimator>();
-		blockAnimator.targetPosition = tower.Count;
+		blockAnimator.targetPosition = GameManager.Instance.towerHeight * 0.64f;
 		blockAnimator.block = block;
+		GameManager.Instance.towerHeight += block.height;
 
 
 
-		if (tower.Count > 5)
+		if (GameManager.Instance.towerHeight > 5)
 		{
-			targetPos -= 1;
+			targetPos -= 0.64f * block.height;
 		}
 		tower.Add(blockObj);
 	}

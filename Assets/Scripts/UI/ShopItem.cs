@@ -26,6 +26,10 @@ public class ShopItem : MonoBehaviour
 		profitObj = transform.Find("ProfitsValue");
 		stabilityObj = transform.Find("Stability Image");
 
+
+		textColor = TowerColorUtils.GetTextColor[block.towerColor];
+		image = TowerColorUtils.GetCubeSprite[block.towerColor];
+
 		imageObj.GetComponent<Image>().sprite = image;
 		nameObj.GetComponent<TextMeshProUGUI>().color = textColor;
 

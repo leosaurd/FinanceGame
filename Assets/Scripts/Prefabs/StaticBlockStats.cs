@@ -10,12 +10,14 @@ public class StaticBlockStats
 	public int cost;
 	public int profit;
 	public float stability;
+	public int height;
 
-	public StaticBlockStats(int cost, int profits, float stability)
+	public StaticBlockStats(int cost, int profits, float stability, int height)
 	{
 		this.cost = cost;
 		this.profit = profits;
 		this.stability = stability;
+		this.height = height;
 	}
 
 	//  Turns a StaticBlockStats with their values into a StaticBlockStats with game usable values, and adds some randomness
@@ -37,6 +39,6 @@ public class StaticBlockStats
 		finalProfits += Mathf.RoundToInt(finalProfits * profitsJitter);
 		finalStability += finalStability * stabilityJitter;
 
-		return new StaticBlockStats(finalCost, finalProfits, finalStability);
+		return new StaticBlockStats(finalCost, finalProfits, finalStability, height);
 	}
 }
