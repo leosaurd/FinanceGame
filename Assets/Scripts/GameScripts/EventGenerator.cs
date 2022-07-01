@@ -9,6 +9,14 @@ public class EventGenerator : MonoBehaviour
     public static string[] selector = new string[] { "stability", "profit" };
     public static string[] blockSelector = new string[] { "all blocks", "all blocks of a random type", "all blocks in a random group" };
 
+
+    //Moved variables to public static so that GameManager can refer to them for newly added blocks.
+    public static string selectType;
+    public static int selectMult;
+    public static int selectRounds;
+    public static string selectBlocks;
+    public static EventType eventRecord;
+
     //Not sure whether I want to use a dictionary for the event.
     private static readonly Dictionary<EventType, string> eventList = new()
     {
@@ -19,7 +27,7 @@ public class EventGenerator : MonoBehaviour
         { EventType.BlockNullification, "{3} no longer generate profit for a single round."}
     };
 
-    //Where all altering factors should be.
+    //Where all altering factors should be for ownedblocks.
     public static string GenerateEvent(EventType eventType)
     {
         //If there is an ongoing event, do not do anything. This depends on whether they want stacking events or not - If they do, this code is not needed.
@@ -29,47 +37,19 @@ public class EventGenerator : MonoBehaviour
         }
 
         //For altering parameters.
-        string selectType = selector[Random.Range(0, selector.Length)];
-        int selectMult = multiplier[Random.Range(0, multiplier.Length)];
-        int selectRounds = rounds[Random.Range(0, rounds.Length)];
-        string selectBlocks = blockSelector[Random.Range(0, blockSelector.Length)];
+        selectType = selector[Random.Range(0, selector.Length)];
+        selectMult = multiplier[Random.Range(0, multiplier.Length)];
+        selectRounds = rounds[Random.Range(0, rounds.Length)];
+        selectBlocks = blockSelector[Random.Range(0, blockSelector.Length)];
+        eventRecord = eventType;
 
         //String that is generated. 
         string printList = string.Format(eventList[eventType], selectType, selectMult, selectRounds, selectBlocks).ToUpper();
+   
+        //Example Generation: Multiply stability by 5 for the next 10 rounds for all blocks of a random type
+        //So: GameManager.Instance.ownedblocks contains some of the needed blocks, and newly purchased ones must be altered as well. 
+        //Must also revert the stability after duration is over. 
 
-        if(eventType == EventType.Multiplier)
-        {
-            if (selectType.Equals("stability"))
-            {
-                //*1.5 for x rounds, then removed - How to remove?
-            } else
-            {
-
-            }
-        }
-        if (eventType == EventType.Fractional)
-        {
-            if (selectType.Equals("stability"))
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-        if (eventType == EventType.BlockRemoval)
-        {
-            //GameManager.Instance.ownedBlocks.Remove();
-        }
-        if (eventType == EventType.BlockAddition)
-        {
-            //GameManager.Instance.ownedBlocks.Add();
-        }
-        if (eventType == EventType.BlockNullification)
-        {
-            //Select varying blocks?
-        }
         return printList;
     }
 }

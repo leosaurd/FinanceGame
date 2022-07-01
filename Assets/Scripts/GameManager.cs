@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
 	//Chance for event to occur
 	public float eventchance = 0f;
-	public float eventduration = 0f;
+	public int eventduration = 0;
 
 	public List<BlockInstance> ownedBlocks = new List<BlockInstance>();
 
@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour
 		//If the generated number is less than or equal to event chance, then generate an event.
 		if(Random.Range(0, 100) <= eventchance)
         {
-			//Randomly picks from one of the 5 events available in EventType.
-			EventGenerator.GenerateEvent((EventType)Random.Range(0, 5));
+            //Randomly picks from one of the 5 events available in EventType.
+            EventGenerator.GenerateEvent((EventType)Random.Range(0, 5));
         }
 		TowerAnimator.Instance.AddBlockToTower(block);
 
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         if (eventduration > 0)
         {
 			eventduration--;
-        }
+        } 
 	}
 
 	public int GetScore()
