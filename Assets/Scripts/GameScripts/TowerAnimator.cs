@@ -38,6 +38,8 @@ public class TowerAnimator : MonoBehaviour
 
 		blockObj.transform.localPosition = new Vector2(blockObj.transform.localPosition.x, startingPosition);
 
+		BlockEffectManager.Instance.NewEffect();
+		NewAssetTextManager.Instance.NewEffect();
 
 		BlockAnimator blockAnimator = blockObj.GetComponent<BlockAnimator>();
 		blockAnimator.targetPosition = GameManager.Instance.towerHeight * 0.64f;
@@ -46,7 +48,7 @@ public class TowerAnimator : MonoBehaviour
 
 
 
-		if (GameManager.Instance.towerHeight > 5)
+		if (GameManager.Instance.towerHeight > 4)
 		{
 			targetPos -= 0.64f * block.height;
 		}
