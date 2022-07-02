@@ -61,7 +61,10 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < ownedBlocks.Count; i++)
         {
-            alteredStability.Add(false);
+            if (alteredStability.Count < ownedBlocks.Count)
+            {
+                alteredStability.Add(false);
+            }
             //Change profit by multiplier from Generated Event.
             float multiplier = 1f;
             //If event is occuring
