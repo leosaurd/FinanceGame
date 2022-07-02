@@ -46,12 +46,12 @@ public class GameManager : MonoBehaviour
 		if (Random.Range(0, 100) <= eventChance)
 		{
 			//Randomly picks from one of the 5 events available in EventType.
-			EventGenerator.Instance.GenerateEvent((EventType)Random.Range(0, 5));
+			EventGenerator.GenerateEvent((EventType)Random.Range(0, 5));
 			//Sets event occuring to true.
 			eventOccuring = true;
 			//Resets event chance.
 			eventChance = 0f;
-			eventDuration = EventGenerator.Instance.selectRounds;
+			eventDuration = EventGenerator.selectRounds;
 		}
 		TowerAnimator.Instance.AddBlockToTower(block);
 
@@ -61,25 +61,25 @@ public class GameManager : MonoBehaviour
 			float multiplier = 1f;
             if (eventOccuring)
             {
-				if (EventGenerator.Instance.selectIndex == 1)
+				if (EventGenerator.selectIndex == 1)
 				{
 					//If the block matches the record, or it affects all blocks
-					if (EventGenerator.Instance.blockRecord == ownedBlocks[i].blockType || EventGenerator.Instance.blockIndex == 0)
+					if (EventGenerator.blockRecord == ownedBlocks[i].blockType || EventGenerator.blockIndex == 0)
 					{
 						//If the event is a multiplicative/divisive event, set the multiplier accordingly.
-						if (EventGenerator.Instance.eventRecord == EventType.Fractional || EventGenerator.Instance.eventRecord == EventType.Multiplier)
+						if (EventGenerator.eventRecord == EventType.Fractional || EventGenerator.eventRecord == EventType.Multiplier)
 						{
-							multiplier = EventGenerator.Instance.selectMult;
+							multiplier = EventGenerator.selectMult;
 						}
 
 						//If the event is to nullify a value, then remove it.
-						if (EventGenerator.Instance.eventRecord == EventType.BlockNullification)
+						if (EventGenerator.eventRecord == EventType.BlockNullification)
 						{
 							multiplier = 0;
 						}
 
 						//If the event is to add a block
-						if (EventGenerator.Instance.eventRecord == EventType.BlockAddition)
+						if (EventGenerator.eventRecord == EventType.BlockAddition)
 						{
 							//Add a random block here.
 							eventOccuring = false;
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
 						}
 
 						//If the event is to remove a block
-						if (EventGenerator.Instance.eventRecord == EventType.BlockRemoval)
+						if (EventGenerator.eventRecord == EventType.BlockRemoval)
 						{
 							//Add a random block here.
 							eventOccuring = false;
@@ -98,14 +98,14 @@ public class GameManager : MonoBehaviour
 				//Stability portion is here.
 				else
 				{
-					if (EventGenerator.Instance.blockRecord == ownedBlocks[i].blockType || EventGenerator.Instance.blockIndex == 0)
+					if (EventGenerator.blockRecord == ownedBlocks[i].blockType || EventGenerator.blockIndex == 0)
 					{
 						//If the event is a multiplicative/divisive event, set the multiplier accordingly.
-						if (EventGenerator.Instance.eventRecord == EventType.Fractional || EventGenerator.Instance.eventRecord == EventType.Multiplier)
+						if (EventGenerator.eventRecord == EventType.Fractional || EventGenerator.eventRecord == EventType.Multiplier)
 						{
 							if (!stabMultiplied)
 							{
-								ownedBlocks[i].stability = ownedBlocks[i].stability * EventGenerator.Instance.selectMult;
+								ownedBlocks[i].stability = ownedBlocks[i].stability * EventGenerator.selectMult;
 							}
 						}
 					}
@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
 			}
 
 			//If the event occuring is a stability event, then set the multiplication value to true.
-			if (EventGenerator.Instance.selectIndex == 0)
+			if (EventGenerator.selectIndex == 0)
 			{
 				stabMultiplied = true;
 			}
@@ -141,12 +141,12 @@ public class GameManager : MonoBehaviour
                 {
 					for (int i = 0; i < ownedBlocks.Count; i++)
 					{
-						if (EventGenerator.Instance.blockRecord == ownedBlocks[i].blockType || EventGenerator.Instance.blockIndex == 0)
+						if (EventGenerator.blockRecord == ownedBlocks[i].blockType || EventGenerator.blockIndex == 0)
 						{
 							//If the event is a multiplicative/divisive event, revert the multiplier accordingly.
-							if (EventGenerator.Instance.eventRecord == EventType.Fractional || EventGenerator.Instance.eventRecord == EventType.Multiplier)
+							if (EventGenerator.eventRecord == EventType.Fractional || EventGenerator.eventRecord == EventType.Multiplier)
 							{
-								ownedBlocks[i].stability = ownedBlocks[i].stability / EventGenerator.Instance.selectMult;
+								ownedBlocks[i].stability = ownedBlocks[i].stability / EventGenerator.selectMult;
 							}
 						}
 					}

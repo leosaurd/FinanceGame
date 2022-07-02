@@ -4,29 +4,22 @@ using UnityEngine;
 
 public class EventGenerator : MonoBehaviour
 {
-    //Create a singleton for EventGenerator
-    public static EventGenerator Instance { get; private set; }
 
-    void Awake()
-    {
-        if (!Instance) Instance = this;
-    }
-
-    public string[] selector = new string[] { "stability", "profit" };
-    public int[] multiplier = new int[] { 2, 5, 10 };
-    public int[] rounds = new int[] { 1, 2, 5 };
-    public string[] blockSelector = new string[] { "", " of the Insurance Type", " of the Low Risk Type", " of the High Risk Type" };
+    public static string[] selector = new string[] { "stability", "profit" };
+    public static int[] multiplier = new int[] { 2, 5, 10 };
+    public static int[] rounds = new int[] { 1, 2, 5 };
+    public static string[] blockSelector = new string[] { "", " of the Insurance Type", " of the Low Risk Type", " of the High Risk Type" };
   
 
     //Moved variables to public static so that GameManager can refer to them for newly added blocks.
-    public string selectType;
-    public int selectMult;
-    public int selectRounds;
-    public string selectBlocks;
-    public EventType eventRecord;
-    public BlockType blockRecord;
-    public int blockIndex;
-    public int selectIndex;
+    public static string selectType;
+    public static int selectMult;
+    public static int selectRounds;
+    public static string selectBlocks;
+    public static EventType eventRecord;
+    public static BlockType blockRecord;
+    public static int blockIndex;
+    public static int selectIndex;
 
     //Not sure whether I want to use a dictionary for the event.
     private static readonly Dictionary<EventType, string> eventList = new()
@@ -39,7 +32,7 @@ public class EventGenerator : MonoBehaviour
     };
 
     //Where all altering factors should be for ownedblocks.
-    public string GenerateEvent(EventType eventType)
+    public static string GenerateEvent(EventType eventType)
     {
         //If there is an ongoing event, do not do anything. This code SHOULD NOT OCCUR, as Generate Event should only be called when eventoccuring is false.
         if (GameManager.Instance.eventOccuring)
