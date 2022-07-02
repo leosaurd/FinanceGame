@@ -63,7 +63,6 @@ public class GameManager : MonoBehaviour
         {
             if (alteredStability.Count < ownedBlocks.Count)
             {
-                Debug.Log("Count of stability list:" + alteredStability.Count);
                 alteredStability.Add(false);
             }
             //Change profit by multiplier from Generated Event.
@@ -75,7 +74,6 @@ public class GameManager : MonoBehaviour
                 if (EventGenerator.eventRecord == EventType.BlockAddition)
                 {
                     //Add a random block here.
-                    Debug.Log("Added block??");
                     BlockType blockType = (BlockType)Random.Range(0, 3);
                     string name = NameGenerator.GenerateName(blockType);
                     ownedBlocks.Add(new BlockInstance(name, blockType, StaticObjectManager.BlockStats[name]));
@@ -87,7 +85,6 @@ public class GameManager : MonoBehaviour
                 //If the event is to remove a block.
                 else if (EventGenerator.eventRecord == EventType.BlockRemoval)
                 {
-                    Debug.Log("removed block??");
                     //Remove a random block
                     ownedBlocks.RemoveAt(Random.Range(0, ownedBlocks.Count));
                     eventOccuring = false;
@@ -96,7 +93,6 @@ public class GameManager : MonoBehaviour
                 //If the event is to nullify profit.
                 else if (EventGenerator.eventRecord == EventType.BlockNullification)
                 {
-                    Debug.Log("Nullify event");
                     //If the block matches the record, select all is set, or the name matches the group.
                     if (SelectBlock(i))
                         multiplier = 0;
@@ -107,15 +103,12 @@ public class GameManager : MonoBehaviour
                     //If event is a profit-altering event
                     if (EventGenerator.selectIndex == 1)
                     {
-
-                        Debug.Log("profit event");
                         if (SelectBlock(i))
                             multiplier = EventGenerator.selectMult;
                     }
                     //If event is a stability-altering event
                     else if (EventGenerator.selectIndex == 0)
                     {
-                        Debug.Log("Stability event");
                         if (SelectBlock(i))
                         {
                             multiplier *= EventGenerator.selectMult;
@@ -131,7 +124,6 @@ public class GameManager : MonoBehaviour
             portfolioValue += (ownedBlocks[i].profit) * multiplier;
         }
 
-        Debug.Log("Duration of event:" + eventDuration);
         //If there is an ongoing event
         if (eventOccuring)
         {

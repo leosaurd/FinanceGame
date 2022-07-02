@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-
+//Literal copyPasta'd LOL
 //https://github.com/yasirkula/UnityNativeShare
 //https://www.youtube.com/watch?v=nzpxtaXkxOA
 public class SocialMediaShare : MonoBehaviour
