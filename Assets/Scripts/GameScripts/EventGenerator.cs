@@ -8,7 +8,12 @@ public class EventGenerator : MonoBehaviour
     public static string[] selector = new string[] { "stability", "profit" };
     public static int[] multiplier = new int[] { 2, 5, 10 };
     public static int[] rounds = new int[] { 1, 2, 5 };
-    public static string[] blockSelector = new string[] { "", " of the Insurance Type", " of the Low Risk Type", " of the High Risk Type" };
+    public static string[] blockSelector = new string[] {
+        "", " of the Insurance Type", " of the Low Risk Type", " of the High Risk Type",
+        " that are ETFs", " that are REITs", " that are Equity Mutual Funds", " that are Emerging Markets Equities", " that are High-Yield Bonds"," that are Cryptocurrencies",
+        " that are Treasury Bills", " that are Government Bonds", " that are Savings Bonds", " that are Fixed Deposit", " that are Dividend-paying stocks",
+        " that are Health Plans", " that are Disability Plans", " that are Term Life Plan", " that are Life Plans"
+    };
   
 
     //Moved variables to public static so that GameManager can refer to them for newly added blocks.
