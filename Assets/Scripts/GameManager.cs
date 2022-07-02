@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     //saved value of added stability
     public float savedStab = 0;
 
+    //
+    public List<bool> alteredStability = new List<bool>();
+
     public List<BlockInstance> ownedBlocks = new List<BlockInstance>();
 
     public void AddBlock(BlockInstance block)
@@ -56,9 +59,9 @@ public class GameManager : MonoBehaviour
         }
         TowerAnimator.Instance.AddBlockToTower(block);
 
-        bool[] stabAltered = new bool[ownedBlocks.Count];
         for (int i = 0; i < ownedBlocks.Count; i++)
         {
+            alteredStability.Add(false);
             //Change profit by multiplier from Generated Event.
             float multiplier = 1f;
             //If event is occuring
@@ -110,13 +113,15 @@ public class GameManager : MonoBehaviour
                     {
                         Debug.Log("Stability event");
                         if (SelectBlock(i))
-                            multiplier *= EventGenerator.selectMult;
-
-                        if (!stabAltered[i])
                         {
-                            stability += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
-                            //What happens if capped on stability? Remove all anyway? or Factor in?
-                            savedStab += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
+                            multiplier *= EventGenerator.selectMult;
+                            if (!alteredStability[i])
+                            {
+                                stability += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
+                                //What happens if capped on stability? Remove all anyway? or Factor in?
+                                savedStab += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
+                                alteredStability[i] = true;
+                            }
                         }
                     }
                 }
@@ -140,13 +145,8 @@ public class GameManager : MonoBehaviour
             //If the event is 0, set the event occuring to false.
             if (eventDuration == 0)
             {
-                for (int i = 0; i < ownedBlocks.Count; i++)
-                {
-                    if (stabAltered[i])
-                    {
-                        stability -= savedStab;
-                    }
-                }
+                alteredStability.Clear();
+                stability -= savedStab;
                 eventOccuring = false;
             }
             else
