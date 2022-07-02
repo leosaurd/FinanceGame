@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
     //Whether there is an event ongoing
     public bool eventOccuring = false;
 
-    //Whether the stability has already been multiplied 
-    public bool stabMultiplied = false;
+    //saved value of added stability
+    public float savedStab = 0;
 
     public List<BlockInstance> ownedBlocks = new List<BlockInstance>();
 
@@ -56,11 +56,11 @@ public class GameManager : MonoBehaviour
         }
         TowerAnimator.Instance.AddBlockToTower(block);
 
+        bool[] stabAltered = new bool[ownedBlocks.Count];
         for (int i = 0; i < ownedBlocks.Count; i++)
         {
             //Change profit by multiplier from Generated Event.
             float multiplier = 1f;
-
             //If event is occuring
             if (eventOccuring)
             {
@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
                 if (EventGenerator.eventRecord == EventType.BlockAddition)
                 {
                     //Add a random block here.
+                    Debug.Log("Added block??");
                     BlockType blockType = (BlockType)Random.Range(0, 3);
                     string name = NameGenerator.GenerateName(blockType);
                     ownedBlocks.Add(new BlockInstance(name, blockType, StaticObjectManager.BlockStats[name]));
@@ -79,6 +80,7 @@ public class GameManager : MonoBehaviour
                 //If the event is to remove a block.
                 else if (EventGenerator.eventRecord == EventType.BlockRemoval)
                 {
+                    Debug.Log("removed block??");
                     //Remove a random block
                     ownedBlocks.RemoveAt(Random.Range(0, ownedBlocks.Count));
                     eventOccuring = false;
@@ -87,6 +89,7 @@ public class GameManager : MonoBehaviour
                 //If the event is to nullify profit.
                 else if (EventGenerator.eventRecord == EventType.BlockNullification)
                 {
+                    Debug.Log("Nullify event");
                     //If the block matches the record, select all is set, or the name matches the group.
                     if (SelectBlock(i))
                         multiplier = 0;
@@ -97,28 +100,28 @@ public class GameManager : MonoBehaviour
                     //If event is a profit-altering event
                     if (EventGenerator.selectIndex == 1)
                     {
+
+                        Debug.Log("profit event");
                         if (SelectBlock(i))
                             multiplier = EventGenerator.selectMult;
                     }
                     //If event is a stability-altering event
                     else if (EventGenerator.selectIndex == 0)
                     {
-                        //If stability has been not been multiplied
-                        if (!stabMultiplied)
+                        Debug.Log("Stability event");
+                        if (SelectBlock(i))
+                            multiplier *= EventGenerator.selectMult;
+
+                        if (!stabAltered[i])
                         {
-                            if (SelectBlock(i))
-                                ownedBlocks[i].stability *= EventGenerator.selectMult;
+                            stability += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
+                            //What happens if capped on stability? Remove all anyway? or Factor in?
+                            savedStab += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
                         }
                     }
                 }
             }
-
             portfolioValue += (ownedBlocks[i].profit) * multiplier;
-        }
-        //If the event was a stability event, set multiplication to true.
-        if (EventGenerator.selectIndex == 0)
-        {
-            stabMultiplied = true;
         }
 
         if (stability < -1)
@@ -130,35 +133,29 @@ public class GameManager : MonoBehaviour
         {
             stability = 1;
         }
-
+        Debug.Log(eventDuration);
         //If there is an ongoing event
         if (eventOccuring)
         {
             //If the event is 0, set the event occuring to false.
             if (eventDuration == 0)
             {
-                //If the event was a stability event, reset the values.
-                if (stabMultiplied)
+                for (int i = 0; i < ownedBlocks.Count; i++)
                 {
-                    for (int i = 0; i < ownedBlocks.Count; i++)
+                    if (stabAltered[i])
                     {
-                        if (isMultiplier())
-                        {
-                            if (SelectBlock(i))
-                                ownedBlocks[i].stability = ownedBlocks[i].stability / EventGenerator.selectMult;
-                        }
+                        stability -= savedStab;
                     }
                 }
-                stabMultiplied = false;
+                eventOccuring = false;
             }
+            else
+            {
+                //If not, reduce duration by 1, since we added a block.
+                eventDuration--;
+            }
+        }
 
-            eventOccuring = false;
-        }
-        else
-        {
-            //If not, reduce duration by 1, since we added a block.
-            eventDuration--;
-        }
 
     }
 
