@@ -27,10 +27,10 @@ public class GameManager : MonoBehaviour
     //Whether there is an event ongoing
     public bool eventOccuring = false;
 
-    //saved value of added stability
-    public float savedStab = 0;
+    //saved value of stability
+    public float originalStab = 0;
 
-    //
+    //List of booleans to check if a block has already been modified
     public List<bool> alteredStability = new List<bool>();
 
     public List<BlockInstance> ownedBlocks = new List<BlockInstance>();
@@ -122,8 +122,6 @@ public class GameManager : MonoBehaviour
                             if (!alteredStability[i])
                             {
                                 stability += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
-                                //What happens if capped on stability? Remove all anyway? or Factor in?
-                                savedStab += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
                                 alteredStability[i] = true;
                             }
                         }
@@ -131,6 +129,25 @@ public class GameManager : MonoBehaviour
                 }
             }
             portfolioValue += (ownedBlocks[i].profit) * multiplier;
+        }
+
+        Debug.Log("Duration of event:" + eventDuration);
+        //If there is an ongoing event
+        if (eventOccuring)
+        {
+            eventDuration--;
+            //If the event is 0, set the event occuring to false.
+            if (eventDuration == 0)
+            {
+                //Clear any stability changes
+                alteredStability.Clear();
+                stability = 0;
+                for (int i = 0; i < ownedBlocks.Count; i++)
+                {
+                    stability += ownedBlocks[i].stability;
+                }
+                eventOccuring = false;
+            }
         }
 
         if (stability < -1)
@@ -142,25 +159,6 @@ public class GameManager : MonoBehaviour
         {
             stability = 1;
         }
-        Debug.Log("Duration of event:" + eventDuration);
-        //If there is an ongoing event
-        if (eventOccuring)
-        {
-            //If the event is 0, set the event occuring to false.
-            if (eventDuration == 0)
-            {
-                alteredStability.Clear();
-                stability -= savedStab;
-                eventOccuring = false;
-            }
-            else
-            {
-                //If not, reduce duration by 1, since we added a block.
-                eventDuration--;
-            }
-        }
-
-
     }
 
     public int GetScore()
