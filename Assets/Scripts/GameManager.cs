@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
         {
             if (alteredStability.Count < ownedBlocks.Count)
             {
+                Debug.Log("Count of stability list:" + alteredStability.Count);
                 alteredStability.Add(false);
             }
             //Change profit by multiplier from Generated Event.
@@ -141,7 +142,7 @@ public class GameManager : MonoBehaviour
         {
             stability = 1;
         }
-        Debug.Log(eventDuration);
+        Debug.Log("Duration of event:" + eventDuration);
         //If there is an ongoing event
         if (eventOccuring)
         {
