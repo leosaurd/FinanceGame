@@ -88,29 +88,26 @@ public class GameManager : MonoBehaviour
                 else if (EventGenerator.eventRecord == EventType.BlockNullification)
                 {
                     //If the block matches the record, select all is set, or the name matches the group.
-                    if (EventGenerator.blockRecord == ownedBlocks[i].blockType || EventGenerator.blockIndex == 0 || EventGenerator.selectGroup.Equals(ownedBlocks[i].name))
+                    if (SelectBlock(i))
                         multiplier = 0;
                 }
-                //If event is Profit manipulation
-                else if (EventGenerator.selectIndex == 1)
+                //If event is a multiplier event
+                else if (isMultiplier())
                 {
-                    //If the event is a multiplicative/divisive event, set the multiplier accordingly.
-                    if (EventGenerator.eventRecord == EventType.Fractional || EventGenerator.eventRecord == EventType.Multiplier)
+                    //If event is a profit-altering event
+                    if (EventGenerator.selectIndex == 1)
                     {
-                        if (EventGenerator.blockRecord == ownedBlocks[i].blockType || EventGenerator.blockIndex == 0 || EventGenerator.selectGroup.Equals(ownedBlocks[i].name))
+                        if (SelectBlock(i))
                             multiplier = EventGenerator.selectMult;
                     }
-                }
-                //If event is Stability manipulation
-                else if (EventGenerator.selectIndex == 0)
-                {
-                    //If the event is a multiplicative/divisive event, set the multiplier accordingly.
-                    if (!stabMultiplied)
+                    //If event is a stability-altering event
+                    else if (EventGenerator.selectIndex == 0)
                     {
-                        if (EventGenerator.eventRecord == EventType.Fractional || EventGenerator.eventRecord == EventType.Multiplier)
+                        //If stability has been not been multiplied
+                        if (!stabMultiplied)
                         {
-                            if (EventGenerator.blockRecord == ownedBlocks[i].blockType || EventGenerator.blockIndex == 0 || EventGenerator.selectGroup.Equals(ownedBlocks[i].name))
-                                ownedBlocks[i].stability = ownedBlocks[i].stability * EventGenerator.selectMult;
+                            if (SelectBlock(i))
+                                ownedBlocks[i].stability *= EventGenerator.selectMult;
                         }
                     }
                 }
@@ -145,9 +142,9 @@ public class GameManager : MonoBehaviour
                 {
                     for (int i = 0; i < ownedBlocks.Count; i++)
                     {
-                        if (EventGenerator.eventRecord == EventType.Fractional || EventGenerator.eventRecord == EventType.Multiplier)
+                        if (isMultiplier())
                         {
-                            if (EventGenerator.blockRecord == ownedBlocks[i].blockType || EventGenerator.blockIndex == 0 || EventGenerator.selectGroup.Equals(ownedBlocks[i].name))
+                            if (SelectBlock(i))
                                 ownedBlocks[i].stability = ownedBlocks[i].stability / EventGenerator.selectMult;
                         }
                     }
@@ -178,6 +175,21 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene("Game");
+    }
+
+    /* If EventGenerator BlockType matches current block's block type, AND blockIndex is a TYPE(index 1, 2, 3)
+    OR IF EventGenerator BlockIndex is 0(ALL)
+    OR IF EventGenerator name matches block name AND blockIndex is a GROUP(index 4 and up)
+     */
+    public bool SelectBlock(int i)
+    {
+        return ((EventGenerator.blockRecord == ownedBlocks[i].blockType && EventGenerator.blockIndex <= 3) || EventGenerator.blockIndex == 0 || (EventGenerator.selectGroup.Equals(ownedBlocks[i].name) && EventGenerator.blockIndex >= 4));
+    }
+
+    //If the event is a Multiplier event
+    public bool isMultiplier()
+    {
+        return EventGenerator.eventRecord == EventType.Fractional || EventGenerator.eventRecord == EventType.Multiplier;
     }
 }
 
