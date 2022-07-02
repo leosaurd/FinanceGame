@@ -29,11 +29,11 @@ public class GameManager : MonoBehaviour
 	//Whether there is an event ongoing
 	public bool eventOccuring = false;
 
-    //saved value of stability
-    public float originalStab = 0;
+	//saved value of stability
+	public float originalStab = 0;
 
-    //List of booleans to check if a block has already been modified
-    public List<bool> alteredStability = new List<bool>();
+	//List of booleans to check if a block has already been modified
+	public List<bool> alteredStability = new List<bool>();
 
 	public List<BlockInstance> ownedBlocks = new List<BlockInstance>();
 
@@ -61,99 +61,101 @@ public class GameManager : MonoBehaviour
 		}
 		TowerAnimator.Instance.AddBlockToTower(block);
 
-        for (int i = 0; i < ownedBlocks.Count; i++)
-        {
-            if (alteredStability.Count < ownedBlocks.Count)
-            {
-                alteredStability.Add(false);
-            }
-            //Change profit by multiplier from Generated Event.
-            float multiplier = 1f;
-            //If event is occuring
-            if (eventOccuring)
-            {
-                //If the event is to add a block.
-                if (EventGenerator.eventRecord == EventType.BlockAddition)
-                {
-                    //Add a random block here.
-                    BlockType blockType = (BlockType)Random.Range(0, 3);
-                    string name = NameGenerator.GenerateName(blockType);
-                    ownedBlocks.Add(new BlockInstance(name, blockType, StaticObjectManager.BlockStats[name]));
-                    TowerAnimator.Instance.AddBlockToTower(block);
+		for (int i = 0; i < ownedBlocks.Count; i++)
+		{
+			if (alteredStability.Count < ownedBlocks.Count)
+			{
+				alteredStability.Add(false);
+			}
+			//Change profit by multiplier from Generated Event.
+			float multiplier = 1f;
+			//If event is occuring
+			if (eventOccuring)
+			{
+				//If the event is to add a block.
+				if (EventGenerator.eventRecord == EventType.BlockAddition)
+				{
+					//Add a random block here.
+					BlockType blockType = (BlockType)Random.Range(0, 3);
+					string name = NameGenerator.GenerateName(blockType);
+					ownedBlocks.Add(new BlockInstance(name, blockType, StaticObjectManager.BlockStats[name]));
+					TowerAnimator.Instance.AddBlockToTower(block);
 
-                    eventOccuring = false;
-                    eventDuration = 0;
-                }
-                //If the event is to remove a block.
-                else if (EventGenerator.eventRecord == EventType.BlockRemoval)
-                {
-                    //Remove a random block
-                    ownedBlocks.RemoveAt(Random.Range(0, ownedBlocks.Count));
-                    eventOccuring = false;
-                    eventDuration = 0;
-                }
-                //If the event is to nullify profit.
-                else if (EventGenerator.eventRecord == EventType.BlockNullification)
-                {
-                    //If the block matches the record, select all is set, or the name matches the group.
-                    if (SelectBlock(i))
-                        multiplier = 0;
-                }
-                //If event is a multiplier event
-                else if (isMultiplier())
-                {
-                    //If event is a profit-altering event
-                    if (EventGenerator.selectIndex == 1)
-                    {
-                        if (SelectBlock(i))
-                            multiplier = EventGenerator.selectMult;
-                    }
-                    //If event is a stability-altering event
-                    else if (EventGenerator.selectIndex == 0)
-                    {
-                        if (SelectBlock(i))
-                        {
-                            multiplier *= EventGenerator.selectMult;
-                            if (!alteredStability[i])
-                            {
-                                stability += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
-                                alteredStability[i] = true;
-                            }
-                        }
-                    }
-                }
-            }
-            portfolioValue += (ownedBlocks[i].profit) * multiplier;
-        }
+					eventOccuring = false;
+					eventDuration = 0;
+				}
+				//If the event is to remove a block.
+				else if (EventGenerator.eventRecord == EventType.BlockRemoval)
+				{
+					//Remove a random block
+					ownedBlocks.RemoveAt(Random.Range(0, ownedBlocks.Count));
+					eventOccuring = false;
+					eventDuration = 0;
+				}
+				//If the event is to nullify profit.
+				else if (EventGenerator.eventRecord == EventType.BlockNullification)
+				{
+					//If the block matches the record, select all is set, or the name matches the group.
+					if (SelectBlock(i))
+						multiplier = 0;
+				}
+				//If event is a multiplier event
+				else if (isMultiplier())
+				{
+					//If event is a profit-altering event
+					if (EventGenerator.selectIndex == 1)
+					{
+						if (SelectBlock(i))
+							multiplier = EventGenerator.selectMult;
+					}
+					//If event is a stability-altering event
+					else if (EventGenerator.selectIndex == 0)
+					{
+						if (SelectBlock(i))
+						{
+							multiplier *= EventGenerator.selectMult;
+							if (!alteredStability[i])
+							{
+								stability += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
+								alteredStability[i] = true;
+							}
+						}
+					}
+				}
+			}
+			portfolioValue += (ownedBlocks[i].profit) * multiplier;
+			totalEarnings += Mathf.RoundToInt((ownedBlocks[i].profit) * multiplier);
 
-        //If there is an ongoing event
-        if (eventOccuring)
-        {
-            eventDuration--;
-            //If the event is 0, set the event occuring to false.
-            if (eventDuration == 0)
-            {
-                //Clear any stability changes
-                alteredStability.Clear();
-                stability = 0;
-                for (int i = 0; i < ownedBlocks.Count; i++)
-                {
-                    stability += ownedBlocks[i].stability;
-                }
-                eventOccuring = false;
-            }
-        }
+		}
 
-        if (stability < -1)
-        {
-            stability = -1;
-            EndGame(GameOverReason.Stability);
-        }
-        else if (stability > 1)
-        {
-            stability = 1;
-        }
-    }
+		//If there is an ongoing event
+		if (eventOccuring)
+		{
+			eventDuration--;
+			//If the event is 0, set the event occuring to false.
+			if (eventDuration == 0)
+			{
+				//Clear any stability changes
+				alteredStability.Clear();
+				stability = 0;
+				for (int i = 0; i < ownedBlocks.Count; i++)
+				{
+					stability += ownedBlocks[i].stability;
+				}
+				eventOccuring = false;
+			}
+		}
+
+		if (stability < -1)
+		{
+			stability = -1;
+			EndGame(GameOverReason.Stability);
+		}
+		else if (stability > 1)
+		{
+			stability = 1;
+		}
+	}
 
 
 	public void EndGame(GameOverReason reason)
