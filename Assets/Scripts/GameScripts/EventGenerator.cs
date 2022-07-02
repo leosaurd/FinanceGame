@@ -25,14 +25,15 @@ public class EventGenerator : MonoBehaviour
     public static BlockType blockRecord;
     public static int blockIndex;
     public static int selectIndex;
+    public static string selectGroup;
 
     //Not sure whether I want to use a dictionary for the event.
     private static readonly Dictionary<EventType, string> eventList = new()
     {
-        { EventType.Multiplier, "Multiply {0} by {1} for the next {2} rounds for all blocks{3}" },
-        { EventType.Fractional, "Divide {0} by {1} for the next {2} rounds for all blocks{3}" },
-        { EventType.BlockRemoval, "Removes a random block from the tower" },
-        { EventType.BlockAddition, "Adds a random block to the tower"},
+        { EventType.Multiplier, "Multiply {0} by {1} for the next {2} rounds for all blocks{3}." },
+        { EventType.Fractional, "Divide {0} by {1} for the next {2} rounds for all blocks{3}." },
+        { EventType.BlockRemoval, "Removes a random block from the tower." },
+        { EventType.BlockAddition, "Adds a random block to the tower."},
         { EventType.BlockNullification, "all blocks{3} no longer generate profit for a single round."}
     };
 
@@ -53,7 +54,7 @@ public class EventGenerator : MonoBehaviour
         selectRounds = rounds[Random.Range(0, rounds.Length)];
         selectBlocks = blockSelector[blockIndex];
         eventRecord = eventType;
-
+        selectGroup = "";
 
         if (eventType == EventType.Fractional)
         {
@@ -63,18 +64,69 @@ public class EventGenerator : MonoBehaviour
             selectMult = multiplier[Random.Range(0, multiplier.Length)];
         }
 
-        if (blockIndex == 1)
+        switch (blockIndex)
         {
-            blockRecord = BlockType.Insurance;
+            case 1:
+                blockRecord = BlockType.Insurance;
+                break;
+            case 2:
+                blockRecord = BlockType.LowRiskInvestment;
+                break;
+            case 3:
+                blockRecord = BlockType.HighRiskInvestment;
+                break;
+            case 4:
+                selectGroup = "ETF";
+                break;
+            case 5:
+                selectGroup = "REIT";
+                break;
+            case 6:
+                selectGroup = "Equity Mutual Fund";
+                break;
+            case 7:
+                selectGroup = "Emerging Market Equities";
+                break;
+            case 8:
+                selectGroup = "High-Yield Bonds";
+                break;
+            case 9:
+                selectGroup = "Cryptocurrencies";
+                break;
+            case 10:
+                selectGroup = "Treasury Bills";
+                break;
+            case 11:
+                selectGroup = "Government Bonds";
+                break;
+            case 12:
+                selectGroup = "Savings Bonds";
+                break;
+            case 13:
+                selectGroup = "Fixed Deposit";
+                break;
+            case 14:
+                selectGroup = "Dividend-paying stocks";
+                break;
+            case 15:
+                selectGroup = "Health Plan";
+                break;
+            case 16:
+                selectGroup = "Disability Plan";
+                break;
+            case 17:
+                selectGroup = "Term Life Plan";
+                break;
+            case 18:
+                selectGroup = "Life Plan";
+                break;
+            default:
+                break;
         }
-        if (blockIndex == 2)
-        {
-            blockRecord = BlockType.LowRiskInvestment;
-        }
-        if (blockIndex == 3)
-        {
-            blockRecord = BlockType.HighRiskInvestment;
-        }
+        /*
+                 {BlockType.Insurance, new string[]{"Health Plan", "Disability Plan", "Term Life Plan", "Life Plan"} },
+        {BlockType.LowRiskInvestment, new string[]{ "Treasury Bills", "Government Bonds", "Savings Bonds", "Fixed Deposit", "Dividend-paying stocks" } },
+        {BlockType.HighRiskInvestment, new string[]{ "ETF", "REIT", "Equity Mutual Fund", "Emerging Markets Equities", "High-Yield Bonds","Cryptocurrencies" } },*/
 
         //String that is generated. 
         string printList = string.Format(eventList[eventType], selectType, selectMult, selectRounds, selectBlocks).ToUpper();
