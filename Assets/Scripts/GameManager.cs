@@ -180,6 +180,8 @@ public class GameManager : MonoBehaviour
     /* If EventGenerator BlockType matches current block's block type, AND blockIndex is a TYPE(index 1, 2, 3)
     OR IF EventGenerator BlockIndex is 0(ALL)
     OR IF EventGenerator name matches block name AND blockIndex is a GROUP(index 4 and up)
+
+    This is where logic should be fixed
      */
     public bool SelectBlock(int i)
     {

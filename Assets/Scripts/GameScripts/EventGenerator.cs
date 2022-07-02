@@ -123,18 +123,10 @@ public class EventGenerator : MonoBehaviour
             default:
                 break;
         }
-        /*
-                 {BlockType.Insurance, new string[]{"Health Plan", "Disability Plan", "Term Life Plan", "Life Plan"} },
-        {BlockType.LowRiskInvestment, new string[]{ "Treasury Bills", "Government Bonds", "Savings Bonds", "Fixed Deposit", "Dividend-paying stocks" } },
-        {BlockType.HighRiskInvestment, new string[]{ "ETF", "REIT", "Equity Mutual Fund", "Emerging Markets Equities", "High-Yield Bonds","Cryptocurrencies" } },*/
 
         //String that is generated. 
         string printList = string.Format(eventList[eventType], selectType, selectMult, selectRounds, selectBlocks).ToUpper();
    
-        //Example Generation: Multiply stability by 5 for the next 10 rounds for all blocks of a random type
-        //So: GameManager.Instance.ownedblocks contains some of the needed blocks, and newly purchased ones must be altered as well. 
-        //Must also revert the stability after duration is over. 
-
         return printList;
     }
 }
