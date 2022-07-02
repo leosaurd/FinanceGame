@@ -25,7 +25,7 @@ public class GameOver : MonoBehaviour
 			Instance = this;
 
 			message = transform.GetChild(0).Find("GameOverSection").Find("Message").GetComponent<TextMeshProUGUI>();
-			score = transform.GetChild(0).Find("Score").GetComponent<TextMeshProUGUI>();
+			score = transform.GetChild(0).Find("GameOverSection").Find("Score").GetComponent<TextMeshProUGUI>();
 		}
 		else
 		{
@@ -38,9 +38,9 @@ public class GameOver : MonoBehaviour
 	{
 		GameManager gm = GameManager.Instance;
 		message.text = gameoverMessages[reason];
-		score.text = "Score: " + gm.GetScore().ToString("N0");
+		score.text = "$" + gm.totalEarnings.ToString("N0");
 
-		if (Leaderboard.Instance.IsTop10())
+		if (Leaderboard.Instance.IsTop5())
 		{
 			transform.GetChild(0).Find("GameOverSection").Find("SubmitScoreBtn").gameObject.SetActive(true);
 		}
@@ -58,7 +58,7 @@ public class GameOver : MonoBehaviour
 		canvasGroup.blocksRaycasts = true;
 		canvasGroup.interactable = true;
 
-		int steps = 20;
+		int steps = 30;
 		for (int i = 0; i <= steps; i++)
 		{
 			canvasGroup.alpha = i / (float)steps;

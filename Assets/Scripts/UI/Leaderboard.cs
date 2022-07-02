@@ -30,9 +30,10 @@ public class Leaderboard : MonoBehaviour
 		StartCoroutine(GetLeaderboard());
 	}
 
-	public bool IsTop10()
+	public bool IsTop5()
 	{
-		return GameManager.Instance.GetScore() > scores[scores.Count - 1].score;
+		if (scores.Count < 5) return true;
+		return GameManager.Instance.totalEarnings > scores[scores.Count - 1].score;
 	}
 
 	void CreateLeaderboard()
@@ -46,12 +47,11 @@ public class Leaderboard : MonoBehaviour
 			GameObject obj = Instantiate(leaderboardPrefab, transform);
 
 
-			// why x = 182.5 will result in x = 0 the world may never know
-			obj.transform.localPosition = new Vector3(182.5f, -30 * (i + 1), 0);
+			obj.GetComponent<RectTransform>().localPosition = new Vector3(0, 82.5f - 32.5f * (i), 0);
 
 			obj.transform.Find("Place").GetComponent<TextMeshProUGUI>().text = (i + 1).ToString();
 			obj.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = scores[i].name;
-			obj.transform.Find("Score").GetComponent<TextMeshProUGUI>().text = (scores[i].score).ToString("N0");
+			obj.transform.Find("Score").GetComponent<TextMeshProUGUI>().text = "$" + (scores[i].score).ToString("N0");
 			scoreObjects.Add(obj);
 		}
 
@@ -61,7 +61,7 @@ public class Leaderboard : MonoBehaviour
 
 	IEnumerator GetLeaderboard()
 	{
-		using UnityWebRequest webRequest = UnityWebRequest.Get("http://localhost:2006/leaderboard");
+		using UnityWebRequest webRequest = UnityWebRequest.Get("https://test.trentshailer.com/leaderboard");
 		yield return webRequest.SendWebRequest();
 		if (webRequest.result != UnityWebRequest.Result.Success)
 		{
@@ -87,9 +87,9 @@ public class Leaderboard : MonoBehaviour
 		WWWForm form = new WWWForm();
 		form.AddField("secret", secret);
 		form.AddField("name", name);
-		form.AddField("score", GameManager.Instance.GetScore());
+		form.AddField("score", GameManager.Instance.totalEarnings);
 
-		using UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost:2006/leaderboard/add", form);
+		using UnityWebRequest webRequest = UnityWebRequest.Post("https://test.trentshailer.com/leaderboard/add", form);
 
 		yield return webRequest.SendWebRequest();
 

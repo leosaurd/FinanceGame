@@ -32,7 +32,7 @@ public class SubmitScore : MonoBehaviour
 
 	IEnumerator ValidateName(string name, Action<Response> callback)
 	{
-		using UnityWebRequest webRequest = UnityWebRequest.Get("http://localhost:2006/valid-name?name=" + name);
+		using UnityWebRequest webRequest = UnityWebRequest.Get("https://test.trentshailer.com/valid-name?name=" + name);
 		yield return webRequest.SendWebRequest();
 		if (webRequest.result != UnityWebRequest.Result.Success)
 		{
