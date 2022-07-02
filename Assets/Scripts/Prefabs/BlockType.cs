@@ -2,5 +2,7 @@
 {
 	Insurance,
 	LowRiskInvestment,
-	HighRiskInvestment
+	HighRiskInvestment,
+	All,
+	None
 }

@@ -177,15 +177,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
-    /* If EventGenerator BlockType matches current block's block type, AND blockIndex is a TYPE(index 1, 2, 3)
-    OR IF EventGenerator BlockIndex is 0(ALL)
-    OR IF EventGenerator name matches block name AND blockIndex is a GROUP(index 4 and up)
-
-    This is where logic should be fixed
-     */
+    //If event matches BlockType, or Name matches
     public bool SelectBlock(int i)
     {
-        return ((EventGenerator.blockRecord == ownedBlocks[i].blockType && EventGenerator.blockIndex <= 3) || EventGenerator.blockIndex == 0 || (EventGenerator.selectGroup.Equals(ownedBlocks[i].name) && EventGenerator.blockIndex >= 4));
+        return ((EventGenerator.blockRecord == ownedBlocks[i].blockType) || EventGenerator.blockRecord == BlockType.All || EventGenerator.selectGroup.Equals(ownedBlocks[i].name));
     }
 
     //If the event is a Multiplier event
