@@ -68,13 +68,19 @@ public class GameManager : MonoBehaviour
                 if (EventGenerator.eventRecord == EventType.BlockAddition)
                 {
                     //Add a random block here.
+                    BlockType blockType = (BlockType)Random.Range(0, 3);
+                    string name = NameGenerator.GenerateName(blockType);
+                    ownedBlocks.Add(new BlockInstance(name, blockType, StaticObjectManager.BlockStats[name]));
+                    TowerAnimator.Instance.AddBlockToTower(block);
+
                     eventOccuring = false;
                     eventDuration = 0;
                 }
                 //If the event is to remove a block.
                 else if (EventGenerator.eventRecord == EventType.BlockRemoval)
                 {
-                    //remove a random block here.
+                    //Remove a random block
+                    ownedBlocks.RemoveAt(Random.Range(0, ownedBlocks.Count));
                     eventOccuring = false;
                     eventDuration = 0;
                 }
