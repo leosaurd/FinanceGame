@@ -41,7 +41,7 @@ public class StabilityMeter : MonoBehaviour
 
 		if (Mathf.Abs(diff) < 0.005) displayValue = gameManager.stability;
 
-		meter.localPosition = new Vector2(meter.localPosition.x, maxY * displayValue);
+		meter.localPosition = new Vector2(meter.localPosition.x, maxY * displayValue - 9.5f);
 
 		if (displayValue < -0.33f)
 			stabilityText.text = "Low";

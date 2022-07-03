@@ -66,6 +66,8 @@ public class GameManager : MonoBehaviour
 						BlockType blockType = (BlockType)Random.Range(0, 3);
 						string name = NameGenerator.GenerateName(blockType);
 						BlockInstance blockToAdd = new(name, blockType, StaticObjectManager.BlockStats[name]);
+						profits += blockToAdd.profit;
+						stability += blockToAdd.stability;
 						ownedBlocks.Add(blockToAdd);
 						TowerAnimator.Instance.AddBlockToTower(blockToAdd);
 

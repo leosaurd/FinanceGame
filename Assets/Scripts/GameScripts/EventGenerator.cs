@@ -51,10 +51,10 @@ public class EventGenerator : MonoBehaviour
 	public static string GenerateEvent(EventType eventType)
 	{
 		//If there is an ongoing event, do not do anything. This code SHOULD NOT OCCUR, as Generate Event should only be called when eventoccuring is false.
-		if (GameManager.Instance.eventOccuring)
+		/*if (GameManager.Instance.eventOccuring)
 		{
 			return "";
-		}
+		}*/
 
 		//Randomly generates an index - One for block selection, utilizing a switch case to select Options.
 		blockIndex = Random.Range(0, blockSelector.Length);
