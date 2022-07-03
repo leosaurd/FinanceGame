@@ -78,7 +78,11 @@ public class GameManager : MonoBehaviour
 					else if (EventGenerator.eventRecord == EventType.BlockRemoval)
 					{
 						//Remove a random block
-						ownedBlocks.RemoveAt(Random.Range(0, ownedBlocks.Count));
+						int blockToRemoveIndex = Random.Range(0, ownedBlocks.Count);
+						BlockInstance blockToRemove = ownedBlocks[blockToRemoveIndex];
+						ownedBlocks.RemoveAt(blockToRemoveIndex);
+						profits -= blockToRemove.profit;
+						stability -= blockToRemove.stability;
 						eventOccuring = false;
 						eventDuration = 0;
 					}
