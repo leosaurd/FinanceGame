@@ -16,7 +16,7 @@ public class EventGenerator : MonoBehaviour
 	};
 
 	//Variables used in GameManager
-	public static int selectMult;
+	public static float selectMult;
 	public static int selectRounds;
 	public static EventType eventRecord;
 	public static BlockType blockRecord;
@@ -69,7 +69,7 @@ public class EventGenerator : MonoBehaviour
 
 		if (eventType == EventType.Fractional)
 		{
-			selectMult = 1 / multiplier[Random.Range(0, multiplier.Length)];
+			selectMult = (float) 1 / multiplier[Random.Range(0, multiplier.Length)];
 		}
 		else
 		{

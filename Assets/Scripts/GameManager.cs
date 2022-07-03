@@ -47,8 +47,8 @@ public class GameManager : MonoBehaviour
 			//Any time a block is added, the chance for an event increases.
 			eventChance += 5;
 		}
-		//If the generated number is less than or equal to event chance, then generate an event.
-		if (Random.Range(0, 100) <= eventChance)
+		//If the generated number is less than or equal to event chance AND there is no event happening, then generate an event
+		if (Random.Range(0, 100) <= eventChance && !eventOccuring)
 		{
 			//Randomly picks from one of the 5 events available in EventType.
 			EventType eventType = (EventType)Random.Range(0, 5);
@@ -129,7 +129,8 @@ public class GameManager : MonoBehaviour
 					{
 						if (SelectBlock(i))
 						{
-							multiplier *= EventGenerator.selectMult;
+							//There was a *= here LOL - must've been super sleepy
+							multiplier = EventGenerator.selectMult;
 							if (!alteredStability[i])
 							{
 								stability += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
