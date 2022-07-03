@@ -51,7 +51,40 @@ public class GameManager : MonoBehaviour
 		if (Random.Range(0, 100) <= eventChance)
 		{
 			//Randomly picks from one of the 5 events available in EventType.
-			EventGenerator.GenerateEvent((EventType)Random.Range(0, 5));
+			EventType eventType = (EventType)Random.Range(0, 5);
+			string description = EventGenerator.GenerateEvent(eventType);
+			string title = EventGenerator.typeToTitle[eventType].ToUpper();
+
+			if (eventType == EventType.BlockRemoval || eventType == EventType.BlockAddition)
+			{
+				EventUIManager.Instance.ShowEvent(title, description, () =>
+				{
+					//If the event is to add a block.
+					if (EventGenerator.eventRecord == EventType.BlockAddition)
+					{
+						//Add a random block here.
+						BlockType blockType = (BlockType)Random.Range(0, 3);
+						string name = NameGenerator.GenerateName(blockType);
+						BlockInstance blockToAdd = new(name, blockType, StaticObjectManager.BlockStats[name]);
+						ownedBlocks.Add(blockToAdd);
+						TowerAnimator.Instance.AddBlockToTower(blockToAdd);
+
+						eventOccuring = false;
+						eventDuration = 0;
+					}
+					//If the event is to remove a block.
+					else if (EventGenerator.eventRecord == EventType.BlockRemoval)
+					{
+						//Remove a random block
+						ownedBlocks.RemoveAt(Random.Range(0, ownedBlocks.Count));
+						eventOccuring = false;
+						eventDuration = 0;
+					}
+				});
+			}
+			else
+				EventUIManager.Instance.ShowEvent(title, description);
+
 			//Sets event occuring to true.
 			eventOccuring = true;
 			//Resets event chance.
@@ -72,28 +105,9 @@ public class GameManager : MonoBehaviour
 			//If event is occuring
 			if (eventOccuring)
 			{
-				//If the event is to add a block.
-				if (EventGenerator.eventRecord == EventType.BlockAddition)
-				{
-					//Add a random block here.
-					BlockType blockType = (BlockType)Random.Range(0, 3);
-					string name = NameGenerator.GenerateName(blockType);
-					ownedBlocks.Add(new BlockInstance(name, blockType, StaticObjectManager.BlockStats[name]));
-					TowerAnimator.Instance.AddBlockToTower(block);
 
-					eventOccuring = false;
-					eventDuration = 0;
-				}
-				//If the event is to remove a block.
-				else if (EventGenerator.eventRecord == EventType.BlockRemoval)
-				{
-					//Remove a random block
-					ownedBlocks.RemoveAt(Random.Range(0, ownedBlocks.Count));
-					eventOccuring = false;
-					eventDuration = 0;
-				}
 				//If the event is to nullify profit.
-				else if (EventGenerator.eventRecord == EventType.BlockNullification)
+				if (EventGenerator.eventRecord == EventType.BlockNullification)
 				{
 					//If the block matches the record, select all is set, or the name matches the group.
 					if (SelectBlock(i))
