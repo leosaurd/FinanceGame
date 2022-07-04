@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
 						//Remove a random block
 						int blockToRemoveIndex = Random.Range(0, ownedBlocks.Count);
 						BlockInstance blockToRemove = ownedBlocks[blockToRemoveIndex];
+						TowerAnimator.Instance.RemoveBlockFromTower(blockToRemove);
 						ownedBlocks.RemoveAt(blockToRemoveIndex);
 						profits -= blockToRemove.profit;
 						stability -= blockToRemove.stability;

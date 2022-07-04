@@ -48,7 +48,7 @@ public class ColorButton : MonoBehaviour, Button
 		targetColor = defaultColor;
 	}
 
-	public void OnPointerDown(PointerEventData eventData)
+	public void OnPointerClick(PointerEventData eventData)
 	{
 		Actions.Invoke();
 	}

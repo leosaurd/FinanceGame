@@ -40,7 +40,7 @@ public class FadeButton : MonoBehaviour, Button
 		opacity = 0;
 	}
 
-	public void OnPointerDown(PointerEventData eventData)
+	public void OnPointerClick(PointerEventData eventData)
 	{
 		Actions.Invoke();
 	}

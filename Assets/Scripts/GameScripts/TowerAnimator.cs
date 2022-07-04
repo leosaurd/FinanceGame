@@ -27,6 +27,29 @@ public class TowerAnimator : MonoBehaviour
 		if (Mathf.Abs(diff) < 0.005) transform.localPosition = new Vector2(transform.localPosition.x, targetPos);
 	}
 
+	public void RemoveBlockFromTower(BlockInstance block)
+	{
+		int index = tower.FindIndex(0, (GameObject obj) => obj.GetComponent<BlockAnimator>().block.id == block.id);
+
+		Destroy(tower[index]);
+		tower.RemoveAt(index);
+
+		// Move all blocks above it down by 0.64f * block.height
+		for (int i = 0; i < tower.Count; i++)
+		{
+			GameObject obj = tower[i];
+			obj.transform.Find("Background").GetComponent<SpriteRenderer>().sortingOrder = i;
+			obj.GetComponent<BlockAnimator>().targetPosition -= 0.64f * block.height;
+
+		}
+
+
+		if (GameManager.Instance.towerHeight > 4)
+		{
+			targetPos += 0.64f * block.height;
+		}
+	}
+
 	public void AddBlockToTower(BlockInstance block)
 	{
 		GameObject blockObj = Instantiate(blockPrefab, transform);
