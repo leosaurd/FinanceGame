@@ -44,11 +44,14 @@ public class TowerAnimator : MonoBehaviour
 
 		}
 
+		GameManager.Instance.towerHeight -= block.height;
 
 		if (GameManager.Instance.towerHeight > 4)
 		{
 			targetPos += 0.64f * block.height;
 		}
+
+
 	}
 
 	public void AddBlockToTower(BlockInstance block)

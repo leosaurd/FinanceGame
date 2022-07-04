@@ -5394,7 +5394,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d46d9367cc7c484c95ecae054c0b730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stability: 0
   portfolioValue: 10000
   profits: 0
   towerHeight: 0

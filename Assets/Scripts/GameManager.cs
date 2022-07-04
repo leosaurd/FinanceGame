@@ -13,7 +13,20 @@ public class GameManager : MonoBehaviour
 		if (!Instance) Instance = this;
 	}
 
-	public float stability = 0;
+	private float stability = 0;
+	public float Stability
+	{
+		get { return stability; }
+		set
+		{
+			stability = value;
+			if (value < -1)
+			{
+				stability = -1;
+				EndGame(GameOverReason.Stability);
+			}
+		}
+	}
 	public float portfolioValue = 0;
 	public int profits = 0;
 	public int towerHeight = 0;
@@ -29,7 +42,7 @@ public class GameManager : MonoBehaviour
 	//Whether there is an event ongoing
 	public bool eventOccuring = false;
 
-	//saved value of stability
+	//saved value of Stability
 	public float originalStab = 0;
 
 	//List of booleans to check if a block has already been modified
@@ -67,7 +80,7 @@ public class GameManager : MonoBehaviour
 						string name = NameGenerator.GenerateName(blockType);
 						BlockInstance blockToAdd = new(name, blockType, StaticObjectManager.BlockStats[name]);
 						profits += blockToAdd.profit;
-						stability += blockToAdd.stability;
+						Stability += blockToAdd.stability;
 						ownedBlocks.Add(blockToAdd);
 						TowerAnimator.Instance.AddBlockToTower(blockToAdd);
 
@@ -83,7 +96,7 @@ public class GameManager : MonoBehaviour
 						TowerAnimator.Instance.RemoveBlockFromTower(blockToRemove);
 						ownedBlocks.RemoveAt(blockToRemoveIndex);
 						profits -= blockToRemove.profit;
-						stability -= blockToRemove.stability;
+						Stability -= blockToRemove.stability;
 						eventOccuring = false;
 						eventDuration = 0;
 					}
@@ -129,7 +142,7 @@ public class GameManager : MonoBehaviour
 						if (SelectBlock(i))
 							multiplier = EventGenerator.selectMult;
 					}
-					//If event is a stability-altering event
+					//If event is a Stability-altering event
 					else if (EventGenerator.selectIndex == 0)
 					{
 						if (SelectBlock(i))
@@ -138,7 +151,7 @@ public class GameManager : MonoBehaviour
 							multiplier = EventGenerator.selectMult;
 							if (!alteredStability[i])
 							{
-								stability += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
+								Stability += (ownedBlocks[i].stability * multiplier) - ownedBlocks[i].stability;
 								alteredStability[i] = true;
 							}
 						}
@@ -157,25 +170,25 @@ public class GameManager : MonoBehaviour
 			//If the event is 0, set the event occuring to false.
 			if (eventDuration == 0)
 			{
-				//Clear any stability changes
+				//Clear any Stability changes
 				alteredStability.Clear();
-				stability = 0;
+				Stability = 0;
 				for (int i = 0; i < ownedBlocks.Count; i++)
 				{
-					stability += ownedBlocks[i].stability;
+					Stability += ownedBlocks[i].stability;
 				}
 				eventOccuring = false;
 			}
 		}
 
-		if (stability < -1)
+		if (Stability < -1)
 		{
-			stability = -1;
+			Stability = -1;
 			EndGame(GameOverReason.Stability);
 		}
-		else if (stability > 1)
+		else if (Stability > 1)
 		{
-			stability = 1;
+			Stability = 1;
 		}
 	}
 

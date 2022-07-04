@@ -27,6 +27,7 @@ public class TowerColorUtils
 		TowerColor.Yellow => Resources.Load<Sprite>("BlockYellow" + height),
 		_ => Resources.Load<Sprite>("BlockGreen" + height),
 	};
+	public static Sprite GetGlowSprite(int height) => Resources.Load<Sprite>("BlockGlow" + height);
 
 	public static Dictionary<TowerColor, Color> GetTextColor = new() {
 			{TowerColor.Green, new Color(66, 188, 160) },
