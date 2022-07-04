@@ -2719,8 +2719,9 @@ GameObject:
   m_Component:
   - component: {fileID: 739931620}
   - component: {fileID: 739931621}
+  - component: {fileID: 739931622}
   m_Layer: 0
-  m_Name: MainMenuBtn
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2765,18 +2766,30 @@ MonoBehaviour:
   Actions:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449646795}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: RetunToMainMenu
-        m_Mode: 1
+      - m_Target: {fileID: 739931622}
+        m_TargetAssemblyTypeName: ContactButton, Assembly-CSharp
+        m_MethodName: OpenURL
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: https://www.ippfa.com
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &739931622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739931619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec4403cce7386f418d7d720b8701101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &760722955
 GameObject:
   m_ObjectHideFlags: 0

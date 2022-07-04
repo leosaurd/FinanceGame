@@ -39,7 +39,8 @@ public class TowerAnimator : MonoBehaviour
 		{
 			GameObject obj = tower[i];
 			obj.transform.Find("Background").GetComponent<SpriteRenderer>().sortingOrder = i;
-			obj.GetComponent<BlockAnimator>().targetPosition -= 0.64f * block.height;
+			if (i >= index)
+				obj.GetComponent<BlockAnimator>().targetPosition -= 0.64f * block.height;
 
 		}
 

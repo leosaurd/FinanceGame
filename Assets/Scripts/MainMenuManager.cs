@@ -10,23 +10,5 @@ public class MainMenuManager : MonoBehaviour
 		SceneManager.LoadScene("Game");
 	}
 
-	public void OpenSettings()
-	{
 
-	}
-
-	public void CloseSettings()
-	{
-
-	}
-
-	public void OpenLeaderboard()
-	{
-
-	}
-
-	public void CloseLeaderboard()
-	{
-
-	}
 }
