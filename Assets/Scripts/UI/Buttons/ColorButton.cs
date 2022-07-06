@@ -12,7 +12,7 @@ public class ColorButton : MonoBehaviour, Button
 	private Color currentColor;
 	public Color targetColor;
 
-	private bool onCooldown = false;
+	public bool onCooldown = false;
 
 	private Image image;
 	public ButtonClickedEvent Actions;
