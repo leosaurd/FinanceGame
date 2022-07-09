@@ -282,7 +282,8 @@ public class GameManager : MonoBehaviour
 			//Attempting to save the string
 			saveText += entry.Key + "," + entry.Value + "\n";
         }
-		writer.Write(saveText);
+		//This is what will save the string to the server most likely.
+		writer.Write(saveText + "\n");
 		writer.Close();
 		
 	}
