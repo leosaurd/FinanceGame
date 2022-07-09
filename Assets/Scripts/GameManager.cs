@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -200,8 +201,8 @@ public class GameManager : MonoBehaviour
 	{
 		//Added a gameCount here
 		gameCount++;
-		//Added a timer here - Needs fixing TODO
-		gameTime = (Time.fixedTime - gameTime);
+		//Added a timer here - Needs fixing TODO for more than 1 game
+		gameTime = (Time.timeSinceLevelLoad);
 		//Attempting to save data
 		saveData();
 		GameOver.Instance.ShowGameover(reason);
@@ -228,6 +229,9 @@ public class GameManager : MonoBehaviour
 	{
 		Hashtable gamedata = new Hashtable();
 		string path = "test.csv";
+
+		StreamWriter writer = new StreamWriter(path, true);
+
 		string saveText = "";
 		List<BlockInstance> blockList = ownedBlocks;
 
@@ -275,11 +279,11 @@ public class GameManager : MonoBehaviour
 
 		foreach(DictionaryEntry entry in gamedata)
         {
-			print(entry.Key + ", " + entry.Value);
 			//Attempting to save the string
 			saveText += entry.Key + "," + entry.Value + "\n";
         }
-		print(saveText);
+		writer.Write(saveText);
+		writer.Close();
 		
 	}
 
