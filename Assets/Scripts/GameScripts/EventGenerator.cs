@@ -67,15 +67,6 @@ public class EventGenerator : MonoBehaviour
 		eventRecord = eventType;
 		selectGroup = "";
 
-		if (eventType == EventType.Fractional)
-		{
-			selectMult = (float) 1 / multiplier[Random.Range(0, multiplier.Length)];
-		}
-		else
-		{
-			selectMult = multiplier[Random.Range(0, multiplier.Length)];
-		}
-
 		switch (blockIndex)
 		{
 			case 0:
@@ -155,8 +146,19 @@ public class EventGenerator : MonoBehaviour
 				break;
 		}
 
+
+
 		//String that is generated. 
 		string printList = string.Format(eventList[eventType], selectType, selectMult, selectRounds, selectBlocks);
+
+		if (eventType == EventType.Fractional)
+		{
+			selectMult = (float)1 / multiplier[Random.Range(0, multiplier.Length)];
+		}
+		else
+		{
+			selectMult = multiplier[Random.Range(0, multiplier.Length)];
+		}
 
 		return printList;
 	}
