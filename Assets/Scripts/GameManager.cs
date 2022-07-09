@@ -6,6 +6,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+
 	public static GameManager Instance { get; private set; }
 
 	void Awake()
@@ -45,6 +46,8 @@ public class GameManager : MonoBehaviour
 	//saved value of Stability
 	public float originalStab = 0;
 
+	public float gameTime = 0;
+	public float gameCount = 0;
 	//List of booleans to check if a block has already been modified
 	public List<bool> alteredStability = new List<bool>();
 
@@ -195,6 +198,12 @@ public class GameManager : MonoBehaviour
 
 	public void EndGame(GameOverReason reason)
 	{
+		//Added a gameCount here
+		gameCount++;
+		//Added a timer here - Needs fixing TODO
+		gameTime = (Time.fixedTime - gameTime);
+		//Attempting to save data
+		saveData();
 		GameOver.Instance.ShowGameover(reason);
 	}
 
@@ -213,6 +222,93 @@ public class GameManager : MonoBehaviour
 	public bool isMultiplier()
 	{
 		return EventGenerator.eventRecord == EventType.Fractional || EventGenerator.eventRecord == EventType.Multiplier;
+	}
+
+	public void saveData()
+	{
+		Hashtable gamedata = new Hashtable();
+		string path = "test.csv";
+		string saveText = "";
+		List<BlockInstance> blockList = ownedBlocks;
+
+		//Saves the total number of blocks a player has placed
+		gamedata.Add("TotalPlayerBlockCount", blockList.Count);
+
+		//Saves the average stability score
+		gamedata.Add("AVGStability", Stability);
+
+		//Saves the time it took for a game
+		gamedata.Add("GameTime", gameTime);
+
+		//Saves the number of investment blocks placed
+		gamedata.Add("InsuranceBlocksPlaced", calculateTotal(blockList, BlockType.Insurance));
+
+		//Saves the number of High risk investment blocks placed
+		gamedata.Add("HRIBlocksPlaced", calculateTotal(blockList, BlockType.HighRiskInvestment));
+
+		//Saves the number of Low risk investment blocks placed
+		gamedata.Add("LRIBlocksPlaced", calculateTotal(blockList, BlockType.LowRiskInvestment));
+
+		//Number of games played
+		gamedata.Add("GamesPlayed", gameCount);
+
+		//Total earnings
+		gamedata.Add("TotalEarnings", totalEarnings);
+
+		//Name Data 
+		gamedata.Add("HealthPlan", calculateTotal(blockList, "Health Plan"));
+		gamedata.Add("DisabiltyPlan", calculateTotal(blockList, "Disability Plan"));
+		gamedata.Add("TermLifePlan", calculateTotal(blockList, "Term Life Plan"));
+		gamedata.Add("LifePlan", calculateTotal(blockList, "Life Plan"));
+		gamedata.Add("TreasuryBills", calculateTotal(blockList, "Treasury Bills"));
+		gamedata.Add("GovtBonds", calculateTotal(blockList, "Government Bonds"));
+		gamedata.Add("SavingBonds", calculateTotal(blockList, "Savings Bonds"));
+		gamedata.Add("FixedDeposit", calculateTotal(blockList, "Fixed Deposit"));
+		gamedata.Add("DividendPayingStocks", calculateTotal(blockList, "Dividend-paying stocks"));
+		gamedata.Add("ETF", calculateTotal(blockList, "ETF"));
+		gamedata.Add("REIT", calculateTotal(blockList, "REIT"));
+		gamedata.Add("EquityMutualFund", calculateTotal(blockList, "Equity Mutual Fund"));
+		gamedata.Add("EmergingMarketEquities", calculateTotal(blockList, "Emerging Markets Equities"));
+		gamedata.Add("HighYieldBonds", calculateTotal(blockList, "High-Yield Bonds"));
+		gamedata.Add("CryptoCurrency", calculateTotal(blockList, "Cryptocurrencies"));
+
+
+		foreach(DictionaryEntry entry in gamedata)
+        {
+			print(entry.Key + ", " + entry.Value);
+			//Attempting to save the string
+			saveText += entry.Key + "," + entry.Value + "\n";
+        }
+		print(saveText);
+		
+	}
+
+	public int calculateTotal(List<BlockInstance> l, BlockType b)
+	{
+		int count = 0;
+		for (int i = 0; i < l.Count; i++)
+		{
+			if (l[i].blockType == b)
+			{
+				count++;
+			}
+		}
+
+		return count;
+	}
+
+	public int calculateTotal(List<BlockInstance> l, string s)
+	{
+		int count = 0;
+		for (int i = 0; i < l.Count; i++)
+		{
+			if (l[i].name == s)
+			{
+				count++;
+			}
+		}
+
+		return count;
 	}
 }
 

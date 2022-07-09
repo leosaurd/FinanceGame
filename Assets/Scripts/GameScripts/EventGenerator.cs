@@ -31,8 +31,8 @@ public class EventGenerator : MonoBehaviour
 	//Not sure whether I want to use a dictionary for the event.
 	private static readonly Dictionary<EventType, string> eventList = new()
 	{
-		{ EventType.Multiplier, "Multiply {0} by {1} for the next {2} rounds for all blocks{3}." },
-		{ EventType.Fractional, "Divide {0} by {1} for the next {2} rounds for all blocks{3}." },
+		{ EventType.Multiplier, "Multiply {0} by {1} for the next {2} round(s) for all blocks{3}." },
+		{ EventType.Fractional, "Divide {0} by {1} for the next {2} rounds(s) for all blocks{3}." },
 		{ EventType.BlockRemoval, "Removes a random block from the tower." },
 		{ EventType.BlockAddition, "Adds a random block to the tower."},
 		{ EventType.BlockNullification, "all blocks{3} no longer generate profit for a single round."}
