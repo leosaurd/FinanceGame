@@ -37,6 +37,7 @@ public class EventUIManager : MonoBehaviour
 		Body.Find("Description").GetComponent<TextMeshProUGUI>().color = eventPreset.textColor;
 
 		Body.Find("OkButton").GetComponent<ColorButton>().defaultColor = eventPreset.buttonColor;
+		Body.Find("OkButton").GetComponent<ColorButton>().targetColor = eventPreset.buttonColor;
 		Body.Find("OkButton").GetComponent<ColorButton>().hoveredColor = eventPreset.buttonHoveredColor;
 
 		okCallback = null;

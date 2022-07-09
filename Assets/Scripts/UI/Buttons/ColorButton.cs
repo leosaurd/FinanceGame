@@ -10,7 +10,9 @@ public class ColorButton : MonoBehaviour, Button
 	public Color defaultColor;
 	public Color hoveredColor;
 	private Color currentColor;
-	private Color targetColor;
+	public Color targetColor;
+
+	public bool onCooldown = false;
 
 	private Image image;
 	public ButtonClickedEvent Actions;
@@ -48,9 +50,19 @@ public class ColorButton : MonoBehaviour, Button
 		targetColor = defaultColor;
 	}
 
-	public void OnPointerDown(PointerEventData eventData)
+	public void OnPointerClick(PointerEventData eventData)
 	{
-		Actions.Invoke();
+		if (!onCooldown)
+		{
+			onCooldown = true;
+			StartCoroutine(Cooldown());
+			Actions.Invoke();
+		}
 	}
 
+	IEnumerator Cooldown()
+	{
+		yield return new WaitForSeconds(0.25f);
+		onCooldown = false;
+	}
 }

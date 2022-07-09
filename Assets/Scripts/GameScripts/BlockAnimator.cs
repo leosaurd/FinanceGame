@@ -7,8 +7,9 @@ public class BlockAnimator : MonoBehaviour
 {
 	public float targetPosition;
 	public BlockInstance block;
-	public float speed = 0;
-
+	public SpriteRenderer glowRenderer;
+	public float targetGlow = 1;
+	public float glow = 1;
 
 	public void Start()
 	{
@@ -31,25 +32,44 @@ public class BlockAnimator : MonoBehaviour
 		// TODO Check if events affect profit?
 		profitObject.GetComponent<TextMeshPro>().text = (profit < 0 ? "-$" : "+$") + Mathf.Abs(profit).ToString("N0");
 
+
+		Transform glowObject = transform.Find("Glow");
+		glowRenderer = glowObject.GetComponent<SpriteRenderer>();
+		glowRenderer.sprite = TowerColorUtils.GetGlowSprite(block.height);
+		switch (block.height)
+		{
+			case 1:
+				glowObject.localPosition = new Vector2(0, 3.25f);
+				break;
+			case 2:
+				glowObject.localPosition = new Vector2(0, 4.2f);
+				break;
+			case 3:
+				glowObject.localPosition = new Vector2(0, 5.1f);
+				break;
+		}
+
 	}
 
 	private void FixedUpdate()
 	{
 		if (transform.localPosition.y > targetPosition)
 		{
-			speed += 0.025f;
-
+			float speed = 0.33f;
 			if (transform.localPosition.y - speed < targetPosition)
 			{
 				transform.localPosition = new Vector2(transform.localPosition.x, targetPosition);
-				/*
-								float stabilityModifier = 1 + block.stability * -1;
-
-								CameraAnimator.Instance.ScreenShake(10 * stabilityModifier / 2, stabilityModifier / 5);*/
+				targetGlow = 0;
 			}
 			else
 				transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - speed);
 		}
 
+		if (glowRenderer.color.a != targetGlow)
+		{
+			float diff = targetGlow - glowRenderer.color.a;
+			if (Mathf.Abs(diff) < 0.05f) glowRenderer.color = new Color(1, 1, 1, targetGlow);
+			else glowRenderer.color = new Color(1, 1, 1, glowRenderer.color.a + diff / 15);
+		}
 	}
 }

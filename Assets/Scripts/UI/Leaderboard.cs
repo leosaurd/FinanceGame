@@ -30,6 +30,12 @@ public class Leaderboard : MonoBehaviour
 		StartCoroutine(GetLeaderboard());
 	}
 
+
+	public void Refresh()
+	{
+		StartCoroutine(GetLeaderboard());
+	}
+
 	public bool IsTop5()
 	{
 		if (scores.Count < 5) return true;

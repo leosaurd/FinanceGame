@@ -35,11 +35,11 @@ public class StabilityMeter : MonoBehaviour
 	void FixedUpdate()
 	{
 		// Animate the motion of the slider
-		float diff = gameManager.stability - displayValue;
+		float diff = gameManager.Stability - displayValue;
 
 		displayValue += diff / 20;
 
-		if (Mathf.Abs(diff) < 0.005) displayValue = gameManager.stability;
+		if (Mathf.Abs(diff) < 0.005) displayValue = gameManager.Stability;
 
 		meter.localPosition = new Vector2(meter.localPosition.x, maxY * displayValue - 9.5f);
 

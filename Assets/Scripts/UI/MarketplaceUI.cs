@@ -108,7 +108,7 @@ public class MarketplaceUI : MonoBehaviour
 		GameManager GM = GameManager.Instance;
 		GM.profits += block.profit;
 		GM.portfolioValue -= block.cost;
-		GM.stability += block.stability;
+		GM.Stability += block.stability;
 		GM.AddBlock(block);
 		RefreshShop();
 	}

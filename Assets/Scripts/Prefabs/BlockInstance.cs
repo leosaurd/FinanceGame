@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class BlockInstance
 	public string name;
 	public int height;
 	public TowerColor towerColor;
+	public Guid id;
 	public BlockInstance(string name, BlockType blockType, StaticBlockStats defaultStats)
 	{
 		StaticBlockStats stats = defaultStats.GenerateStats();
@@ -20,5 +22,6 @@ public class BlockInstance
 		this.cost = stats.cost;
 		this.name = name;
 		this.height = stats.height;
+		id = new Guid();
 	}
 }
