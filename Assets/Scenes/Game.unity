@@ -4643,7 +4643,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &824476237
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6820,7 +6820,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1336998451
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7541,6 +7541,8 @@ MonoBehaviour:
   eventDuration: 0
   eventOccuring: 0
   originalStab: 0
+  gameTime: 0
+  gameCount: 0
   alteredStability: 
 --- !u!1 &1479767474
 GameObject:
@@ -8767,7 +8769,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1640333478}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
