@@ -31,8 +31,8 @@ public class EventGenerator : MonoBehaviour
 	//Not sure whether I want to use a dictionary for the event.
 	private static readonly Dictionary<EventType, string> eventList = new()
 	{
-		{ EventType.Multiplier, "Multiply {0} by {1} for the next {2} rounds for all blocks{3}." },
-		{ EventType.Fractional, "Divide {0} by {1} for the next {2} rounds for all blocks{3}." },
+		{ EventType.Multiplier, "Multiply {0} by {1} for the next {2} round(s) for all blocks{3}." },
+		{ EventType.Fractional, "Divide {0} by {1} for the next {2} rounds(s) for all blocks{3}." },
 		{ EventType.BlockRemoval, "Removes a random block from the tower." },
 		{ EventType.BlockAddition, "Adds a random block to the tower."},
 		{ EventType.BlockNullification, "all blocks{3} no longer generate profit for a single round."}
@@ -66,15 +66,6 @@ public class EventGenerator : MonoBehaviour
 		selectBlocks = blockSelector[Random.Range(0, blockSelector.Length)];
 		eventRecord = eventType;
 		selectGroup = "";
-
-		if (eventType == EventType.Fractional)
-		{
-			selectMult = (float) 1 / multiplier[Random.Range(0, multiplier.Length)];
-		}
-		else
-		{
-			selectMult = multiplier[Random.Range(0, multiplier.Length)];
-		}
 
 		switch (blockIndex)
 		{
@@ -155,8 +146,19 @@ public class EventGenerator : MonoBehaviour
 				break;
 		}
 
+
+
 		//String that is generated. 
 		string printList = string.Format(eventList[eventType], selectType, selectMult, selectRounds, selectBlocks);
+
+		if (eventType == EventType.Fractional)
+		{
+			selectMult = (float)1 / multiplier[Random.Range(0, multiplier.Length)];
+		}
+		else
+		{
+			selectMult = multiplier[Random.Range(0, multiplier.Length)];
+		}
 
 		return printList;
 	}
