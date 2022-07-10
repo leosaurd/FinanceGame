@@ -142,7 +142,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7327596437926225402, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
+  - {fileID: -413981141519488313, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -186,8 +186,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: +$50
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
-  m_sharedMaterial: {fileID: -7327596437926225402, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
+  m_sharedMaterial: {fileID: -413981141519488313, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -236,6 +236,7 @@ MonoBehaviour:
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 0
   m_isCullingEnabled: 0
@@ -305,8 +306,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPosition: 0
-  speed: 0
+  glowRenderer: {fileID: 0}
   targetGlow: 1
+  glow: 1
 --- !u!1 &6377875921924915159
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +367,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7327596437926225402, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
+  - {fileID: -413981141519488313, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -409,8 +411,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Emerging Markets Equities
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
-  m_sharedMaterial: {fileID: -7327596437926225402, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
+  m_sharedMaterial: {fileID: -413981141519488313, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -450,7 +452,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -459,6 +461,7 @@ MonoBehaviour:
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 0
   m_isCullingEnabled: 0

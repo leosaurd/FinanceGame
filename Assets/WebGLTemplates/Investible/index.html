@@ -17,7 +17,7 @@
         </div>
       </div>
       <div id="unity-warning"> </div>
-      <div style="display: hidden;" id="unity-footer">
+      <div style="display: none;" id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
         <div id="unity-build-title">{{{ PRODUCT_NAME }}}</div>
@@ -104,10 +104,6 @@
         if(window.innerHeight < {{{ HEIGHT }}}){
 			canvas.style.width = (window.innerHeight - 10) / 2 + 'px';
         	canvas.style.height = (window.innerHeight - 10) + 'px';
-		}
-		else{
-			canvas.style.width = (window.innerHeight) / 2 + 'px';
-        	canvas.style.height = window.innerHeight + 'px';
 		}
       }
 

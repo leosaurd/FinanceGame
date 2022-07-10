@@ -38,7 +38,7 @@ RectTransform:
   - {fileID: 1082331998037445918}
   - {fileID: 1052326370764496155}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -210,8 +210,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: COST
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
-  m_sharedMaterial: {fileID: -7327596437926225402, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
+  m_sharedMaterial: {fileID: -413981141519488313, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -260,6 +260,7 @@ MonoBehaviour:
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -345,8 +346,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $2,341
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cacd9e3801648924789831231247c13c, type: 2}
-  m_sharedMaterial: {fileID: 3897900703532742484, guid: cacd9e3801648924789831231247c13c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 86c33f971460fdc469f7bede3e4cd255, type: 2}
+  m_sharedMaterial: {fileID: -3084763941553438070, guid: 86c33f971460fdc469f7bede3e4cd255, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -376,17 +377,17 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -5
+  m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -395,6 +396,7 @@ MonoBehaviour:
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -480,8 +482,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $,2500
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cacd9e3801648924789831231247c13c, type: 2}
-  m_sharedMaterial: {fileID: 3897900703532742484, guid: cacd9e3801648924789831231247c13c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 86c33f971460fdc469f7bede3e4cd255, type: 2}
+  m_sharedMaterial: {fileID: -3084763941553438070, guid: 86c33f971460fdc469f7bede3e4cd255, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -511,17 +513,17 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -5
+  m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -530,6 +532,7 @@ MonoBehaviour:
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -615,8 +618,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PROFITS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
-  m_sharedMaterial: {fileID: -7327596437926225402, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
+  m_sharedMaterial: {fileID: -413981141519488313, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -646,17 +649,17 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: -5
+  m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -665,6 +668,7 @@ MonoBehaviour:
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -854,8 +858,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Emerging Markets Equities
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
-  m_sharedMaterial: {fileID: -7327596437926225402, guid: 603b7b11d57e5be41965e7e434588e3b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
+  m_sharedMaterial: {fileID: -413981141519488313, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -885,7 +889,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 10
   m_fontSizeMax: 14
-  m_fontStyle: 33
+  m_fontStyle: 17
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -895,7 +899,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 25
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -904,6 +908,7 @@ MonoBehaviour:
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
