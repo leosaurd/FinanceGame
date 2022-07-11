@@ -315,6 +315,15 @@ public class GameManager : MonoBehaviour
 
 		return count;
 	}
+
+	public int roundDown(BlockInstance b)
+    {
+		float roundedValue = Mathf.Floor(b.cost / 100);
+		Debug.Log(roundedValue);
+		roundedValue *= 100;
+		Debug.Log(roundedValue);
+		return (int)roundedValue;
+    }
 }
 
 

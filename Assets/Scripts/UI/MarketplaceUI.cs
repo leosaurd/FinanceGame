@@ -79,6 +79,9 @@ public class MarketplaceUI : MonoBehaviour
 		{
 			BlockInstance instance = blocks[i];
 
+			instance.cost = GameManager.Instance.roundDown(instance);
+			instance.profit = GameManager.Instance.roundDown(instance);
+
 			instance.towerColor = (TowerColor)colorIndexes[i];
 
 			if (instance.cost < GameManager.Instance.portfolioValue) canBuySomething = true;
