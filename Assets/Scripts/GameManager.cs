@@ -316,12 +316,11 @@ public class GameManager : MonoBehaviour
 		return count;
 	}
 
-	public int roundDown(BlockInstance b)
+	//Rounding function to round values down for easier reading.
+	public int roundDown(int value, int figures)
     {
-		float roundedValue = Mathf.Floor(b.cost / 100);
-		Debug.Log(roundedValue);
-		roundedValue *= 100;
-		Debug.Log(roundedValue);
+		float roundedValue = Mathf.Floor(value / figures);
+		roundedValue *= figures;
 		return (int)roundedValue;
     }
 }
