@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviour
 		//Added a gameCount here
 		gameCount++;
 		//Added a timer here - Needs fixing TODO for more than 1 game
-		gameTime = (Time.timeSinceLevelLoad);
+		gameTime = (Time.timeSinceLevelLoad - gameTime);
 		//Attempting to save data
 		saveData();
 		GameOver.Instance.ShowGameover(reason);
@@ -210,6 +210,7 @@ public class GameManager : MonoBehaviour
 
 	public void RetunToMainMenu()
 	{
+		gameTime = 0;
 		SceneManager.LoadScene("MainMenu");
 	}
 
@@ -319,7 +320,7 @@ public class GameManager : MonoBehaviour
 	//Rounding function to round values down for easier reading.
 	public int roundDown(int value, int figures)
     {
-		float roundedValue = Mathf.Floor(value / figures);
+		float roundedValue = Mathf.Floor((float)value / (float)figures);
 		roundedValue *= figures;
 		return (int)roundedValue;
     }
