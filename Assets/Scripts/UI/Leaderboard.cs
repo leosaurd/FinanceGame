@@ -75,7 +75,6 @@ public class Leaderboard : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("Received: " + webRequest.downloadHandler.text);
 
 			ScoreDataCollection sdc = JsonUtility.FromJson<ScoreDataCollection>("{\"scoreData\":" + webRequest.downloadHandler.text + "}");
 			scores = sdc.scoreData.ToList();

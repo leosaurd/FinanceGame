@@ -33,6 +33,7 @@ public class SessionManager : MonoBehaviour
 		{
 #if UNITY_WEBGL && !UNITY_EDITOR
 			string storedID = GetID();
+			Debug.Log(storedID);
 #else
 			string storedID = null;
 #endif
