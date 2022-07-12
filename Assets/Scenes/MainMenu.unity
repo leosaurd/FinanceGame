@@ -798,6 +798,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7868d0adbb65b0c49afa3da7ea60b65e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &516100165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 516100167}
+  - component: {fileID: 516100166}
+  m_Layer: 0
+  m_Name: SessionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &516100166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516100165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bcb524f2bee47e438835e72d6aac4de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Session:
+    SessionID: 
+    Tower: []
+    InsuranceCount: 0
+    LowRiskCount: 0
+    HighRiskCount: 0
+    TotalEarnings: 0
+    Stability: []
+    StartTime: 0
+    CurrentTime: 0
+    SessionEndReason: 0
+  ID: 
+--- !u!4 &516100167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516100165}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &587482843
 GameObject:
   m_ObjectHideFlags: 0
