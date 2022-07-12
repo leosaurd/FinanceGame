@@ -79,8 +79,8 @@ public class MarketplaceUI : MonoBehaviour
 		{
 			BlockInstance instance = blocks[i];
 			//Rounding is here.
-			instance.cost = GameManager.Instance.roundDown(instance.cost, 100);
-			//instance.profit = GameManager.Instance.roundDown(instance.profit, 10);
+			instance.profit = GameManager.Instance.RoundDownTwoSF(instance.profit);
+			instance.cost = GameManager.Instance.RoundDownTwoSF(instance.cost);
 
 			instance.towerColor = (TowerColor)colorIndexes[i];
 

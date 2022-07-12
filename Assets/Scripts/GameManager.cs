@@ -318,11 +318,12 @@ public class GameManager : MonoBehaviour
 	}
 
 	//Rounding function to round values down for easier reading.
-	public int roundDown(int value, int figures)
+	public int RoundDownTwoSF(double d)
     {
-		float roundedValue = Mathf.Floor((float)value / (float)figures);
-		roundedValue *= figures;
-		return (int)roundedValue;
+		if (d == 0.0) return (int)d;
+		double scale = System.Math.Pow(10, System.Math.Floor(System.Math.Log10(System.Math.Abs(d))) + 1);
+		double s = scale * System.Math.Round(d / scale, 2);
+		return (int)s;
     }
 }
 
