@@ -278,15 +278,15 @@ public class GameManager : MonoBehaviour
 		gamedata.Add("CryptoCurrency", calculateTotal(blockList, "Cryptocurrencies"));
 
 
-		foreach(DictionaryEntry entry in gamedata)
-        {
+		foreach (DictionaryEntry entry in gamedata)
+		{
 			//Attempting to save the string
 			saveText += entry.Key + "," + entry.Value + "\n";
-        }
+		}
 		//This is what will save the string to the server most likely.
 		writer.Write(saveText + "\n");
 		writer.Close();
-		
+
 	}
 
 	public int calculateTotal(List<BlockInstance> l, BlockType b)
@@ -318,13 +318,12 @@ public class GameManager : MonoBehaviour
 	}
 
 	//Rounding function to round values down for easier reading.
-	public int RoundDownTwoSF(double d)
-    {
-		if (d == 0.0) return (int)d;
-		double scale = System.Math.Pow(10, System.Math.Floor(System.Math.Log10(System.Math.Abs(d))) + 1);
-		double s = scale * System.Math.Round(d / scale, 2);
-		return (int)s;
-    }
+	public int RoundDownTwoSF(float d)
+	{
+		if (d == 0) return 0;
+		float scale = Mathf.Pow(10, Mathf.Floor(Mathf.Log10(Mathf.Abs(d))) + 1);
+		return Mathf.RoundToInt(scale * (float)System.Math.Round(d / scale, 2));
+	}
 }
 
 

@@ -40,8 +40,8 @@ public class StaticBlockStats
 		float profitsJitter = Random.Range(-0.1f, 0.1f);
 		float stabilityJitter = Random.Range(-0.1f, 0.1f);
 
-		finalCost += GameManager.Instance.RoundDownTwoSF(Mathf.RoundToInt(finalCost * costJitter));
-		finalProfits += GameManager.Instance.RoundDownTwoSF(Mathf.RoundToInt(finalProfits * profitsJitter));
+		finalCost = GameManager.Instance.RoundDownTwoSF(Mathf.RoundToInt(finalCost + finalCost * costJitter));
+		finalProfits = GameManager.Instance.RoundDownTwoSF(Mathf.RoundToInt(finalProfits + finalProfits * profitsJitter));
 		finalStability += finalStability * stabilityJitter;
 
 
