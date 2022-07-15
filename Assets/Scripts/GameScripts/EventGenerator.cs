@@ -158,6 +158,7 @@ public class EventGenerator : MonoBehaviour
 		{
 			selectMult = (float)1 / selectMult;
 		}
+		printList = printList.Substring(0, 1).ToUpper() + printList.Substring(1);
 
 		return printList;
 	}
