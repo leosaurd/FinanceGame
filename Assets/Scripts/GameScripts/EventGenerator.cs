@@ -148,16 +148,15 @@ public class EventGenerator : MonoBehaviour
 
 
 
-		//String that is generated. 
+		//String that is generated.
+		//Fixing the multiplier on the string for real this time lol
+
+		selectMult = multiplier[Random.Range(0, multiplier.Length)];
 		string printList = string.Format(eventList[eventType], selectType, selectMult, selectRounds, selectBlocks);
 
 		if (eventType == EventType.Fractional)
 		{
-			selectMult = (float)1 / multiplier[Random.Range(0, multiplier.Length)];
-		}
-		else
-		{
-			selectMult = multiplier[Random.Range(0, multiplier.Length)];
+			selectMult = (float)1 / selectMult;
 		}
 
 		return printList;
