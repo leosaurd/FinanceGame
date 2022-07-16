@@ -32,10 +32,10 @@ public class EventGenerator : MonoBehaviour
 	private static readonly Dictionary<EventType, string> eventList = new()
 	{
 		{ EventType.Multiplier, "Multiply {0} by {1} for the next {2} round(s) for all blocks{3}." },
-		{ EventType.Fractional, "Divide {0} by {1} for the next {2} rounds(s) for all blocks{3}." },
+		{ EventType.Fractional, "Divide {0} by {1} for the next {2} round(s) for all blocks{3}." },
 		{ EventType.BlockRemoval, "Removes a random block from the tower." },
 		{ EventType.BlockAddition, "Adds a random block to the tower."},
-		{ EventType.BlockNullification, "all blocks{3} no longer generate profit for a single round."}
+		{ EventType.BlockNullification, "All blocks{3} no longer generate profit for a single round."}
 	};
 
 	public static readonly Dictionary<EventType, string> typeToTitle = new()
@@ -148,17 +148,18 @@ public class EventGenerator : MonoBehaviour
 
 
 
-		//String that is generated. 
+		//String that is generated.
+		//Fixing the multiplier on the string for real this time lol
+
+		selectMult = multiplier[Random.Range(0, multiplier.Length)];
 		string printList = string.Format(eventList[eventType], selectType, selectMult, selectRounds, selectBlocks);
 
 		if (eventType == EventType.Fractional)
 		{
-			selectMult = (float)1 / multiplier[Random.Range(0, multiplier.Length)];
+			selectMult = (float)1 / selectMult;
 		}
-		else
-		{
-			selectMult = multiplier[Random.Range(0, multiplier.Length)];
-		}
+		//IN CASE SOMETHING DOESNT CAPITALIZE 
+		printList = printList.Substring(0, 1).ToUpper() + printList.Substring(1);
 
 		return printList;
 	}
