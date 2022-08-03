@@ -10,6 +10,7 @@ public class BlockAnimator : MonoBehaviour
 	public SpriteRenderer glowRenderer;
 	public float targetGlow = 1;
 	public float glow = 1;
+	public bool firstFall = true;
 
 	public void Start()
 	{
@@ -56,13 +57,22 @@ public class BlockAnimator : MonoBehaviour
 		if (transform.localPosition.y > targetPosition)
 		{
 			float speed = 0.33f;
+			if (firstFall && transform.localPosition.y - speed * 10 < targetPosition)
+			{
+				firstFall = false;
+				SFXManager.Instance.PlaySFX(SFX.blockDrop);
+			}
+
 			if (transform.localPosition.y - speed < targetPosition)
 			{
 				transform.localPosition = new Vector2(transform.localPosition.x, targetPosition);
 				targetGlow = 0;
+
 			}
 			else
+			{
 				transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - speed);
+			}
 		}
 
 		if (glowRenderer.color.a != targetGlow)

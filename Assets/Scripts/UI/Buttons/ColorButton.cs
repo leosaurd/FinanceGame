@@ -56,6 +56,7 @@ public class ColorButton : MonoBehaviour, Button
 		{
 			onCooldown = true;
 			StartCoroutine(Cooldown());
+			SFXManager.Instance.PlaySFX(SFX.button);
 			Actions.Invoke();
 		}
 	}

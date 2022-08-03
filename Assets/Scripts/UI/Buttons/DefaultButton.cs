@@ -19,6 +19,7 @@ public class DefaultButton : MonoBehaviour, Button
 	public void OnPointerClick(PointerEventData eventData)
 	{
 		Actions.Invoke();
+
 	}
 
 }

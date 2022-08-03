@@ -4,163 +4,186 @@ using UnityEngine;
 
 public class EventGenerator : MonoBehaviour
 {
-
-	public static string[] selector = new string[] { "stability", "profit" };
-	public static int[] multiplier = new int[] { 2, 5, 10 };
-	public static int[] rounds = new int[] { 1, 2, 5 };
-	public static string[] blockSelector = new string[] {
-		"", " of the Insurance Type", " of the Low Risk Type", " of the High Risk Type",
-		" that are ETFs", " that are REITs", " that are Equity Mutual Funds", " that are Emerging Markets Equities", " that are High-Yield Bonds"," that are Cryptocurrencies",
-		" that are Treasury Bills", " that are Government Bonds", " that are Savings Bonds", " that are Fixed Deposit", " that are Dividend-paying stocks",
-		" that are Health Plans", " that are Disability Plans", " that are Term Life Plan", " that are Life Plans"
+	public static Dictionary<BlockType, string> BlockTypeToString = new()
+	{
+		{BlockType.Insurance, "Insurance" },
+		{BlockType.HighRiskInvestment, "High Risk Investment" },
+		{BlockType.LowRiskInvestment, "Low Risk Investment" }
 	};
 
-	//Variables used in GameManager
-	public static float selectMult;
-	public static int selectRounds;
-	public static EventType eventRecord;
-	public static BlockType blockRecord;
-	public static int selectIndex;
-	public static string selectGroup;
-
-	//Variables used locally - Not sure if GameManager needs them.
-	public static int blockIndex;
-	public static string selectBlocks;
-	public static string selectType;
-
-	//Not sure whether I want to use a dictionary for the event.
-	private static readonly Dictionary<EventType, string> eventList = new()
+	public static GameEvent GenerateEvent()
 	{
-		{ EventType.Multiplier, "Multiply {0} by {1} for the next {2} round(s) for all blocks{3}." },
-		{ EventType.Fractional, "Divide {0} by {1} for the next {2} round(s) for all blocks{3}." },
-		{ EventType.BlockRemoval, "Removes a random block from the tower." },
-		{ EventType.BlockAddition, "Adds a random block to the tower."},
-		{ EventType.BlockNullification, "All blocks{3} no longer generate profit for a single round."}
-	};
-
-	public static readonly Dictionary<EventType, string> typeToTitle = new()
-	{
-		{ EventType.Multiplier, "Multplier event" },
-		{ EventType.Fractional, "Divider event" },
-		{ EventType.BlockRemoval, "Block Removal Event" },
-		{ EventType.BlockAddition, "Block Addition Event" },
-		{ EventType.BlockNullification, "Profit Nullification Event" },
-	};
-
-	//Where all altering factors should be for ownedblocks.
-	public static string GenerateEvent(EventType eventType)
-	{
-		//If there is an ongoing event, do not do anything. This code SHOULD NOT OCCUR, as Generate Event should only be called when eventoccuring is false.
-		/*if (GameManager.Instance.eventOccuring)
+		EventType eventType = (EventType)Random.Range(0, 5);
+		if (eventType == EventType.BlockRemoval || eventType == EventType.BlockAddition)
 		{
-			return "";
-		}*/
-
-		//Randomly generates an index - One for block selection, utilizing a switch case to select Options.
-		blockIndex = Random.Range(0, blockSelector.Length);
-		selectIndex = Random.Range(0, selector.Length);
-
-
-		selectType = selector[selectIndex];
-		selectRounds = rounds[Random.Range(0, rounds.Length)];
-		selectBlocks = blockSelector[Random.Range(0, blockSelector.Length)];
-		eventRecord = eventType;
-		selectGroup = "";
-
-		switch (blockIndex)
+			return new InstantEvent(eventType);
+		}
+		else
 		{
-			case 0:
-				blockRecord = BlockType.All;
-				break;
-			case 1:
-				blockRecord = BlockType.Insurance;
-				break;
-			case 2:
-				blockRecord = BlockType.LowRiskInvestment;
-				break;
-			case 3:
-				blockRecord = BlockType.HighRiskInvestment;
-				break;
-			case 4:
-				selectGroup = "ETF";
-				blockRecord = BlockType.None;
-				break;
-			case 5:
-				selectGroup = "REIT";
-				blockRecord = BlockType.None;
-				break;
-			case 6:
-				selectGroup = "Equity Mutual Fund";
-				blockRecord = BlockType.None;
-				break;
-			case 7:
-				selectGroup = "Emerging Market Equities";
-				blockRecord = BlockType.None;
-				break;
-			case 8:
-				selectGroup = "High-Yield Bonds";
-				blockRecord = BlockType.None;
-				break;
-			case 9:
-				selectGroup = "Cryptocurrencies";
-				blockRecord = BlockType.None;
-				break;
-			case 10:
-				selectGroup = "Treasury Bills";
-				blockRecord = BlockType.None;
-				break;
-			case 11:
-				selectGroup = "Government Bonds";
-				blockRecord = BlockType.None;
-				break;
-			case 12:
-				selectGroup = "Savings Bonds";
-				blockRecord = BlockType.None;
-				break;
-			case 13:
-				selectGroup = "Fixed Deposit";
-				blockRecord = BlockType.None;
-				break;
-			case 14:
-				selectGroup = "Dividend-paying stocks";
-				blockRecord = BlockType.None;
-				break;
-			case 15:
-				selectGroup = "Health Plan";
-				blockRecord = BlockType.None;
-				break;
-			case 16:
-				selectGroup = "Disability Plan";
-				blockRecord = BlockType.None;
-				break;
-			case 17:
-				selectGroup = "Term Life Plan";
-				blockRecord = BlockType.None;
-				break;
-			case 18:
-				selectGroup = "Life Plan";
-				blockRecord = BlockType.None;
-				break;
-			default:
-				blockRecord = BlockType.None;
-				break;
+			return new LastingEvent(eventType);
+		}
+	}
+}
+
+
+public abstract class GameEvent
+{
+	public string Title { get; protected set; }
+	public string Description { get; protected set; }
+	public EventType Type { get; protected set; }
+	public bool IsBeneficial { get; protected set; }
+}
+
+public class InstantEvent : GameEvent
+{
+	public BlockInstance Block { get; private set; }
+
+	public InstantEvent(EventType eventType)
+	{
+		Type = eventType;
+
+		if (eventType == EventType.BlockRemoval)
+		{
+			Title = "Block Removal Event";
+			IsBeneficial = false;
+
+			int index = Random.Range(0, GameManager.Instance.ownedBlocks.Count);
+			Block = GameManager.Instance.ownedBlocks[index];
+
+			Description = "Removes a random block from the tower.";
+		}
+		else if (eventType == EventType.BlockAddition)
+		{
+			Title = "Block Addition Event";
+			IsBeneficial = true;
+
+			BlockType blockType = (BlockType)Random.Range(0, 3);
+			string name = NameGenerator.GenerateName(blockType);
+			Block = new(name, blockType, StaticObjectManager.BlockStats[name]);
+
+			Description = "Adds a random block from the tower.";
+		}
+	}
+}
+
+public class LastingEvent : GameEvent
+{
+	public int Duration { get; set; }
+
+	public float Multipler { get; private set; }
+	public float VisualMultipler { get; private set; }
+
+	public BlockType AffectedGroup { get; private set; }
+	public EventField AffectedField { get; private set; }
+
+
+	public LastingEvent(EventType eventType)
+	{
+		Type = eventType;
+
+		AffectedGroup = (BlockType)Random.Range(0, 3);
+		AffectedField = (EventField)Random.Range(0, 3);
+
+		if (Type == EventType.BlockNullification)
+		{
+			Duration = Random.Range(1, 4);
+			Multipler = 0;
+		}
+		else
+		{
+			Duration = Random.Range(2, 7);
+
+			int isLarge = Random.Range(0, 100);
+
+
+			float min = 0f;
+			float max = 0f;
+
+			if (Type == EventType.Multiplier)
+			{
+				if (isLarge <= 10)
+				{
+					min = 1.75f;
+					max = 3f;
+				}
+				else
+				{
+					min = 1f;
+					max = 2f;
+				}
+			}
+			else if (Type == EventType.Fractional)
+			{
+				if (isLarge <= 10)
+				{
+					min = 2.5f;
+					max = 5f;
+				}
+				else
+				{
+					min = 1.5f;
+					max = 3f;
+				}
+			}
+
+
+
+			Multipler = Mathf.Round(Random.Range(min, max) * 4) / 4f;
+			VisualMultipler = Multipler;
+
+			if (Type == EventType.Fractional)
+			{
+				Multipler = 1f / Multipler;
+			}
+
 		}
 
 
+		IsBeneficial = true;
 
-		//String that is generated.
-		//Fixing the multiplier on the string for real this time lol
-
-		selectMult = multiplier[Random.Range(0, multiplier.Length)];
-		string printList = string.Format(eventList[eventType], selectType, selectMult, selectRounds, selectBlocks);
-
-		if (eventType == EventType.Fractional)
+		if (
+			Type == EventType.BlockNullification ||
+			(AffectedField == EventField.stability && Type == EventType.Multiplier) ||
+			(AffectedField == EventField.cost && Type == EventType.Multiplier) ||
+			(AffectedField == EventField.profit && Type == EventType.Fractional)
+			)
 		{
-			selectMult = (float)1 / selectMult;
+			IsBeneficial = false;
 		}
-		//IN CASE SOMETHING DOESNT CAPITALIZE 
-		printList = printList.Substring(0, 1).ToUpper() + printList.Substring(1);
 
-		return printList;
+		GenerateDescription();
+		GenerateTitle();
+	}
+
+	public void GenerateDescription()
+	{
+		switch (Type)
+		{
+			case EventType.BlockNullification:
+				Description = string.Format("{0} blocks no longer generate profit for {1} round{2}.", EventGenerator.BlockTypeToString[AffectedGroup], Duration.ToString(), Duration > 1 ? "s" : "");
+				break;
+			case EventType.Multiplier:
+				Description = string.Format("Multiply {0} by {1} for the next {2} round{3} for {4} blocks in the marketplace.", AffectedField.ToString(), VisualMultipler, Duration, Duration > 1 ? "s" : "", EventGenerator.BlockTypeToString[AffectedGroup]);
+				break;
+			case EventType.Fractional:
+				Description = string.Format("Divide {0} by {1} for the next {2} round{3} for {4} blocks in the marketplace.", AffectedField.ToString(), VisualMultipler, Duration, Duration > 1 ? "s" : "", EventGenerator.BlockTypeToString[AffectedGroup]);
+				break;
+		}
+	}
+
+	public void GenerateTitle()
+	{
+		switch (Type)
+		{
+			case EventType.BlockNullification:
+				Title = "Profit Nullification Event";
+				break;
+			case EventType.Multiplier:
+				Title = string.Format("{0} Multiplier Event", AffectedField.ToString());
+				break;
+			case EventType.Fractional:
+				Title = string.Format("{0} Divider Event", AffectedField.ToString());
+				break;
+		}
 	}
 }
