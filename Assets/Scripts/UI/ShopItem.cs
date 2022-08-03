@@ -13,6 +13,7 @@ public class ShopItem : MonoBehaviour
 	private Transform profitObj;
 	private Transform buttonObj;
 	private Transform stabilityObj;
+	private Transform warningObj;
 	public GameObject stabilityChildPrefab;
 
 	public Sprite image;
@@ -27,6 +28,7 @@ public class ShopItem : MonoBehaviour
 		profitObj = transform.Find("ProfitsValue");
 		stabilityObj = transform.Find("Stability Images");
 		buttonObj = transform.Find("Button");
+		warningObj = transform.Find("Warning");
 
 
 
@@ -46,7 +48,15 @@ public class ShopItem : MonoBehaviour
 		if (block.cost > GameManager.Instance.portfolioValue)
 		{
 			costObj.GetComponent<TextMeshProUGUI>().color = Color.red;
+			warningObj.gameObject.SetActive(true);
 		}
+
+		if (GameManager.Instance.Stability + block.stability <= -1)
+		{
+			warningObj.gameObject.SetActive(true);
+		}
+
+
 
 		string profitText = "";
 		if (block.profit < 0)
@@ -56,7 +66,7 @@ public class ShopItem : MonoBehaviour
 
 
 		Sprite stabilityImage;
-		int numberOfSprites = 0;
+		int numberOfSprites;
 
 		if (block.stability < 0)
 		{
@@ -84,6 +94,7 @@ public class ShopItem : MonoBehaviour
 			buttonObj.GetComponent<FadeButton>().maxOpacity = 0.5f;
 			numberOfSprites = 1;
 		}
+
 		for (int i = 0; i < numberOfSprites; i++)
 		{
 			GameObject stabilityChild = Instantiate(stabilityChildPrefab, stabilityObj);
@@ -94,7 +105,7 @@ public class ShopItem : MonoBehaviour
 
 	public void Buy()
 	{
-		if (GameManager.Instance.portfolioValue - block.cost > 0)
+		if (GameManager.Instance.portfolioValue - block.cost > 0 && GameManager.Instance.Stability + block.stability > -1)
 			MarketplaceUI.Instance.Buy(block);
 	}
 
