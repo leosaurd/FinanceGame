@@ -57,13 +57,8 @@ public class TowerAnimator : MonoBehaviour
 	public void AddBlockToTower(BlockInstance block)
 	{
 		GameObject blockObj = Instantiate(blockPrefab, transform);
-		float startingPosition = 10;
-		if (tower.Count > 5)
-		{
-			startingPosition = tower.Count + 5;
-		}
 
-		blockObj.transform.localPosition = new Vector2(blockObj.transform.localPosition.x, startingPosition);
+		blockObj.transform.position = new Vector2(blockObj.transform.localPosition.x, 6);
 
 		BlockEffectManager.Instance.NewEffect();
 		NewAssetTextManager.Instance.NewEffect();

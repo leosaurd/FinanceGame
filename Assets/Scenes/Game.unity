@@ -8754,17 +8754,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lorem ipsum dolor sit amet,
+  m_text: 'Lorem ipsum <color=Black>dolor</color> sit amet,
 
-    consectetuer adipiscing elit, sed
+    consectetuer adipiscing
+    elit, sed
 
-    diam
-    nonummy nibh euismod
+    diam nonummy nibh euismod
 
     tincidunt ut laoreet dolore
 
-    magna aliquam erat
-    volutpat.'
+    magna
+    aliquam erat volutpat.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a5be8703bfeab4f45b7da949e91c7e82, type: 2}
   m_sharedMaterial: {fileID: 2247976388117700883, guid: a5be8703bfeab4f45b7da949e91c7e82, type: 2}

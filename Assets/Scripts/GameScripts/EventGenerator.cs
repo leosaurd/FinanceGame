@@ -14,6 +14,7 @@ public class EventGenerator : MonoBehaviour
 	public static GameEvent GenerateEvent()
 	{
 		EventType eventType = (EventType)Random.Range(0, 5);
+
 		if (eventType == EventType.BlockRemoval || eventType == EventType.BlockAddition)
 		{
 			return new InstantEvent(eventType);
@@ -160,13 +161,13 @@ public class LastingEvent : GameEvent
 		switch (Type)
 		{
 			case EventType.BlockNullification:
-				Description = string.Format("{0} blocks no longer generate profit for {1} round{2}.", EventGenerator.BlockTypeToString[AffectedGroup], Duration.ToString(), Duration > 1 ? "s" : "");
+				Description = string.Format("<color=Green>{0}</color> blocks no longer generate profit for <color=Green>{1}</color> round{2}.", EventGenerator.BlockTypeToString[AffectedGroup], Duration.ToString(), Duration > 1 ? "s" : "");
 				break;
 			case EventType.Multiplier:
-				Description = string.Format("Multiply {0} by {1} for the next {2} round{3} for {4} blocks in the marketplace.", AffectedField.ToString(), VisualMultipler, Duration, Duration > 1 ? "s" : "", EventGenerator.BlockTypeToString[AffectedGroup]);
+				Description = string.Format("Multiply <color=Green>{0}</color> by <color=Green>{1}</color> for the next <color=Green>{2}</color> round{3} for <color=Green>{4}</color> blocks in the marketplace.", AffectedField.ToString(), VisualMultipler, Duration, Duration > 1 ? "s" : "", EventGenerator.BlockTypeToString[AffectedGroup]);
 				break;
 			case EventType.Fractional:
-				Description = string.Format("Divide {0} by {1} for the next {2} round{3} for {4} blocks in the marketplace.", AffectedField.ToString(), VisualMultipler, Duration, Duration > 1 ? "s" : "", EventGenerator.BlockTypeToString[AffectedGroup]);
+				Description = string.Format("Divide <color=Green>{0}</color> by <color=Green>{1}</color> for the next <color=Green>{2}</color> round{3} for <color=Green>{4}</color> blocks in the marketplace.", AffectedField.ToString(), VisualMultipler, Duration, Duration > 1 ? "s" : "", EventGenerator.BlockTypeToString[AffectedGroup]);
 				break;
 		}
 	}
