@@ -20,14 +20,19 @@ public class NewAssetText : MonoBehaviour
 	{
 		while (opacity < 1)
 		{
-			yPos += 1.5f;
 			opacity += 0.04f;
+
+			if (opacity > 1f)
+			{
+				yPos += 1.5f;
+			}
 
 			transform.localPosition = new Vector3(0, yPos, 0);
 			image.color = new Color(1, 1, 1, opacity);
 
 			yield return new WaitForFixedUpdate();
 		}
+		yield return new WaitForSeconds(0.25f);
 		StartCoroutine(FadeOut());
 	}
 
@@ -36,7 +41,7 @@ public class NewAssetText : MonoBehaviour
 		while (opacity > 0)
 		{
 			yPos += 1.5f;
-			opacity -= 0.02f;
+			opacity -= 0.015f;
 
 			transform.localPosition = new Vector3(0, yPos, 0);
 			image.color = new Color(1, 1, 1, opacity);
