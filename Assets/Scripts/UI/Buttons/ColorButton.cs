@@ -5,12 +5,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnityEngine.UI.Button;
 
-public class ColorButton : MonoBehaviour, Button
+public class ColorButton : MonoBehaviour, Button, IPointerUpHandler, IPointerDownHandler
 {
 	public Color defaultColor;
 	public Color hoveredColor;
 	private Color currentColor;
 	public Color targetColor;
+	public Color clickedColor;
 
 	public bool onCooldown = false;
 
@@ -54,11 +55,21 @@ public class ColorButton : MonoBehaviour, Button
 	{
 		if (!onCooldown)
 		{
+
 			onCooldown = true;
 			StartCoroutine(Cooldown());
 			SFXManager.Instance.PlaySFX(SFX.button);
 			Actions.Invoke();
 		}
+	}
+	public void OnPointerDown(PointerEventData eventData)
+	{
+		targetColor = clickedColor;
+	}
+
+	public void OnPointerUp(PointerEventData eventData)
+	{
+		targetColor = defaultColor;
 	}
 
 	IEnumerator Cooldown()

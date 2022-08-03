@@ -152,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead2baabc17747c40ad4cf559b4fe7de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioSource: {fileID: 0}
 --- !u!4 &38659729
 Transform:
   m_ObjectHideFlags: 0
@@ -729,8 +728,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 0.29411766, g: 0.7176471, b: 0.6156863, a: 1}
-  hoveredColor: {r: 0.26666668, g: 0.47058827, b: 0.46274513, a: 1}
+  hoveredColor: {r: 0.26597545, g: 0.4056604, b: 0.4002879, a: 1}
   targetColor: {r: 0, g: 0, b: 0, a: 0}
+  clickedColor: {r: 0.10980392, g: 0.2, b: 0.19215687, a: 1}
   onCooldown: 0
   Actions:
     m_PersistentCalls:
@@ -813,8 +813,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 0.29411766, g: 0.7176471, b: 0.6156863, a: 1}
-  hoveredColor: {r: 0.26666668, g: 0.47058827, b: 0.46274513, a: 1}
+  hoveredColor: {r: 0.26432893, g: 0.41509432, b: 0.40929565, a: 1}
   targetColor: {r: 0, g: 0, b: 0, a: 0}
+  clickedColor: {r: 0.10980392, g: 0.2, b: 0.19215687, a: 1}
   onCooldown: 0
   Actions:
     m_PersistentCalls:
@@ -1553,8 +1554,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 0.29411766, g: 0.7176471, b: 0.6156863, a: 1}
-  hoveredColor: {r: 0.26666668, g: 0.47058827, b: 0.46274513, a: 1}
+  hoveredColor: {r: 0.23429155, g: 0.3679245, b: 0.3627848, a: 1}
   targetColor: {r: 0, g: 0, b: 0, a: 0}
+  clickedColor: {r: 0.10980392, g: 0.2, b: 0.19215687, a: 1}
   onCooldown: 0
   Actions:
     m_PersistentCalls:
@@ -2295,8 +2297,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 0.29411766, g: 0.7176471, b: 0.6156863, a: 1}
-  hoveredColor: {r: 0.26666668, g: 0.47058827, b: 0.46274513, a: 1}
+  hoveredColor: {r: 0.2710039, g: 0.3962264, b: 0.39141017, a: 1}
   targetColor: {r: 0, g: 0, b: 0, a: 0}
+  clickedColor: {r: 0.10980392, g: 0.2, b: 0.19215687, a: 1}
   onCooldown: 0
   Actions:
     m_PersistentCalls:
@@ -2425,8 +2428,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 0.29411766, g: 0.7176471, b: 0.6156863, a: 1}
-  hoveredColor: {r: 0.26666668, g: 0.47058827, b: 0.46274513, a: 1}
+  hoveredColor: {r: 0.25605196, g: 0.3962264, b: 0.3908351, a: 1}
   targetColor: {r: 0, g: 0, b: 0, a: 0}
+  clickedColor: {r: 0.10980392, g: 0.2, b: 0.19215687, a: 1}
   onCooldown: 0
   Actions:
     m_PersistentCalls:
