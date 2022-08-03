@@ -11,9 +11,10 @@ public class ShopItem : MonoBehaviour
 	private Transform nameObj;
 	private Transform costObj;
 	private Transform profitObj;
+	private Transform buttonObj;
 	private Transform stabilityObj;
+	public GameObject stabilityChildPrefab;
 
-	public Sprite[] stabilityImages;
 	public Sprite image;
 	public Color textColor;
 
@@ -24,11 +25,16 @@ public class ShopItem : MonoBehaviour
 		nameObj = transform.Find("Name");
 		costObj = transform.Find("CostValue");
 		profitObj = transform.Find("ProfitsValue");
-		stabilityObj = transform.Find("Stability Image");
+		stabilityObj = transform.Find("Stability Images");
+		buttonObj = transform.Find("Button");
 
+
+
+
+		image = TowerColorUtils.GetIconSprite[block.blockType];
 
 		textColor = TowerColorUtils.GetTextColor[block.towerColor];
-		image = TowerColorUtils.GetCubeSprite[block.towerColor];
+
 
 		imageObj.GetComponent<Image>().sprite = image;
 		nameObj.GetComponent<TextMeshProUGUI>().color = textColor;
@@ -49,30 +55,40 @@ public class ShopItem : MonoBehaviour
 		profitObj.GetComponent<TextMeshProUGUI>().text = profitText;
 
 
-		Image stabilityImage = stabilityObj.GetComponent<Image>();
-		if (block.stability < -0.35)
+		Sprite stabilityImage;
+		int numberOfSprites = 0;
+
+		if (block.stability < 0)
 		{
-			stabilityImage.sprite = stabilityImages[0];
-		}
-		else if (block.stability < -0.20)
-		{
-			stabilityImage.sprite = stabilityImages[1];
-		}
-		else if (block.stability < 0)
-		{
-			stabilityImage.sprite = stabilityImages[2];
-		}
-		else if (block.stability < 0.20)
-		{
-			stabilityImage.sprite = stabilityImages[3];
-		}
-		else if (block.stability < 0.35)
-		{
-			stabilityImage.sprite = stabilityImages[4];
+			stabilityImage = Resources.Load<Sprite>("StabilityDown");
+			buttonObj.GetComponent<Image>().sprite = Resources.Load<Sprite>("MarketplaceItemOutlineRed");
 		}
 		else
 		{
-			stabilityImage.sprite = stabilityImages[5];
+			stabilityImage = Resources.Load<Sprite>("StabilityUp");
+			buttonObj.GetComponent<Image>().sprite = Resources.Load<Sprite>("MarketplaceItemOutlineGreen");
+		}
+
+		if (Mathf.Abs(block.stability) > 0.35)
+		{
+			numberOfSprites = 3;
+			buttonObj.GetComponent<FadeButton>().maxOpacity = 1;
+		}
+		else if (Mathf.Abs(block.stability) > 0.20)
+		{
+			numberOfSprites = 2;
+			buttonObj.GetComponent<FadeButton>().maxOpacity = 0.75f;
+		}
+		else
+		{
+			buttonObj.GetComponent<FadeButton>().maxOpacity = 0.5f;
+			numberOfSprites = 1;
+		}
+		for (int i = 0; i < numberOfSprites; i++)
+		{
+			GameObject stabilityChild = Instantiate(stabilityChildPrefab, stabilityObj);
+			stabilityChild.GetComponent<Image>().sprite = stabilityImage;
+			stabilityChild.transform.localPosition = new Vector3(-15 * i, 0, 0);
 		}
 	}
 

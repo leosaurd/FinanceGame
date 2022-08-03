@@ -17,7 +17,14 @@ public class TowerColorUtils
 			{TowerColor.Red, Resources.Load<Sprite>("CubeRed") },
 			{TowerColor.Purple, Resources.Load<Sprite>("CubePurple")},
 			{TowerColor.Yellow, Resources.Load<Sprite>("CubeYellow") },
-		};
+	};
+
+	public static Dictionary<BlockType, Sprite> GetIconSprite = new()
+	{
+		{BlockType.Insurance, Resources.Load<Sprite>("InsuranceIcon") },
+		{BlockType.LowRiskInvestment, Resources.Load<Sprite>("LowRiskIcon") },
+		{BlockType.HighRiskInvestment, Resources.Load<Sprite>("HighRiskIcon") },
+	};
 
 	public static Sprite GetBlockSprite(TowerColor color, int height) => color switch
 	{
@@ -27,13 +34,15 @@ public class TowerColorUtils
 		TowerColor.Yellow => Resources.Load<Sprite>("BlockYellow" + height),
 		_ => Resources.Load<Sprite>("BlockGreen" + height),
 	};
+
+
 	public static Sprite GetGlowSprite(int height) => Resources.Load<Sprite>("BlockGlow" + height);
 
 	public static Dictionary<TowerColor, Color> GetTextColor = new() {
-			{TowerColor.Green, new Color(66, 188, 160) },
-			{TowerColor.Red, new Color(239, 81, 60) },
-			{TowerColor.Purple, new Color(187, 103, 201) },
-			{TowerColor.Yellow, new Color(255, 202, 5) },
+			{TowerColor.Green, new Color32(66, 188, 160, 255) },
+			{TowerColor.Red, new Color32(239, 81, 60, 255) },
+			{TowerColor.Purple, new Color32(187, 103, 201, 255) },
+			{TowerColor.Yellow, new Color32(255, 202, 5, 255) },
 		};
 }
 

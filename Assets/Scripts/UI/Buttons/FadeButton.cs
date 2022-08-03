@@ -10,6 +10,7 @@ public class FadeButton : MonoBehaviour, Button
 {
 	float opacity = 0;
 	float displayOpacity = 0;
+	public float maxOpacity = 1;
 	private Image image;
 	public ButtonClickedEvent Actions;
 
@@ -32,7 +33,7 @@ public class FadeButton : MonoBehaviour, Button
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		opacity = 1;
+		opacity = maxOpacity;
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
