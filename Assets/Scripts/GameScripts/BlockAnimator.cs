@@ -8,8 +8,10 @@ public class BlockAnimator : MonoBehaviour
 	public float targetPosition;
 	public BlockInstance block;
 	public SpriteRenderer glowRenderer;
+	public SpriteRenderer iconRenderer;
 	public float targetGlow = 1;
 	public float glow = 1;
+	public bool firstFall = true;
 
 	public void Start()
 	{
@@ -34,21 +36,39 @@ public class BlockAnimator : MonoBehaviour
 
 
 		Transform glowObject = transform.Find("Glow");
+		Transform iconObject = transform.Find("Icon");
 		glowRenderer = glowObject.GetComponent<SpriteRenderer>();
 		glowRenderer.sprite = TowerColorUtils.GetGlowSprite(block.height);
 		switch (block.height)
 		{
 			case 1:
 				glowObject.localPosition = new Vector2(0, 3.25f);
+				iconObject.localPosition = new Vector2(0.8f, 1.5f);
 				break;
 			case 2:
 				glowObject.localPosition = new Vector2(0, 4.2f);
+				iconObject.localPosition = new Vector2(0.8f, 3.4f);
 				break;
 			case 3:
 				glowObject.localPosition = new Vector2(0, 5.1f);
+				iconObject.localPosition = new Vector2(0.8f, 5.3f);
 				break;
 		}
 
+
+		iconRenderer = iconObject.GetComponent<SpriteRenderer>();
+		switch (block.blockType)
+		{
+			case BlockType.Insurance:
+				iconRenderer.sprite = Resources.Load<Sprite>("InsuranceIconIso");
+				break;
+			case BlockType.LowRiskInvestment:
+				iconRenderer.sprite = Resources.Load<Sprite>("LowRiskIconIso");
+				break;
+			case BlockType.HighRiskInvestment:
+				iconRenderer.sprite = Resources.Load<Sprite>("HighRiskIconIso");
+				break;
+		}
 	}
 
 	private void FixedUpdate()
@@ -56,13 +76,22 @@ public class BlockAnimator : MonoBehaviour
 		if (transform.localPosition.y > targetPosition)
 		{
 			float speed = 0.33f;
+			if (firstFall && transform.localPosition.y - speed * 10 < targetPosition)
+			{
+				firstFall = false;
+				SFXManager.Instance.PlaySFX(SFX.blockDrop);
+			}
+
 			if (transform.localPosition.y - speed < targetPosition)
 			{
 				transform.localPosition = new Vector2(transform.localPosition.x, targetPosition);
 				targetGlow = 0;
+
 			}
 			else
+			{
 				transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - speed);
+			}
 		}
 
 		if (glowRenderer.color.a != targetGlow)

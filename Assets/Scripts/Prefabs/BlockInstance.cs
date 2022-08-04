@@ -18,11 +18,31 @@ public class BlockInstance
 	{
 		StaticBlockStats stats = defaultStats.GenerateStats();
 		this.blockType = blockType;
-		this.stability = stats.stability;
-		this.profit = stats.profit;
-		this.cost = stats.cost;
 		this.name = name;
-		this.height = stats.height;
+
+		stability = stats.stability;
+		profit = stats.profit;
+		cost = stats.cost;
+		height = stats.height;
+
 		id = new Guid();
+#nullable enable
+		LastingEvent? lastingEvent = GameManager.Instance.lastingEvent;
+
+		if (lastingEvent != null && lastingEvent.AffectedGroup == blockType)
+		{
+			if (lastingEvent.AffectedField == EventField.profit)
+			{
+				profit = GameManager.Instance.RoundDownTwoSF(profit * lastingEvent.Multipler);
+			}
+			else if (lastingEvent.AffectedField == EventField.cost)
+			{
+				cost = GameManager.Instance.RoundDownTwoSF(cost * lastingEvent.Multipler);
+			}
+			else if (lastingEvent.AffectedField == EventField.stability)
+			{
+				stability *= lastingEvent.Multipler;
+			}
+		}
 	}
 }

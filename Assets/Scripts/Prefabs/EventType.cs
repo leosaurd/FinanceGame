@@ -7,3 +7,10 @@ public enum EventType
 	BlockNullification,
 	BlockAddition
 }
+
+public enum EventField
+{
+	profit,
+	stability,
+	cost
+}

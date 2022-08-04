@@ -35,6 +35,8 @@ public class StaticBlockStats
 		int finalProfits = Mathf.RoundToInt(profit * profitsMultiplier);
 		float finalStability = stability * stabilityMultiplier;
 
+
+
 		// Add randomness to final values (between -10% and + 10%)
 		float costJitter = Random.Range(-0.1f, 0.1f);
 		float profitsJitter = Random.Range(-0.1f, 0.1f);

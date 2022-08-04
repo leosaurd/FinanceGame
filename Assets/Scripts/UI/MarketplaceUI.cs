@@ -70,6 +70,7 @@ public class MarketplaceUI : MonoBehaviour
 
 	private void CreateShopGameobjects(List<BlockInstance> blocks)
 	{
+		bool canAffordSomething = false;
 		bool canBuySomething = false;
 
 		int[] colorIndexes = ReorderArray(indexes);
@@ -78,13 +79,11 @@ public class MarketplaceUI : MonoBehaviour
 		for (int i = 0; i < blocks.Count; i++)
 		{
 			BlockInstance instance = blocks[i];
-			//Rounding moved to staticblockstats
-			//instance.profit = GameManager.Instance.RoundDownTwoSF(instance.profit);
-			//instance.cost = GameManager.Instance.RoundDownTwoSF(instance.cost);
 
 			instance.towerColor = (TowerColor)colorIndexes[i];
 
-			if (instance.cost < GameManager.Instance.portfolioValue) canBuySomething = true;
+			if (instance.cost < GameManager.Instance.portfolioValue) canAffordSomething = true;
+			if (GameManager.Instance.Stability + instance.stability > -1) canBuySomething = true;
 
 			GameObject item = Instantiate(ShopItemPrefab, ShopItemLocations[i]);
 			ShopItem shopItem = item.GetComponent<ShopItem>();
@@ -92,9 +91,13 @@ public class MarketplaceUI : MonoBehaviour
 			shop.Add(item);
 		}
 
-		if (!canBuySomething)
+		if (!canAffordSomething)
 		{
 			GameManager.Instance.EndGame(GameOverReason.Poor);
+		}
+		else if (!canBuySomething)
+		{
+			GameManager.Instance.EndGame(GameOverReason.Stability);
 		}
 	}
 
@@ -113,6 +116,9 @@ public class MarketplaceUI : MonoBehaviour
 		GM.portfolioValue -= block.cost;
 		GM.Stability += block.stability;
 		GM.AddBlock(block);
+
+
+
 		RefreshShop();
 	}
 }

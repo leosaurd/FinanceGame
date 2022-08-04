@@ -14,8 +14,8 @@ public class EventUIManager : MonoBehaviour
 
 	[SerializeField]
 	public EventUIPreset[] presets;
-
-	private Action okCallback;
+#nullable enable
+	private Action? okCallback;
 
 	private void Awake()
 	{
@@ -24,23 +24,33 @@ public class EventUIManager : MonoBehaviour
 		canvasGroup = GetComponent<CanvasGroup>();
 		Body = transform.Find("Body");
 	}
-	public void ShowEvent(string Title, string Description)
+
+	public void ShowEvent(GameEvent gameEvent, Action? callback)
 	{
+		if (gameEvent.IsBeneficial)
+		{
+			SFXManager.Instance.PlaySFX(SFX.beneficialEvent, 0.25f);
+		}
+		else
+		{
+			SFXManager.Instance.PlaySFX(SFX.harmfulEvent, 0.25f);
+		}
+
 		int eventPresetIndex = UnityEngine.Random.Range(0, 3);
 		EventUIPreset eventPreset = presets[eventPresetIndex];
 
 		Body.Find("Background").GetComponent<Image>().sprite = eventPreset.image;
 
-		Body.Find("Title").GetComponent<TextMeshProUGUI>().text = Title.ToUpper();
+		Body.Find("Title").GetComponent<TextMeshProUGUI>().text = gameEvent.Title.ToUpper();
 		Body.Find("Title").GetComponent<TextMeshProUGUI>().color = eventPreset.textColor;
-		Body.Find("Description").GetComponent<TextMeshProUGUI>().text = Description;
+		Body.Find("Description").GetComponent<TextMeshProUGUI>().text = gameEvent.Description;
 		Body.Find("Description").GetComponent<TextMeshProUGUI>().color = eventPreset.textColor;
 
 		Body.Find("OkButton").GetComponent<ColorButton>().defaultColor = eventPreset.buttonColor;
 		Body.Find("OkButton").GetComponent<ColorButton>().targetColor = eventPreset.buttonColor;
 		Body.Find("OkButton").GetComponent<ColorButton>().hoveredColor = eventPreset.buttonHoveredColor;
 
-		okCallback = null;
+		okCallback = callback;
 
 		StartCoroutine(FadeIn());
 	}
@@ -73,12 +83,6 @@ public class EventUIManager : MonoBehaviour
 		canvasGroup.blocksRaycasts = false;
 		canvasGroup.interactable = false;
 		okCallback?.Invoke();
-	}
-
-	public void ShowEvent(string Title, string Description, Action callback)
-	{
-		ShowEvent(Title, Description);
-		okCallback = callback;
 	}
 
 	public void OnClose()

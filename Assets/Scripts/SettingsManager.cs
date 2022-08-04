@@ -26,6 +26,4 @@ public class SettingsManager : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
-
-
 }

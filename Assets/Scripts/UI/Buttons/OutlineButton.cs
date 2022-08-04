@@ -48,6 +48,7 @@ public class OutlineButton : MonoBehaviour, Button
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
+		SFXManager.Instance.PlaySFX(SFX.button);
 		Actions.Invoke();
 	}
 }
