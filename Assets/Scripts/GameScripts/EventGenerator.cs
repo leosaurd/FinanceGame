@@ -153,10 +153,9 @@ public class EventGenerator : MonoBehaviour
 
 		selectMult = multiplier[Random.Range(0, multiplier.Length)];
 		string printList = string.Format(eventList[eventType], selectType, selectMult, selectRounds, selectBlocks);
-
 		if (eventType == EventType.Fractional)
 		{
-			selectMult = (float)1 / selectMult;
+			selectMult = 1f / selectMult;
 		}
 		//IN CASE SOMETHING DOESNT CAPITALIZE 
 		printList = printList.Substring(0, 1).ToUpper() + printList.Substring(1);
