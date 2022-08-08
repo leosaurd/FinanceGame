@@ -56,6 +56,22 @@ public class GameManager : MonoBehaviour
 
 	public List<BlockInstance> ownedBlocks = new List<BlockInstance>();
 
+	public void CalculateProfit()
+	{
+		int profit = 0;
+
+
+		foreach (BlockInstance block in ownedBlocks)
+		{
+			if (lastingEvent == null || lastingEvent.Type != EventType.BlockNullification || lastingEvent.AffectedGroup != block.blockType)
+			{
+				profit += block.profit;
+			}
+		}
+
+		profits = profit;
+	}
+
 	public void AddBlock(BlockInstance block)
 	{
 		ownedBlocks.Add(block);
@@ -80,7 +96,7 @@ public class GameManager : MonoBehaviour
 					if (gameEvent.Type == EventType.BlockAddition)
 					{
 						InstantEvent instantEvent = (InstantEvent)gameEvent;
-						profits += instantEvent.Block.profit;
+						CalculateProfit();
 						Stability += instantEvent.Block.stability;
 						ownedBlocks.Add(instantEvent.Block);
 						TowerAnimator.Instance.AddBlockToTower(instantEvent.Block);
@@ -90,7 +106,7 @@ public class GameManager : MonoBehaviour
 						InstantEvent instantEvent = (InstantEvent)gameEvent;
 						TowerAnimator.Instance.RemoveBlockFromTower(instantEvent.Block);
 						ownedBlocks.Remove(instantEvent.Block);
-						profits -= instantEvent.Block.profit;
+						CalculateProfit();
 						Stability -= instantEvent.Block.stability;
 					}
 				});
@@ -135,6 +151,8 @@ public class GameManager : MonoBehaviour
 				lastingEvent = null;
 			}
 		}
+
+		CalculateProfit();
 
 		if (Stability < -1)
 		{
