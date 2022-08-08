@@ -109,7 +109,7 @@ public class LastingEvent : GameEvent
 				}
 				else
 				{
-					min = 1f;
+					min = 1.25f;
 					max = 2f;
 				}
 			}
