@@ -13,9 +13,10 @@ public class BlockAnimator : MonoBehaviour
 	public float glow = 1;
 	public bool firstFall = true;
 
+	private TextMeshPro profitTextMesh;
+
 	public void Start()
 	{
-
 		SpriteRenderer spriteRenderer = transform.GetComponentInChildren<SpriteRenderer>();
 		spriteRenderer.sprite = TowerColorUtils.GetBlockSprite(block.towerColor, block.height);
 		spriteRenderer.sortingOrder = GameManager.Instance.ownedBlocks.Count;
@@ -31,8 +32,8 @@ public class BlockAnimator : MonoBehaviour
 		nameObject.GetComponent<TextMeshPro>().text = block.name;
 
 		int profit = block.profit;
-		// TODO Check if events affect profit?
-		profitObject.GetComponent<TextMeshPro>().text = (profit < 0 ? "-$" : "+$") + Mathf.Abs(profit).ToString("N0");
+		profitTextMesh = profitObject.GetComponent<TextMeshPro>();
+		profitTextMesh.text = (profit < 0 ? "-$" : "+$") + Mathf.Abs(profit).ToString("N0");
 
 
 		Transform glowObject = transform.Find("Glow");
@@ -71,8 +72,23 @@ public class BlockAnimator : MonoBehaviour
 		}
 	}
 
+	private void ProfitUpdate()
+	{
+		if (GameManager.Instance.lastingEvent != null && GameManager.Instance.lastingEvent.Type == EventType.BlockNullification && GameManager.Instance.lastingEvent.AffectedGroup == block.blockType)
+		{
+			profitTextMesh.text = "$0";
+		}
+		else
+		{
+			int profit = block.profit;
+			profitTextMesh.text = (profit < 0 ? "-$" : "+$") + Mathf.Abs(profit).ToString("N0");
+		}
+	}
+
 	private void FixedUpdate()
 	{
+		ProfitUpdate();
+
 		if (transform.localPosition.y > targetPosition)
 		{
 			float speed = 0.33f;

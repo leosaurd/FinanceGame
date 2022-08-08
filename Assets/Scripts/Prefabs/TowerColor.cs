@@ -26,6 +26,13 @@ public class TowerColorUtils
 		{BlockType.HighRiskInvestment, Resources.Load<Sprite>("HighRiskIcon") },
 	};
 
+	public static Dictionary<BlockType, Sprite> GetIsoIconSprite = new()
+	{
+		{BlockType.Insurance, Resources.Load<Sprite>("InsuranceIconIso") },
+		{BlockType.LowRiskInvestment, Resources.Load<Sprite>("LowRiskIconIso") },
+		{BlockType.HighRiskInvestment, Resources.Load<Sprite>("HighRiskIconIso") },
+	};
+
 	public static Sprite GetBlockSprite(TowerColor color, int height) => color switch
 	{
 		TowerColor.Green => Resources.Load<Sprite>("BlockGreen" + height),
