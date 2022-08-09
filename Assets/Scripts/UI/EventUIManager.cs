@@ -16,7 +16,7 @@ public class EventUIManager : MonoBehaviour
 	public EventUIPreset[] presets;
 #nullable enable
 	private Action? okCallback;
-	public Transform? blockObject;
+	public Transform blockObject;
 	private void Awake()
 	{
 		if (Instance == null) Instance = this;
