@@ -7,7 +7,6 @@ public class TowerAnimator : MonoBehaviour
 {
 	public static TowerAnimator Instance { get; private set; }
 	public GameObject blockPrefab;
-
 	public float targetPos = -0.775f;
 
 	public List<GameObject> tower = new List<GameObject>();
@@ -26,11 +25,9 @@ public class TowerAnimator : MonoBehaviour
 
 		if (Mathf.Abs(diff) < 0.005) transform.localPosition = new Vector2(transform.localPosition.x, targetPos);
 	}
-
 	public void RemoveBlockFromTower(BlockInstance block)
 	{
 		int index = tower.FindIndex(0, (GameObject obj) => obj.GetComponent<BlockAnimator>().block.id == block.id);
-
 		Destroy(tower[index]);
 		tower.RemoveAt(index);
 
@@ -50,10 +47,7 @@ public class TowerAnimator : MonoBehaviour
 		{
 			targetPos += 0.64f * block.height;
 		}
-
-
 	}
-
 	public void AddBlockToTower(BlockInstance block)
 	{
 		GameObject blockObj = Instantiate(blockPrefab, transform);

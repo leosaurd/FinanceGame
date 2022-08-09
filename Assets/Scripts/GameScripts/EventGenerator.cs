@@ -50,7 +50,6 @@ public class InstantEvent : GameEvent
 
 			int index = Random.Range(0, GameManager.Instance.ownedBlocks.Count);
 			Block = GameManager.Instance.ownedBlocks[index];
-
 			Description = "Removes a random block from the tower.";
 		}
 		else if (eventType == EventType.BlockAddition)

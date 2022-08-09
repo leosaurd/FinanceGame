@@ -16,13 +16,14 @@ public class EventUIManager : MonoBehaviour
 	public EventUIPreset[] presets;
 #nullable enable
 	private Action? okCallback;
-
+	public Transform? blockObject;
 	private void Awake()
 	{
 		if (Instance == null) Instance = this;
 
 		canvasGroup = GetComponent<CanvasGroup>();
 		Body = transform.Find("Body");
+		blockObject = Body.Find("EventBlock");
 	}
 
 	public void ShowEvent(GameEvent gameEvent, Action? callback)
@@ -38,8 +39,14 @@ public class EventUIManager : MonoBehaviour
 
 		int eventPresetIndex = UnityEngine.Random.Range(0, 3);
 		EventUIPreset eventPreset = presets[eventPresetIndex];
-
-		Body.Find("Background").GetComponent<Image>().sprite = eventPreset.image;
+		if (gameEvent is InstantEvent)
+		{
+			Body.Find("Background").GetComponent<Image>().sprite = eventPreset.bg;
+		}
+		else
+		{
+			Body.Find("Background").GetComponent<Image>().sprite = eventPreset.image;
+		}
 
 		Body.Find("Title").GetComponent<TextMeshProUGUI>().text = gameEvent.Title.ToUpper();
 		Body.Find("Title").GetComponent<TextMeshProUGUI>().color = eventPreset.textColor;
@@ -70,6 +77,7 @@ public class EventUIManager : MonoBehaviour
 
 	IEnumerator FadeOut()
 	{
+		blockObject.gameObject.SetActive(false);
 		canvasGroup.blocksRaycasts = false;
 		canvasGroup.interactable = false;
 
@@ -85,6 +93,9 @@ public class EventUIManager : MonoBehaviour
 		okCallback?.Invoke();
 	}
 
+
+
+
 	public void OnClose()
 	{
 		StartCoroutine(FadeOut());
@@ -96,13 +107,16 @@ public class EventUIManager : MonoBehaviour
 public class EventUIPreset
 {
 	public Sprite image;
+	public Sprite bg;
 	public Color textColor;
 	public Color buttonColor;
 	public Color buttonHoveredColor;
 
-	public EventUIPreset(Sprite image, Color textColor, Color buttonColor, Color buttonHoveredColor)
+
+	public EventUIPreset(Sprite image, Sprite bg, Color textColor, Color buttonColor, Color buttonHoveredColor)
 	{
 		this.image = image;
+		this.bg = bg;
 		this.textColor = textColor;
 		this.buttonColor = buttonColor;
 		this.buttonHoveredColor = buttonHoveredColor;
