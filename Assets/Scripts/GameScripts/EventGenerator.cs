@@ -61,7 +61,7 @@ public class InstantEvent : GameEvent
 			string name = NameGenerator.GenerateName(blockType);
 			Block = new(name, blockType, StaticObjectManager.BlockStats[name]);
 
-			Description = "Adds a random block from the tower.";
+			Description = "Adds a random block to the tower.";
 		}
 	}
 }
@@ -160,13 +160,13 @@ public class LastingEvent : GameEvent
 		switch (Type)
 		{
 			case EventType.BlockNullification:
-				Description = string.Format("<color=Green>{0}</color> blocks no longer generate profit for <color=Green>{1}</color> round{2}.", EventGenerator.BlockTypeToString[AffectedGroup], Duration.ToString(), Duration > 1 ? "s" : "");
+				Description = string.Format("<color=__>{0}</color> blocks no longer generate profit for <color=__>{1}</color> round{2}.", EventGenerator.BlockTypeToString[AffectedGroup], Duration.ToString(), Duration > 1 ? "s" : "");
 				break;
 			case EventType.Multiplier:
-				Description = string.Format("Multiply <color=Green>{0}</color> by <color=Green>{1}</color> for the next <color=Green>{2}</color> round{3} for <color=Green>{4}</color> blocks in the marketplace.", AffectedField.ToString(), VisualMultipler, Duration, Duration > 1 ? "s" : "", EventGenerator.BlockTypeToString[AffectedGroup]);
+				Description = string.Format("Multiply <color=__>{0}</color> by <color=__>{1}</color> for the next <color=__>{2}</color> round{3} for <color=__>{4}</color> blocks in the marketplace.", AffectedField.ToString(), VisualMultipler, Duration, Duration > 1 ? "s" : "", EventGenerator.BlockTypeToString[AffectedGroup]);
 				break;
 			case EventType.Fractional:
-				Description = string.Format("Divide <color=Green>{0}</color> by <color=Green>{1}</color> for the next <color=Green>{2}</color> round{3} for <color=Green>{4}</color> blocks in the marketplace.", AffectedField.ToString(), VisualMultipler, Duration, Duration > 1 ? "s" : "", EventGenerator.BlockTypeToString[AffectedGroup]);
+				Description = string.Format("Divide <color=__>{0}</color> by <color=__>{1}</color> for the next <color=__>{2}</color> round{3} for <color=__>{4}</color> blocks in the marketplace.", AffectedField.ToString(), VisualMultipler, Duration, Duration > 1 ? "s" : "", EventGenerator.BlockTypeToString[AffectedGroup]);
 				break;
 		}
 	}
