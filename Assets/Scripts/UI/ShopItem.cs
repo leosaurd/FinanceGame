@@ -45,6 +45,13 @@ public class ShopItem : MonoBehaviour
 
 		string costText = "$" + block.cost;
 		costObj.GetComponent<TextMeshProUGUI>().text = costText;
+
+		if (block.affectedByEvent && block.affectedField == EventField.cost)
+		{
+			ColorUtility.TryParseHtmlString("#03a9f4", out Color color);
+			costObj.GetComponent<TextMeshProUGUI>().color = color;
+		}
+
 		if (block.cost > GameManager.Instance.portfolioValue)
 		{
 			costObj.GetComponent<TextMeshProUGUI>().color = Color.red;
@@ -57,11 +64,18 @@ public class ShopItem : MonoBehaviour
 		}
 
 
-
 		string profitText = "";
 		if (block.profit < 0)
 			profitText += "-";
 		profitText += "$" + Mathf.Abs(block.profit);
+
+		if (block.affectedByEvent && block.affectedField == EventField.profit)
+		{
+			ColorUtility.TryParseHtmlString("#03a9f4", out Color color);
+			profitObj.GetComponent<TextMeshProUGUI>().color = color;
+		}
+
+
 		profitObj.GetComponent<TextMeshProUGUI>().text = profitText;
 
 
@@ -101,6 +115,8 @@ public class ShopItem : MonoBehaviour
 			stabilityChild.GetComponent<Image>().sprite = stabilityImage;
 			stabilityChild.transform.localPosition = new Vector3(-15 * i, 0, 0);
 		}
+
+
 	}
 
 	public void Buy()
