@@ -50,7 +50,8 @@ public class EventUIManager : MonoBehaviour
 
 		Body.Find("Title").GetComponent<TextMeshProUGUI>().text = gameEvent.Title.ToUpper();
 		Body.Find("Title").GetComponent<TextMeshProUGUI>().color = eventPreset.textColor;
-		Body.Find("Description").GetComponent<TextMeshProUGUI>().text = gameEvent.Description;
+
+		Body.Find("Description").GetComponent<TextMeshProUGUI>().text = gameEvent.Description.Replace("__", string.Format("#{0}", ColorUtility.ToHtmlStringRGB(eventPreset.buttonColor)));
 		Body.Find("Description").GetComponent<TextMeshProUGUI>().color = eventPreset.textColor;
 
 		Body.Find("OkButton").GetComponent<ColorButton>().defaultColor = eventPreset.buttonColor;
@@ -60,6 +61,18 @@ public class EventUIManager : MonoBehaviour
 		okCallback = callback;
 
 		StartCoroutine(FadeIn());
+	}
+
+
+	private void FixedUpdate()
+	{
+		if (GameManager.Instance.IsGameOver)
+		{
+			blockObject.gameObject.SetActive(false);
+			canvasGroup.blocksRaycasts = false;
+			canvasGroup.interactable = false;
+			canvasGroup.alpha = 0;
+		}
 	}
 
 	IEnumerator FadeIn()
