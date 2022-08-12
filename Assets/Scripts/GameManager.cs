@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager Instance { get; private set; }
-
+    public Transform losingVignette;
     void Awake()
     {
         if (!Instance) Instance = this;
@@ -179,6 +179,15 @@ public class GameManager : MonoBehaviour
         SessionManager.Instance.Session.LowRiskCount = ownedBlocks.FindAll((BlockInstance b) => b.blockType == BlockType.LowRiskInvestment).Count;
         SessionManager.Instance.Session.HighRiskCount = ownedBlocks.FindAll((BlockInstance b) => b.blockType == BlockType.HighRiskInvestment).Count;
         SessionManager.Instance.SaveSession();
+
+        if(stability < 0.3 || portfolioValue < 7000)
+        {
+            losingVignette.gameObject.SetActive(true);
+
+        } else
+        {
+            losingVignette.gameObject.SetActive(false);
+        }
     }
 
 
