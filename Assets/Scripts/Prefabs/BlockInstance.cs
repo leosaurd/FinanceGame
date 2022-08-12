@@ -14,6 +14,9 @@ public class BlockInstance
 	public int height;
 	public TowerColor towerColor;
 	public Guid id;
+	public bool affectedByEvent;
+	public EventField affectedField;
+
 	public BlockInstance(string name, BlockType blockType, StaticBlockStats defaultStats)
 	{
 		StaticBlockStats stats = defaultStats.GenerateStats();
@@ -28,9 +31,11 @@ public class BlockInstance
 		id = new Guid();
 #nullable enable
 		LastingEvent? lastingEvent = GameManager.Instance.lastingEvent;
-
 		if (lastingEvent != null && lastingEvent.AffectedGroup == blockType)
 		{
+			affectedByEvent = true;
+			affectedField = lastingEvent.AffectedField;
+
 			if (lastingEvent.AffectedField == EventField.profit)
 			{
 				profit = GameManager.Instance.RoundDownTwoSF(profit * lastingEvent.Multipler);
