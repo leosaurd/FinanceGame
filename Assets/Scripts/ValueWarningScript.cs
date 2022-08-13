@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ValueWarningScript : MonoBehaviour
 {
-    public static ValueWarningScript Instance { get; private set; }
+	public static ValueWarningScript Instance { get; private set; }
 
 	public Transform portfolioTransform;
 	public Transform profitTransform;
@@ -15,8 +15,8 @@ public class ValueWarningScript : MonoBehaviour
 
 	// Start is called before the first frame update
 	void Awake()
-    {
-        if (Instance == null) Instance = this;
+	{
+		if (Instance == null) Instance = this;
 		portfolioTransform = transform.Find("ValueStability");
 		profitTransform = transform.Find("ProfitStability");
 		stabilityDown = Resources.Load<Sprite>("StabilityDown");
@@ -25,15 +25,15 @@ public class ValueWarningScript : MonoBehaviour
 
 
 
-    //Things added here
-    public void PointerEnter(BlockInstance block)
-    {
+	//Things added here
+	public void PointerEnter(BlockInstance block)
+	{
 		ProfitValue(block);
 		PortfolioValue(block);
 	}
 
-    public void PointerExit()
-    {
+	public void PointerExit()
+	{
 		for (int i = 0; i < profitTransform.childCount; i++)
 		{
 			Destroy(profitTransform.GetChild(i).gameObject);
@@ -45,16 +45,15 @@ public class ValueWarningScript : MonoBehaviour
 	}
 
 	public void ProfitValue(BlockInstance block)
-    {
+	{
 		int numberOfSprites;
-		//TODO-Trent
-		float ratio = block.profit/50f;
+		float ratio = block.profit / 500f;
 
-		if (ratio > 0.66)
+		if (ratio > 0.35)
 		{
 			numberOfSprites = 3;
 		}
-		else if (ratio > 0.33)
+		else if (ratio > 0.1)
 		{
 			numberOfSprites = 2;
 		}
@@ -72,9 +71,9 @@ public class ValueWarningScript : MonoBehaviour
 	}
 
 	public void PortfolioValue(BlockInstance block)
-    {
+	{
 		int numberOfSprites;
-		float ratio = block.cost/(500*StaticBlockStats.roundScaling);
+		float ratio = block.cost / (500 * StaticBlockStats.roundScaling);
 
 		if (ratio > 0.66)
 		{
