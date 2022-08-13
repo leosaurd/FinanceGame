@@ -14,6 +14,7 @@ public class ShopItem : MonoBehaviour
 	private Transform buttonObj;
 	private Transform stabilityObj;
 	private Transform warningObj;
+	private Transform eventObj;
 	public GameObject stabilityChildPrefab;
 
 	public Sprite image;
@@ -29,8 +30,13 @@ public class ShopItem : MonoBehaviour
 		stabilityObj = transform.Find("Stability Images");
 		buttonObj = transform.Find("Button");
 		warningObj = transform.Find("Warning");
+		eventObj = transform.Find("EventWarning");
 
 
+		if (block.affectedByEvent)
+		{
+			eventObj.gameObject.SetActive(true);
+		}
 
 
 		image = TowerColorUtils.GetIconSprite[block.blockType];
