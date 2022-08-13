@@ -1559,6 +1559,42 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -175}
   m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!1 &265215546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 265215547}
+  m_Layer: 0
+  m_Name: ValueStability
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &265215547
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265215546}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1228478571}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -8, y: 27.500015}
+  m_SizeDelta: {x: 45, y: 15}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &283864869
 GameObject:
   m_ObjectHideFlags: 0
@@ -3982,7 +4018,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -151.42, y: 409}
+  m_AnchoredPosition: {x: -151.41998, y: 409}
   m_SizeDelta: {x: -332.84753, y: -870.00006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &565200103
@@ -6643,6 +6679,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1021802924}
   m_CullTransparentMesh: 1
+--- !u!1 &1043980489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1043980490}
+  m_Layer: 0
+  m_Name: ProfitStability
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1043980490
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043980489}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1228478571}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -8, y: -112.499985}
+  m_SizeDelta: {x: 45, y: 15}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &1054907303
 GameObject:
   m_ObjectHideFlags: 0
@@ -7600,6 +7672,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1228478571}
+  - component: {fileID: 1228478572}
   m_Layer: 0
   m_Name: Value Container
   m_TagString: Untagged
@@ -7624,6 +7697,8 @@ RectTransform:
   - {fileID: 2096734306}
   - {fileID: 2004312621}
   - {fileID: 1710142541}
+  - {fileID: 265215547}
+  - {fileID: 1043980490}
   m_Father: {fileID: 1917503120}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7632,6 +7707,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -300, y: 0}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &1228478572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228478570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d5546b81a935b47962f588d03e9945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portfolioTransform: {fileID: 0}
+  profitTransform: {fileID: 0}
+  stabilityUp: {fileID: 0}
+  stabilityDown: {fileID: 0}
+  stabilityChildPrefab: {fileID: 3661713344894008935, guid: c5db8e429126f204a9502cc7ec39fc3e, type: 3}
 --- !u!1 &1232940892
 GameObject:
   m_ObjectHideFlags: 0
@@ -7692,7 +7784,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -10871,6 +10963,14 @@ MonoBehaviour:
     description: Throughout the game random events can occur, these events can be
       beneficial or harmful.
     Image: {fileID: 21300000, guid: 46f8158d7542c354aa2a4e3f3393781a, type: 3}
+  - title: BLOCKS
+    description: 'There are three block groups: Low-risk, High-risk and Insurance.
+      These are represented by Icons.'
+    Image: {fileID: 21300000, guid: 46f8158d7542c354aa2a4e3f3393781a, type: 3}
+  - title: ARROWS
+    description: The arrows determine the intensity of the change to the value(ie,
+      3 arrows is a huge change, 1 arrow is a small change)..
+    Image: {fileID: 21300000, guid: 46f8158d7542c354aa2a4e3f3393781a, type: 3}
   pageText: {fileID: 0}
   subtitle: {fileID: 0}
   description: {fileID: 0}
@@ -11221,7 +11321,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: d5892e9607c216e44a7ef2ccf44b853a, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

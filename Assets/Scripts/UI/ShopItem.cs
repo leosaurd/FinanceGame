@@ -98,7 +98,7 @@ public class ShopItem : MonoBehaviour
 			numberOfSprites = 3;
 			buttonObj.GetComponent<FadeButton>().maxOpacity = 1;
 		}
-		else if (Mathf.Abs(block.stability) > 0.20)
+		else if (Mathf.Abs(block.stability) > 0.15)
 		{
 			numberOfSprites = 2;
 			buttonObj.GetComponent<FadeButton>().maxOpacity = 0.75f;
@@ -116,7 +116,7 @@ public class ShopItem : MonoBehaviour
 			stabilityChild.transform.localPosition = new Vector3(-15 * i, 0, 0);
 		}
 
-
+		buttonObj.GetComponent<FadeButton>().block = this.block;
 	}
 
 	public void Buy()

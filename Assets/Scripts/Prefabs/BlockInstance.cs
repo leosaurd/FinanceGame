@@ -31,8 +31,9 @@ public class BlockInstance
 		id = new Guid();
 #nullable enable
 		LastingEvent? lastingEvent = GameManager.Instance.lastingEvent;
-		if (lastingEvent != null && lastingEvent.AffectedGroup == blockType)
+		if (lastingEvent != null && lastingEvent.AffectedGroup == blockType && lastingEvent.Type!=EventType.BlockNullification)
 		{
+			
 			affectedByEvent = true;
 			affectedField = lastingEvent.AffectedField;
 

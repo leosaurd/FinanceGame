@@ -13,6 +13,7 @@ public class FadeButton : MonoBehaviour, Button
 	public float maxOpacity = 1;
 	private Image image;
 	public ButtonClickedEvent Actions;
+	public BlockInstance block;
 
 	void Awake()
 	{
@@ -33,11 +34,13 @@ public class FadeButton : MonoBehaviour, Button
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
+		ValueWarningScript.Instance.PointerEnter(block);
 		opacity = maxOpacity;
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
+		ValueWarningScript.Instance.PointerExit();
 		opacity = 0;
 	}
 

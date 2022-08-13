@@ -19,8 +19,8 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-        // Update is called once per frame
-        void FixedUpdate()
+    // Update is called once per frame
+    void FixedUpdate()
     {
         if (SettingsManager.Instance.music)
         {
