@@ -2458,7 +2458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408029560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.035, y: -0.775, z: 0}
+  m_LocalPosition: {x: 0.035, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2478,7 +2478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 2340051102920960146, guid: 996ef8a0758038647b7ad1372f8126d4, type: 3}
-  targetPos: -0.775
+  targetPos: 0.75
   tower: []
 --- !u!1 &428060546
 GameObject:
@@ -4018,7 +4018,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -151.41998, y: 409}
+  m_AnchoredPosition: {x: -151.42, y: 409}
   m_SizeDelta: {x: -332.84753, y: -870.00006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &565200103
@@ -7392,7 +7392,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 115, y: 0}
+  m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 45.79001, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1134951201
@@ -11105,11 +11105,19 @@ MonoBehaviour:
   - title: BLOCKS
     description: 'There are three block groups: Low-risk, High-risk and Insurance.
       These are represented by Icons.'
-    Image: {fileID: 21300000, guid: 46f8158d7542c354aa2a4e3f3393781a, type: 3}
-  - title: ARROWS
-    description: The arrows determine the intensity of the change to the value(ie,
-      3 arrows is a huge change, 1 arrow is a small change)..
-    Image: {fileID: 21300000, guid: 46f8158d7542c354aa2a4e3f3393781a, type: 3}
+    Image: {fileID: 21300000, guid: e82c209c31f66674493cdb095b0cef4a, type: 3}
+  - title: HIGH RISK
+    description: High risk blocks tend to give large profits while making your portfolio
+      much more unstable.
+    Image: {fileID: 21300000, guid: 0ae715004dd99d4409f79907ba5645dd, type: 3}
+  - title: LOW RISK
+    description: Low risk blocks will give you a small amount of profit and not impact
+      your stability too much.
+    Image: {fileID: 21300000, guid: 09c34ab188f79b34c931c098c46a6305, type: 3}
+  - title: INSURANCE
+    description: Insurance blocks will give you almost no profit but make your portfolio
+      much more stable.
+    Image: {fileID: 21300000, guid: 19e57dd96424af64ab932f70472080e3, type: 3}
   pageText: {fileID: 0}
   subtitle: {fileID: 0}
   description: {fileID: 0}
