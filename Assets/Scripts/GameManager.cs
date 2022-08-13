@@ -183,11 +183,12 @@ public class GameManager : MonoBehaviour
 		SessionManager.Instance.Session.HighRiskCount = ownedBlocks.FindAll((BlockInstance b) => b.blockType == BlockType.HighRiskInvestment).Count;
 		SessionManager.Instance.SaveSession();
 
-		if(stability < 0.3 || portfolioValue < 7000)
-        {
+		if (stability < -0.7 || portfolioValue - (250 * StaticBlockStats.roundScaling) < (250 * StaticBlockStats.roundScaling))
+		{
 			Vignette.gameObject.SetActive(true);
-        }else
-        {
+		}
+		else
+		{
 			Vignette.gameObject.SetActive(false);
 		}
 	}
