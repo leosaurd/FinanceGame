@@ -9,8 +9,8 @@ public class GameOver : MonoBehaviour
 {
 	public static GameOver Instance { get; private set; }
 
-	private static TextMeshProUGUI message;
-	private static TextMeshProUGUI score;
+	private static TextMeshProUGUI reasonComponent;
+	private static TextMeshProUGUI scoreComponent;
 
 	private static readonly Dictionary<GameOverReason, string> gameoverMessages = new()
 	{
@@ -24,29 +24,28 @@ public class GameOver : MonoBehaviour
 		{
 			Instance = this;
 
-			message = transform.GetChild(0).Find("GameOverSection").Find("Message").GetComponent<TextMeshProUGUI>();
-			score = transform.GetChild(0).Find("GameOverSection").Find("Score").GetComponent<TextMeshProUGUI>();
+			reasonComponent = transform.Find("Stage1").Find("Reason").GetComponent<TextMeshProUGUI>();
+			scoreComponent = transform.Find("Stage2").Find("Main").Find("GameOverSection").Find("Score").GetComponent<TextMeshProUGUI>();
 		}
 		else
 		{
 			Destroy(gameObject);
 		}
-
 	}
 
 	public void ShowGameover(GameOverReason reason)
 	{
 		GameManager gm = GameManager.Instance;
-		message.text = gameoverMessages[reason];
-		score.text = "$" + gm.totalEarnings.ToString("N0");
+		reasonComponent.text = gameoverMessages[reason];
+		scoreComponent.text = "$" + gm.totalEarnings.ToString("N0");
 
 		if (Leaderboard.Instance.IsTop5())
 		{
-			transform.GetChild(0).Find("GameOverSection").Find("SubmitScoreBtn").gameObject.SetActive(true);
+			transform.Find("Stage2").Find("Main").Find("GameOverSection").Find("SubmitScoreBtn").gameObject.SetActive(true);
 		}
 		else
 		{
-			transform.GetChild(0).Find("GameOverSection").Find("SubmitScoreBtn").gameObject.SetActive(false);
+			transform.Find("Stage2").Find("Main").Find("GameOverSection").Find("SubmitScoreBtn").gameObject.SetActive(false);
 		}
 
 		StartCoroutine(FadeIn());
@@ -54,7 +53,7 @@ public class GameOver : MonoBehaviour
 
 	IEnumerator FadeIn()
 	{
-		CanvasGroup canvasGroup = transform.GetChild(0).GetComponent<CanvasGroup>();
+		CanvasGroup canvasGroup = transform.Find("Stage1").GetComponent<CanvasGroup>();
 		canvasGroup.blocksRaycasts = true;
 		canvasGroup.interactable = true;
 
