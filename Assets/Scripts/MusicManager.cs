@@ -17,6 +17,10 @@ public class MusicManager : MonoBehaviour
 			DontDestroyOnLoad(gameObject);
 			audioSource = GetComponent<AudioSource>();
 		}
+		else
+		{
+			Destroy(gameObject);
+		}
 	}
 
 	// Update is called once per frame

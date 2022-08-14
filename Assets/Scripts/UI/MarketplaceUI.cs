@@ -70,8 +70,9 @@ public class MarketplaceUI : MonoBehaviour
 
 	private void CreateShopGameobjects(List<BlockInstance> blocks)
 	{
-		bool canAffordSomething = false;
 		bool canBuySomething = false;
+		bool canBuyStability = false;
+		bool canBuyCost = false;
 
 		int[] colorIndexes = ReorderArray(indexes);
 
@@ -82,8 +83,10 @@ public class MarketplaceUI : MonoBehaviour
 
 			instance.towerColor = (TowerColor)colorIndexes[i];
 
-			if (instance.cost < GameManager.Instance.portfolioValue) canAffordSomething = true;
-			if (GameManager.Instance.Stability + instance.stability > -1) canBuySomething = true;
+			if (instance.cost < GameManager.Instance.portfolioValue && GameManager.Instance.Stability + instance.stability > -1) canBuySomething = true;
+			if (instance.cost < GameManager.Instance.portfolioValue) canBuyCost = true;
+			if (GameManager.Instance.Stability + instance.stability > -1) canBuyStability = true;
+
 
 			GameObject item = Instantiate(ShopItemPrefab, ShopItemLocations[i]);
 			ShopItem shopItem = item.GetComponent<ShopItem>();
@@ -91,13 +94,21 @@ public class MarketplaceUI : MonoBehaviour
 			shop.Add(item);
 		}
 
-		if (!canAffordSomething)
+		if (!canBuySomething)
 		{
-			GameManager.Instance.EndGame(GameOverReason.Poor);
-		}
-		else if (!canBuySomething)
-		{
-			GameManager.Instance.EndGame(GameOverReason.Stability);
+			if (canBuyStability)
+			{
+				GameManager.Instance.EndGame(GameOverReason.Poor);
+			}
+			else if (canBuyCost)
+			{
+				GameManager.Instance.EndGame(GameOverReason.Stability);
+			}
+			else
+			{
+				GameManager.Instance.EndGame(GameOverReason.Stability);
+			}
+
 		}
 	}
 
