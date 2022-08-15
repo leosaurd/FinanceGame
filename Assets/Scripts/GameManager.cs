@@ -90,15 +90,13 @@ public class GameManager : MonoBehaviour
 			eventChance = 0f;
 
 			GameEvent gameEvent = EventGenerator.GenerateEvent();
+			//GameObject displayBlock;
 
-			if (gameEvent is InstantEvent)
+			if (gameEvent is InstantEvent instantEvent)
 			{
-				//GameObject displayBlock;
-				InstantEvent instantEvent = (InstantEvent)gameEvent;
 				BlockInstance displayBlock = instantEvent.Block;
 				EventUIManager.Instance.blockObject.GetComponent<EventBlockScript>().block = displayBlock;
 				EventUIManager.Instance.blockObject.GetComponent<EventBlockScript>().updateGraphics();
-				EventUIManager.Instance.blockObject.gameObject.SetActive(true);
 
 				EventUIManager.Instance.ShowEvent(gameEvent, () =>
 				{
