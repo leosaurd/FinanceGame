@@ -71,6 +71,11 @@ public class EventUIManager : MonoBehaviour
 
 		Body.Find("Description").GetComponent<TextMeshProUGUI>().text = gameEvent.Description.Replace("__", string.Format("#{0}", ColorUtility.ToHtmlStringRGB(eventPreset.buttonColor)));
 
+		Color glowColor = eventPreset.buttonColor;
+		glowColor.a = 0.7f;
+
+		Body.Find("OkButton").Find("Glow").GetComponent<Image>().color = glowColor;
+
 		Body.Find("OkButton").GetComponent<ColorButton>().defaultColor = eventPreset.buttonColor;
 		Body.Find("OkButton").GetComponent<ColorButton>().targetColor = eventPreset.buttonColor;
 		Body.Find("OkButton").GetComponent<ColorButton>().hoveredColor = eventPreset.buttonHoveredColor;

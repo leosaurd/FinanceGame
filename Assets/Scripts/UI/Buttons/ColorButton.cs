@@ -20,7 +20,7 @@ public class ColorButton : MonoBehaviour, Button, IPointerUpHandler, IPointerDow
 
 	void Awake()
 	{
-		image = GetComponentInChildren<Image>();
+		image = transform.Find("Background").GetComponent<Image>();
 		currentColor = defaultColor;
 		targetColor = defaultColor;
 	}

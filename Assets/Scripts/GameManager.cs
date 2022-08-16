@@ -76,6 +76,16 @@ public class GameManager : MonoBehaviour
 
 	public void AddBlock(BlockInstance block)
 	{
+		//If there is an ongoing event
+		if (lastingEvent != null)
+		{
+			lastingEvent.Duration--;
+			if (lastingEvent.Duration == 0)
+			{
+				lastingEvent = null;
+			}
+		}
+
 		ownedBlocks.Add(block);
 
 		//Only if there is no event happening.
@@ -151,15 +161,7 @@ public class GameManager : MonoBehaviour
 
 		}
 
-		//If there is an ongoing event
-		if (lastingEvent != null)
-		{
-			lastingEvent.Duration--;
-			if (lastingEvent.Duration == 0)
-			{
-				lastingEvent = null;
-			}
-		}
+
 
 		CalculateProfit();
 
@@ -211,8 +213,14 @@ public class GameManager : MonoBehaviour
 
 	public void RetunToMainMenu()
 	{
-		SessionManager.Instance.EndSession(SessionEndReason.MainMenu);
+		if (SessionManager.Instance.Session.SessionEndReason == SessionEndReason.none && SessionManager.Instance.Session.Tower.Length != 0)
+			SessionManager.Instance.EndSession(SessionEndReason.MainMenu);
 		SceneManager.LoadScene("MainMenu");
+	}
+
+	public void Retry()
+	{
+		SceneManager.LoadScene("Game");
 	}
 
 

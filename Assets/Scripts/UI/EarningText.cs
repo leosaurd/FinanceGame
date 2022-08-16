@@ -25,7 +25,7 @@ public class EarningText : MonoBehaviour
 		{
 			text += "-";
 		}
-		text += "Earnings:\n$" + Mathf.Abs(gameManager.totalEarnings).ToString("N0");
+		text += "EARNINGS:\n$" + Mathf.Abs(gameManager.totalEarnings).ToString("N0");
 		textComponent.text = text;
 	}
 }

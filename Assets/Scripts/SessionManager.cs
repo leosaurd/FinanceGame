@@ -56,8 +56,10 @@ public class SessionManager : MonoBehaviour
 	{
 		Session = new()
 		{
+			gameVersion = Application.version,
 			StartTime = Time.time,
-			SessionID = Guid.NewGuid().ToString()
+			SessionID = Guid.NewGuid().ToString(),
+			SessionEndReason = SessionEndReason.none,
 		};
 	}
 
@@ -120,6 +122,8 @@ public class GameSession
 	public string SessionID;
 
 
+	public string gameVersion;
+
 	public BlockInstance[] Tower;
 
 	public int InsuranceCount = 0;
@@ -142,5 +146,6 @@ public enum SessionEndReason
 	GameOverStability,
 	GameOverPoor,
 	MainMenu,
-	ClosedGame
+	ClosedGame,
+	none
 }
