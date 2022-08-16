@@ -13,7 +13,7 @@ public class BlockInstance
 	public string name;
 	public int height;
 	public TowerColor towerColor;
-	public Guid id;
+	public string id;
 	public bool affectedByEvent;
 	public EventField affectedField;
 
@@ -28,12 +28,12 @@ public class BlockInstance
 		cost = stats.cost;
 		height = stats.height;
 
-		id = new Guid();
+		id = Guid.NewGuid().ToString();
 #nullable enable
 		LastingEvent? lastingEvent = GameManager.Instance.lastingEvent;
-		if (lastingEvent != null && lastingEvent.AffectedGroup == blockType && lastingEvent.Type!=EventType.BlockNullification)
+		if (lastingEvent != null && lastingEvent.AffectedGroup == blockType && lastingEvent.Type != EventType.BlockNullification)
 		{
-			
+
 			affectedByEvent = true;
 			affectedField = lastingEvent.AffectedField;
 

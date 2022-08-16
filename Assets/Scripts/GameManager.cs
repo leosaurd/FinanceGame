@@ -213,7 +213,7 @@ public class GameManager : MonoBehaviour
 
 	public void RetunToMainMenu()
 	{
-		if (SessionManager.Instance.Session.SessionEndReason == SessionEndReason.none && SessionManager.Instance.Session.Tower.Length != 0)
+		if (SessionManager.Instance.Session.SessionEndReason == SessionEndReason.none && SessionManager.Instance.Session.Tower != null && SessionManager.Instance.Session.Tower.Length != 0)
 			SessionManager.Instance.EndSession(SessionEndReason.MainMenu);
 		SceneManager.LoadScene("MainMenu");
 	}
