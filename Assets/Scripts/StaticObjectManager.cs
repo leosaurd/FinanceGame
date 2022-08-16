@@ -8,10 +8,10 @@ public class StaticObjectManager : MonoBehaviour
 
 	public static readonly Dictionary<string, StaticBlockStats> BlockStats = new()
 	{
-		{ "Health Plan", new StaticBlockStats(150, 1, 2, 1) },
-		{ "Disability Plan", new StaticBlockStats(200, 0, 3, 1) },
-		{ "Term Life Plan", new StaticBlockStats(300, 2, 4, 1) },
-		{ "Life Plan", new StaticBlockStats(450, 1, 5, 1) },
+		{ "Health Plan", new StaticBlockStats(150, 1, 4, 1) },
+		{ "Disability Plan", new StaticBlockStats(200, 0, 6, 1) },
+		{ "Term Life Plan", new StaticBlockStats(300, 2, 8, 1) },
+		{ "Life Plan", new StaticBlockStats(450, 1, 10, 1) },
 
 		{ "Treasury Bills", new StaticBlockStats(150, 5, 1, 1) },
 		{ "Government Bonds", new StaticBlockStats(200, 10, 1, 1) },
