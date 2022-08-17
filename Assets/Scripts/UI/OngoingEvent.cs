@@ -30,7 +30,7 @@ public class OngoingEvent : MonoBehaviour
 
 			titleComponent.text = GameManager.Instance.lastingEvent.Title[..^6];
 
-			roundComponent.text = string.Format("{0} Round{1} Remaining", GameManager.Instance.lastingEvent.Duration - 1, GameManager.Instance.lastingEvent.Duration - 1 > 1 ? "s" : "");
+			roundComponent.text = string.Format("{0} Round{1} Remaining", GameManager.Instance.lastingEvent.Duration - 1, GameManager.Instance.lastingEvent.Duration - 1 != 1 ? "s" : "");
 		}
 		else
 		{

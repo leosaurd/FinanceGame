@@ -165,13 +165,13 @@ public class LastingEvent : GameEvent
 		switch (Type)
 		{
 			case EventType.BlockNullification:
-				Description = string.Format("<color=__>{0}</color> blocks will not generate profits for the next <color=__>{1}</color> round{2}.", EventGenerator.BlockTypeToString[AffectedGroup], Duration.ToString(), Duration > 1 ? "s" : "");
+				Description = string.Format("<color=__>{0}</color> blocks will not generate profits for the next <color=__>{1}</color> round{2}.", EventGenerator.BlockTypeToString[AffectedGroup], Duration.ToString(), Duration != 1 ? "s" : "");
 				break;
 			case EventType.Multiplier:
-				Description = string.Format("<color=__>{0}</color> of <color=__>{1}</color> blocks bought in the next <color=__>{2}</color> round{3} will be increased by <color=__>{4}</color> times.", fieldName, EventGenerator.BlockTypeToString[AffectedGroup], Duration, Duration > 1 ? "s" : "", VisualMultipler);
+				Description = string.Format("<color=__>{0}</color> of <color=__>{1}</color> blocks bought in the next <color=__>{2}</color> round{3} will be increased by <color=__>{4}</color> times.", fieldName, EventGenerator.BlockTypeToString[AffectedGroup], Duration, Duration != 1 ? "s" : "", VisualMultipler);
 				break;
 			case EventType.Fractional:
-				Description = string.Format("<color=__>{0}</color> of <color=__>{1}</color> blocks bought in the next <color=__>{2}</color> round{3} will be decreased by <color=__>{4}</color> times.", fieldName, EventGenerator.BlockTypeToString[AffectedGroup], Duration, Duration > 1 ? "s" : "", VisualMultipler);
+				Description = string.Format("<color=__>{0}</color> of <color=__>{1}</color> blocks bought in the next <color=__>{2}</color> round{3} will be decreased by <color=__>{4}</color> times.", fieldName, EventGenerator.BlockTypeToString[AffectedGroup], Duration, Duration != 1 ? "s" : "", VisualMultipler);
 				break;
 		}
 	}
