@@ -21,6 +21,8 @@ public class ShopItem : MonoBehaviour
 	public Color textColor;
 
 
+	private bool canBuy = true;
+
 	void Start()
 	{
 		imageObj = transform.Find("Image");
@@ -54,18 +56,25 @@ public class ShopItem : MonoBehaviour
 
 		if (block.affectedByEvent && block.affectedField == EventField.cost)
 		{
-			ColorUtility.TryParseHtmlString("#03a9f4", out Color color);
-			costObj.GetComponent<TextMeshProUGUI>().color = color;
+			if (block.beneficialEvent)
+			{
+				costObj.GetComponent<TextMeshProUGUI>().color = new Color32(33, 150, 243, 255);
+			}
+			else
+			{
+				costObj.GetComponent<TextMeshProUGUI>().color = new Color32(244, 67, 54, 255);
+			}
 		}
 
 		if (block.cost > GameManager.Instance.portfolioValue)
 		{
-			costObj.GetComponent<TextMeshProUGUI>().color = Color.red;
+			canBuy = false;
 			warningObj.gameObject.SetActive(true);
 		}
 
 		if (GameManager.Instance.Stability + block.stability <= -1)
 		{
+			canBuy = false;
 			warningObj.gameObject.SetActive(true);
 		}
 
@@ -77,8 +86,14 @@ public class ShopItem : MonoBehaviour
 
 		if (block.affectedByEvent && block.affectedField == EventField.profit)
 		{
-			ColorUtility.TryParseHtmlString("#03a9f4", out Color color);
-			profitObj.GetComponent<TextMeshProUGUI>().color = color;
+			if (block.beneficialEvent)
+			{
+				profitObj.GetComponent<TextMeshProUGUI>().color = new Color32(33, 150, 243, 255);
+			}
+			else
+			{
+				profitObj.GetComponent<TextMeshProUGUI>().color = new Color32(244, 67, 54, 255);
+			}
 		}
 
 
@@ -123,6 +138,9 @@ public class ShopItem : MonoBehaviour
 		}
 
 		buttonObj.GetComponent<FadeButton>().block = this.block;
+
+
+		transform.Find("GreyOverlay").gameObject.SetActive(!canBuy);
 	}
 
 	public void Buy()

@@ -15,6 +15,7 @@ public class BlockInstance
 	public TowerColor towerColor;
 	public string id;
 	public bool affectedByEvent;
+	public bool beneficialEvent;
 	public EventField affectedField;
 
 	public BlockInstance(string name, BlockType blockType, StaticBlockStats defaultStats)
@@ -49,6 +50,8 @@ public class BlockInstance
 			{
 				stability *= lastingEvent.Multipler;
 			}
+
+			beneficialEvent = lastingEvent.IsBeneficial;
 		}
 	}
 }

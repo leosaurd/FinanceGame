@@ -139,20 +139,33 @@ public class LastingEvent : GameEvent
 		}
 
 
-		IsBeneficial = true;
-
-		if (
-			Type == EventType.BlockNullification ||
-			(AffectedField == EventField.stability && Type == EventType.Multiplier) ||
-			(AffectedField == EventField.cost && Type == EventType.Multiplier) ||
-			(AffectedField == EventField.profit && Type == EventType.Fractional)
-			)
-		{
-			IsBeneficial = false;
-		}
+		IsBeneficial = GenerateBeneficial();
 
 		GenerateDescription();
 		GenerateTitle();
+	}
+
+	private bool GenerateBeneficial()
+	{
+		if (Type == EventType.BlockNullification)
+			return false;
+		if (Type == EventType.BlockRemoval)
+			return false;
+		if (Type == EventType.Multiplier)
+		{
+			if (AffectedField == EventField.cost)
+				return false;
+			if (AffectedField == EventField.stability && AffectedGroup == BlockType.HighRiskInvestment)
+				return false;
+		}
+		if (Type == EventType.Fractional)
+		{
+			if (AffectedField == EventField.profit)
+				return false;
+			if (AffectedField == EventField.stability && AffectedGroup == BlockType.Insurance)
+				return false;
+		}
+		return true;
 	}
 
 	public void GenerateDescription()
