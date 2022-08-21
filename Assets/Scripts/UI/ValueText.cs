@@ -23,9 +23,9 @@ public class ValueText : MonoBehaviour
 	void Update()
 	{
 		string text = "";
-		//Lazy adding in of warning atm - need to discuss parameters.
-		if(gameManager.portfolioValue < 7000)
-        {
+		//Updated the thing to match the stability/portfolio value warning.
+		if (gameManager.Stability < -0.7 || gameManager.portfolioValue - (250 * StaticBlockStats.roundScaling) < (250 * StaticBlockStats.roundScaling))
+		{
 			warningObj.gameObject.SetActive(true);
         } else
         {

@@ -12,8 +12,7 @@ public class ValueWarningScript : MonoBehaviour
 	public Sprite stabilityUp;
 	public Sprite stabilityDown;
 	public GameObject stabilityChildPrefab;
-
-	// Start is called before the first frame update
+	//Pretty sure they wanted to remove this? TODO
 	void Awake()
 	{
 		if (Instance == null) Instance = this;

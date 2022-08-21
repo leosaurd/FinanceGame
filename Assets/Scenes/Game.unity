@@ -974,7 +974,9 @@ MonoBehaviour:
     name: 
     height: 0
     towerColor: 0
+    id: 
     affectedByEvent: 0
+    beneficialEvent: 0
     affectedField: 0
   iconRenderer: {fileID: 0}
 --- !u!1 &121482414
@@ -5975,7 +5977,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -151.41997, y: 409}
+  m_AnchoredPosition: {x: -151.41998, y: 409}
   m_SizeDelta: {x: -332.84753, y: -870.00006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &565200103
@@ -14711,7 +14713,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 585d970a3854f8c4686e66afac3674a5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13b5b6d9e4004ab449e9c61b52a08394, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
