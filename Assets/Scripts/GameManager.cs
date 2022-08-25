@@ -128,6 +128,7 @@ public class GameManager : MonoBehaviour
 					}
 
 					EventUIManager.Instance.blockObject.gameObject.SetActive(false);
+					MarketplaceUI.Instance.RefreshShop();
 				});
 			}
 			else if (gameEvent is LastingEvent)
