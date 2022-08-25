@@ -57,7 +57,6 @@ public class SessionManager : MonoBehaviour
 		Session = new()
 		{
 			gameVersion = Application.version,
-			StartTime = Time.time,
 			SessionID = Guid.NewGuid().ToString(),
 			SessionEndReason = SessionEndReason.none,
 		};
@@ -80,7 +79,7 @@ public class SessionManager : MonoBehaviour
 
 	IEnumerator SendSession()
 	{
-		Session.CurrentTime = Time.time;
+		Session.Time = Time.time;
 
 		string jsonString = JsonUtility.ToJson(Session);
 
@@ -97,7 +96,7 @@ public class SessionManager : MonoBehaviour
 
 	IEnumerator SendSession(Action callback)
 	{
-		Session.CurrentTime = Time.time;
+		Session.Time = Time.time;
 
 		string jsonString = JsonUtility.ToJson(Session);
 
@@ -135,8 +134,7 @@ public class GameSession
 
 	public List<float> Stability = new();
 
-	public float StartTime;
-	public float CurrentTime;
+	public float Time;
 
 	public SessionEndReason SessionEndReason;
 }
