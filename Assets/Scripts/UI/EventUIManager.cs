@@ -37,8 +37,9 @@ public class EventUIManager : MonoBehaviour
 
 	public void LoadPresets()
 	{
-		presets.Add(EventType.Multiplier, new EventUIPreset(Resources.Load<Sprite>("EventMultiplier"), new Color32(221, 114, 27, 255), new Color32(244, 138, 59, 255)));
-		presets.Add(EventType.Fractional, new EventUIPreset(Resources.Load<Sprite>("EventDivider"), new Color32(0, 146, 69, 255), new Color32(49, 175, 100, 255)));
+		presets.Add(EventType.CostIncrease, new EventUIPreset(Resources.Load<Sprite>("EventMultiplier"), new Color32(221, 114, 27, 255), new Color32(244, 138, 59, 255)));
+		presets.Add(EventType.ProfitIncrease, new EventUIPreset(Resources.Load<Sprite>("EventMultiplier"), new Color32(221, 114, 27, 255), new Color32(244, 138, 59, 255)));
+		presets.Add(EventType.CostDecrease, new EventUIPreset(Resources.Load<Sprite>("EventDivider"), new Color32(0, 146, 69, 255), new Color32(49, 175, 100, 255)));
 		presets.Add(EventType.BlockNullification, new EventUIPreset(Resources.Load<Sprite>("EventNullification"), new Color32(94, 192, 233, 255), new Color32(148, 213, 240, 255)));
 		presets.Add(EventType.BlockAddition, new EventUIPreset(Resources.Load<Sprite>("EventAddition"), new Color32(0, 113, 187, 255), new Color32(94, 192, 233, 255)));
 		presets.Add(EventType.BlockRemoval, new EventUIPreset(Resources.Load<Sprite>("EventRemoval"), new Color32(0, 113, 187, 255), new Color32(94, 192, 233, 255)));

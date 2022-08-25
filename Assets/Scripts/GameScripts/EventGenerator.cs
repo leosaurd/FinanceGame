@@ -45,23 +45,22 @@ public class InstantEvent : GameEvent
 
 		if (eventType == EventType.BlockRemoval)
 		{
-			Title = "Block Removal Event";
+			Title = "Rug Pull!";
 			IsBeneficial = false;
 
-			int index = Random.Range(0, GameManager.Instance.ownedBlocks.Count);
-			Block = GameManager.Instance.ownedBlocks[index];
-			Description = "Removes a random block from the tower.";
+			Block = GameManager.Instance.ownedBlocks[GameManager.Instance.ownedBlocks.Count - 1];
+			Description = "The asset you bought turned out to be a scam! It has been removed from your portfolio.";
 		}
 		else if (eventType == EventType.BlockAddition)
 		{
-			Title = "Block Addition Event";
+			Title = "Inheritance";
 			IsBeneficial = true;
 
 			BlockType blockType = (BlockType)Random.Range(0, 3);
 			string name = NameGenerator.GenerateName(blockType);
 			Block = new(name, blockType, StaticObjectManager.BlockStats[name]);
 
-			Description = "Adds a random block to the tower.";
+			Description = "You inherited an asset from a distant relative.";
 		}
 	}
 }
@@ -71,10 +70,8 @@ public class LastingEvent : GameEvent
 	public int Duration { get; set; }
 
 	public float Multipler { get; private set; }
-	public float VisualMultipler { get; private set; }
 
 	public BlockType AffectedGroup { get; private set; }
-	public EventField AffectedField { get; private set; }
 
 
 	public LastingEvent(EventType eventType)
@@ -82,58 +79,27 @@ public class LastingEvent : GameEvent
 		Type = eventType;
 
 		AffectedGroup = (BlockType)Random.Range(0, 3);
-		AffectedField = (EventField)Random.Range(0, 3);
 
 		if (Type == EventType.BlockNullification)
 		{
-			Duration = Random.Range(1, 4);
+			Duration = 1;
 			Multipler = 0;
 		}
 		else
 		{
-			Duration = Random.Range(2, 7);
+			Duration = Random.Range(1, 4);
 
-			int isLarge = Random.Range(0, 100);
-
-
-			float min = 0f;
-			float max = 0f;
-
-			if (Type == EventType.Multiplier)
+			if (Type == EventType.CostIncrease)
 			{
-				if (isLarge <= 10)
-				{
-					min = 1.75f;
-					max = 3f;
-				}
-				else
-				{
-					min = 1.25f;
-					max = 2f;
-				}
+				Multipler = 2f;
 			}
-			else if (Type == EventType.Fractional)
+			else if (Type == EventType.CostDecrease)
 			{
-				if (isLarge <= 10)
-				{
-					min = 2.5f;
-					max = 5f;
-				}
-				else
-				{
-					min = 1.5f;
-					max = 3f;
-				}
+				Multipler = 0.5f;
 			}
-
-
-
-			Multipler = Mathf.Round(Random.Range(min, max) * 4) / 4f;
-			VisualMultipler = Multipler;
-
-			if (Type == EventType.Fractional)
+			else if (Type == EventType.ProfitIncrease)
 			{
-				Multipler = 1f / Multipler;
+				Multipler = 2f;
 			}
 
 		}
@@ -151,40 +117,28 @@ public class LastingEvent : GameEvent
 			return false;
 		if (Type == EventType.BlockRemoval)
 			return false;
-		if (Type == EventType.Multiplier)
+		if (Type == EventType.CostIncrease)
 		{
-			if (AffectedField == EventField.cost)
-				return false;
-			if (AffectedField == EventField.stability && AffectedGroup == BlockType.HighRiskInvestment)
-				return false;
-		}
-		if (Type == EventType.Fractional)
-		{
-			if (AffectedField == EventField.profit)
-				return false;
-			if (AffectedField == EventField.stability && AffectedGroup == BlockType.Insurance)
-				return false;
+			return false;
 		}
 		return true;
 	}
 
 	public void GenerateDescription()
 	{
-		string fieldName = AffectedField.ToString();
-		char[] letters = fieldName.ToCharArray();
-		letters[0] = char.ToUpper(letters[0]);
-		fieldName = new string(letters);
-
 		switch (Type)
 		{
 			case EventType.BlockNullification:
-				Description = string.Format("<color=__>{0}</color> blocks will not generate profits for the next <color=__>{1}</color> round{2}.", EventGenerator.BlockTypeToString[AffectedGroup], Duration.ToString(), Duration != 1 ? "s" : "");
+				Description = string.Format("<color=__>{0}</color> assets will not generate profits for the next turn.", EventGenerator.BlockTypeToString[AffectedGroup]);
 				break;
-			case EventType.Multiplier:
-				Description = string.Format("<color=__>{0}</color> of <color=__>{1}</color> blocks bought in the next <color=__>{2}</color> round{3} will be increased by <color=__>{4}</color> times.", fieldName, EventGenerator.BlockTypeToString[AffectedGroup], Duration, Duration != 1 ? "s" : "", VisualMultipler);
+			case EventType.CostIncrease:
+				Description = string.Format("<color=__>{0}</color> assets are trending and will cost double for <color=__>{1}</color> turn{2}.", EventGenerator.BlockTypeToString[AffectedGroup], Duration, Duration != 1 ? "s" : "");
 				break;
-			case EventType.Fractional:
-				Description = string.Format("<color=__>{0}</color> of <color=__>{1}</color> blocks bought in the next <color=__>{2}</color> round{3} will be decreased by <color=__>{4}</color> times.", fieldName, EventGenerator.BlockTypeToString[AffectedGroup], Duration, Duration != 1 ? "s" : "", VisualMultipler);
+			case EventType.ProfitIncrease:
+				Description = string.Format("Reliable sources say <color=__>{0}</color> assets purchased in the next <color=__>{1}</color> turn{2} will generate double profits.", EventGenerator.BlockTypeToString[AffectedGroup], Duration, Duration != 1 ? "s" : "");
+				break;
+			case EventType.CostDecrease:
+				Description = string.Format("An oversupply of <color=__>{0}</color> assets in the market has caused the price to drop by half for <color=__>{1}</color> turn{2}.", EventGenerator.BlockTypeToString[AffectedGroup], Duration, Duration != 1 ? "s" : "");
 				break;
 		}
 	}
@@ -194,13 +148,16 @@ public class LastingEvent : GameEvent
 		switch (Type)
 		{
 			case EventType.BlockNullification:
-				Title = "Profit Nullification Event";
+				Title = "Black Swan Event";
 				break;
-			case EventType.Multiplier:
-				Title = string.Format("{0} Multiplier Event", AffectedField.ToString());
+			case EventType.CostIncrease:
+				Title = string.Format("{0} Hype", EventGenerator.BlockTypeToString[AffectedGroup]);
 				break;
-			case EventType.Fractional:
-				Title = string.Format("{0} Divider Event", AffectedField.ToString());
+			case EventType.CostDecrease:
+				Title = string.Format("Supply Surplus");
+				break;
+			case EventType.ProfitIncrease:
+				Title = string.Format("Insider Tip");
 				break;
 		}
 	}

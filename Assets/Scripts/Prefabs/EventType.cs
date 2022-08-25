@@ -1,16 +1,10 @@
 //Enumerator for Event Types
 public enum EventType
 {
-	Multiplier,
-	Fractional,
+	CostIncrease,
+	CostDecrease,
+	ProfitIncrease,
 	BlockRemoval,
 	BlockNullification,
 	BlockAddition
-}
-
-public enum EventField
-{
-	profit,
-	stability,
-	cost
 }

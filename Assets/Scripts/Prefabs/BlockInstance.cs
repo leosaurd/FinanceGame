@@ -15,8 +15,7 @@ public class BlockInstance
 	public TowerColor towerColor;
 	public string id;
 	public bool affectedByEvent;
-	public bool beneficialEvent;
-	public EventField affectedField;
+	public EventType eventType;
 
 	public BlockInstance(string name, BlockType blockType, StaticBlockStats defaultStats)
 	{
@@ -34,24 +33,17 @@ public class BlockInstance
 		LastingEvent? lastingEvent = GameManager.Instance.lastingEvent;
 		if (lastingEvent != null && lastingEvent.AffectedGroup == blockType && lastingEvent.Type != EventType.BlockNullification)
 		{
-
 			affectedByEvent = true;
-			affectedField = lastingEvent.AffectedField;
+			eventType = lastingEvent.Type;
 
-			if (lastingEvent.AffectedField == EventField.profit)
-			{
-				profit = GameManager.Instance.RoundDownTwoSF(profit * lastingEvent.Multipler);
-			}
-			else if (lastingEvent.AffectedField == EventField.cost)
+			if (lastingEvent.Type == EventType.CostIncrease || lastingEvent.Type == EventType.CostDecrease)
 			{
 				cost = GameManager.Instance.RoundDownTwoSF(cost * lastingEvent.Multipler);
 			}
-			else if (lastingEvent.AffectedField == EventField.stability)
+			else if (lastingEvent.Type == EventType.ProfitIncrease)
 			{
-				stability *= lastingEvent.Multipler;
+				profit = GameManager.Instance.RoundDownTwoSF(profit * lastingEvent.Multipler);
 			}
-
-			beneficialEvent = lastingEvent.IsBeneficial;
 		}
 	}
 }

@@ -59,16 +59,10 @@ public class ShopItem : MonoBehaviour
 			profitText += "-";
 		profitText += "$" + Mathf.Abs(block.profit);
 
-		if (block.affectedByEvent && block.affectedField == EventField.profit)
+		if (block.affectedByEvent)
 		{
-			if (block.beneficialEvent)
-			{
+			if (block.eventType == EventType.ProfitIncrease)
 				profitObj.GetComponent<TextMeshProUGUI>().color = new Color32(33, 150, 243, 255);
-			}
-			else
-			{
-				profitObj.GetComponent<TextMeshProUGUI>().color = new Color32(244, 67, 54, 255);
-			}
 		}
 
 		profitObj.GetComponent<TextMeshProUGUI>().text = profitText;
@@ -133,16 +127,12 @@ public class ShopItem : MonoBehaviour
 		string costText = "$" + block.cost;
 		costObj.GetComponent<TextMeshProUGUI>().text = costText;
 
-		if (block.affectedByEvent && block.affectedField == EventField.cost)
+		if (block.affectedByEvent)
 		{
-			if (block.beneficialEvent)
-			{
-				costObj.GetComponent<TextMeshProUGUI>().color = new Color32(33, 150, 243, 255);
-			}
-			else
-			{
+			if (block.eventType == EventType.CostIncrease)
 				costObj.GetComponent<TextMeshProUGUI>().color = new Color32(244, 67, 54, 255);
-			}
+			else if (block.eventType == EventType.CostDecrease)
+				costObj.GetComponent<TextMeshProUGUI>().color = new Color32(33, 150, 243, 255);
 		}
 
 		if (block.cost > GameManager.Instance.portfolioValue)

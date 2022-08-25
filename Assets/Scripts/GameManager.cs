@@ -135,7 +135,6 @@ public class GameManager : MonoBehaviour
 				lastingEvent = (LastingEvent)gameEvent;
 				EventUIManager.Instance.ShowEvent(gameEvent, () =>
 				{
-					//MarketplaceUI.Instance.RefreshShop();
 				});
 
 
