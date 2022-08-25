@@ -7,9 +7,9 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-
 	public static GameManager Instance { get; private set; }
 	public Transform Vignette;
+
 
 	void Awake()
 	{
@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
+
 		profits = profit;
 	}
 
@@ -85,6 +86,8 @@ public class GameManager : MonoBehaviour
 				lastingEvent = null;
 			}
 		}
+
+		bool refresh = true;
 
 		ownedBlocks.Add(block);
 
@@ -104,6 +107,7 @@ public class GameManager : MonoBehaviour
 
 			if (gameEvent is InstantEvent instantEvent)
 			{
+				refresh = false;
 				BlockInstance displayBlock = instantEvent.Block;
 				EventUIManager.Instance.blockObject.GetComponent<EventBlockScript>().block = displayBlock;
 				EventUIManager.Instance.blockObject.GetComponent<EventBlockScript>().updateGraphics();
@@ -137,8 +141,6 @@ public class GameManager : MonoBehaviour
 				EventUIManager.Instance.ShowEvent(gameEvent, () =>
 				{
 				});
-
-
 			}
 		}
 		TowerAnimator.Instance.AddBlockToTower(block);
@@ -163,17 +165,25 @@ public class GameManager : MonoBehaviour
 
 
 
+
 		CalculateProfit();
 
 		if (Stability < -1)
 		{
 			Stability = -1;
 			EndGame(GameOverReason.Stability);
+			return;
 		}
 		else if (Stability > 1)
 		{
 			Stability = 1;
 		}
+
+		if (refresh)
+		{
+			MarketplaceUI.Instance.RefreshShop();
+		}
+
 
 		SessionManager.Instance.Session.Stability.Add(Stability);
 		SessionManager.Instance.Session.TotalEarnings = totalEarnings;

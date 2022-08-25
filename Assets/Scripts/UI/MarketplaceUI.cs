@@ -127,10 +127,6 @@ public class MarketplaceUI : MonoBehaviour
 		GM.portfolioValue -= block.cost;
 		GM.Stability += block.stability;
 		GM.AddBlock(block);
-
-
-
-		RefreshShop();
 	}
 
 
