@@ -120,7 +120,6 @@ public class GameManager : MonoBehaviour
 						CalculateProfit();
 						Stability += instantEvent.Block.stability;
 						ownedBlocks.Add(instantEvent.Block);
-
 						TowerAnimator.Instance.AddBlockToTower(instantEvent.Block);
 					}
 					else if (gameEvent.Type == EventType.BlockRemoval)
@@ -129,6 +128,17 @@ public class GameManager : MonoBehaviour
 						ownedBlocks.Remove(instantEvent.Block);
 						CalculateProfit();
 						Stability -= instantEvent.Block.stability;
+					}
+					//If an event happens that puts stability down, it'll be an instant game-over, but this SHOULD fix the thing.
+					if (Stability < -1)
+					{
+						Stability = -1;
+						EndGame(GameOverReason.Stability);
+						return;
+					}
+					else if (Stability > 1)
+					{
+						Stability = 1;
 					}
 
 					EventUIManager.Instance.blockObject.gameObject.SetActive(false);

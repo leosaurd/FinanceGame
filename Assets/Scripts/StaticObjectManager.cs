@@ -24,6 +24,6 @@ public class StaticObjectManager : MonoBehaviour
 		{ "Equity Mutual Fund", new StaticBlockStats(Mathf.FloorToInt(250 / 1.05f), 35, -3, 2) },
 		{ "Emerging Markets Equities", new StaticBlockStats(Mathf.FloorToInt(300 / 1.05f), 50, -5, 3) },
 		{ "High-Yield Bonds", new StaticBlockStats(Mathf.FloorToInt(350 / 1.05f), 75, -7, 3) },
-		{ "Cryptocurrencies", new StaticBlockStats(Mathf.FloorToInt(450 / 1.05f), 100, -9, 3) },
+		{ "Crypto Currency", new StaticBlockStats(Mathf.FloorToInt(450 / 1.05f), 100, -9, 3) },
 	};
 }

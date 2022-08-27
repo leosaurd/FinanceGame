@@ -13,7 +13,7 @@ public class EventGenerator : MonoBehaviour
 
 	public static GameEvent GenerateEvent()
 	{
-		EventType eventType = (EventType)Random.Range(0, 5);
+		EventType eventType = (EventType)Random.Range(0, 6);
 
 		if (eventType == EventType.BlockRemoval || eventType == EventType.BlockAddition)
 		{
