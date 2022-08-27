@@ -17,6 +17,7 @@ public class Tutorial : MonoBehaviour
 	public TextMeshProUGUI subtitle;
 	public TextMeshProUGUI description;
 	public Image image;
+	public Image gif;
 
 	public Image previousImage;
 
@@ -28,6 +29,7 @@ public class Tutorial : MonoBehaviour
 		set
 		{
 			currentPage = value;
+
 			pageText.text = (currentPage + 1) + "/" + pages.Length;
 
 			if (currentPage == 0) previousImage.color = new Color(0.1f, 0.22f, 0.4f);
@@ -57,6 +59,7 @@ public class Tutorial : MonoBehaviour
 		subtitle = transform.Find("Subtitle").GetComponent<TextMeshProUGUI>();
 		description = transform.Find("Description").GetComponent<TextMeshProUGUI>();
 		image = transform.Find("Image").GetComponent<Image>();
+		gif = transform.Find("GIF").GetComponent<Image>();
 
 		previousImage = transform.Find("BackButton").GetComponentInChildren<Image>();
 
@@ -71,7 +74,18 @@ public class Tutorial : MonoBehaviour
 
 		subtitle.text = page.title;
 		description.text = page.description;
-		image.sprite = page.Image;
+		if (currentPage == 0)
+		{
+			image.gameObject.SetActive(false);
+			gif.gameObject.SetActive(true);
+			gif.GetComponent<Gif>().StartLoop();
+		}
+		else
+		{
+			image.gameObject.SetActive(true);
+			gif.gameObject.SetActive(false);
+			image.sprite = page.Image;
+		}
 
 	}
 
