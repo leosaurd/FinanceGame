@@ -976,8 +976,7 @@ MonoBehaviour:
     towerColor: 0
     id: 
     affectedByEvent: 0
-    beneficialEvent: 0
-    affectedField: 0
+    eventType: 0
   iconRenderer: {fileID: 0}
 --- !u!1 &121482414
 GameObject:
@@ -1258,7 +1257,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -20, y: -22.3}
+  m_AnchoredPosition: {x: -20, y: -22.300003}
   m_SizeDelta: {x: 128, y: 30}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &141285454
@@ -6834,6 +6833,155 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662745230}
   m_CullTransparentMesh: 1
+--- !u!1 &696476681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 696476682}
+  - component: {fileID: 696476685}
+  - component: {fileID: 696476684}
+  - component: {fileID: 696476683}
+  m_Layer: 0
+  m_Name: Rounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &696476682
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696476681}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 760722959}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 22.5, y: -518}
+  m_SizeDelta: {x: 120, y: 50}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &696476683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696476681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28485f90e4de8a439a6350be222d88f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &696476684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696476681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Round #
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: d277664a28013d844a819ccabc77384c, type: 2}
+  m_sharedMaterial: {fileID: -1219962316674100960, guid: d277664a28013d844a819ccabc77384c, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: -30
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -0.39905167, y: 0, z: -0.75747865, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &696476685
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696476681}
+  m_CullTransparentMesh: 1
 --- !u!1 &713946181
 GameObject:
   m_ObjectHideFlags: 0
@@ -7345,6 +7493,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 565200102}
+  - {fileID: 696476682}
   - {fileID: 767493914}
   - {fileID: 1125188330}
   - {fileID: 5390960}
@@ -10689,8 +10838,7 @@ MonoBehaviour:
     HighRiskCount: 0
     TotalEarnings: 0
     Stability: []
-    StartTime: 0
-    CurrentTime: 0
+    Time: 0
     SessionEndReason: 0
   ID: 
 --- !u!4 &1190186107
@@ -15379,36 +15527,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pages:
   - title: OBJECTIVE
-    description: Earn as much money as possible while keeping your tower stable.
+    description: Build the largest portfolio you can by adding new blocks to it.
+      Different assets you purchase will raise or lower the stability and profit
+      of your portfolio.
     Image: {fileID: 21300000, guid: 8cffd728b55d4ae46bd98d6ed0483614, type: 3}
   - title: STABILITY
-    description: Different blocks you can purchase will raise or lower your tower's
-      stability.  Be careful not to let it get too unstable or you'll lose.
+    description: "Different blocks you purchase will raise or lower tower\u2019s
+      stability. Be careful not let it get too unstable or you\u2019ll lose. "
     Image: {fileID: 21300000, guid: 03df1b0328929dd40a15416522c27c40, type: 3}
   - title: PROFITS
-    description: Each round the profits from all of your blocks are added to your
-      portfolio value.
+    description: "Generate enough profits to purchase new asset blocks while maintaining
+      your stability. If your portfolio becomes too unstable or you run out of funds,
+      it\u2019s game over. "
     Image: {fileID: 21300000, guid: e8a3cc29265632d4e8307ced4665ec6b, type: 3}
   - title: EVENTS
-    description: Throughout the game random events can occur, these events can be
-      beneficial or harmful.
+    description: Throughout the game, random events may occur, these events can be
+      beneficial or harmful. Some events last for multiple rounds, so keep an eye
+      out for the indicator.
     Image: {fileID: 21300000, guid: 46f8158d7542c354aa2a4e3f3393781a, type: 3}
   - title: BLOCKS
-    description: 'There are three block groups: Low-risk, High-risk and Insurance.
-      These are represented by Icons.'
+    description: 'There are three asset classes; Low-risk, High-Risk and Insurance.
+      Each asset class shares common traits and an icon. High-risk assets provide
+      high profits at the cost of stability. '
     Image: {fileID: 21300000, guid: e82c209c31f66674493cdb095b0cef4a, type: 3}
-  - title: HIGH RISK
-    description: High risk blocks tend to give large profits while making your portfolio
-      much more unstable.
-    Image: {fileID: 21300000, guid: 0ae715004dd99d4409f79907ba5645dd, type: 3}
-  - title: LOW RISK
-    description: Low risk blocks will give you a small amount of profit and not impact
-      your stability too much.
+  - title: ASSET MANAGEMENT
+    description: 'Low-risk assets usually provide moderate profits with little impact
+      to stability. Insurance assets tend to give you little to no profits but increase
+      the stability of your portfolio. '
     Image: {fileID: 21300000, guid: 09c34ab188f79b34c931c098c46a6305, type: 3}
-  - title: INSURANCE
-    description: Insurance blocks will give you almost no profit but make your portfolio
-      much more stable.
-    Image: {fileID: 21300000, guid: 19e57dd96424af64ab932f70472080e3, type: 3}
   pageText: {fileID: 0}
   subtitle: {fileID: 0}
   description: {fileID: 0}
