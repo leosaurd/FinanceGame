@@ -25,7 +25,7 @@ public class RoundText : MonoBehaviour
 		{
 			text += "-";
 		}
-		text += "ROUND:\n" + Mathf.Abs(gameManager.ownedBlocks.Count).ToString("N0");
+		text += "TURN\n" + Mathf.Abs(gameManager.ownedBlocks.Count).ToString("N0");
 		textComponent.text = text;
 	}
 }
