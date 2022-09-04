@@ -123,18 +123,16 @@ public class GameSession
 
 	public string gameVersion;
 
-	public BlockInstance[] Tower;
-
 	public int InsuranceCount = 0;
 	public int LowRiskCount = 0;
 	public int HighRiskCount = 0;
 
 
-	public int TotalEarnings = 0;
+	public int PortfolioValue = 0;
 
-	public List<float> Stability = new();
+	public float Time = 0;
 
-	public float Time;
+	public bool ClickedContact = false;
 
 	public SessionEndReason SessionEndReason;
 }
@@ -144,6 +142,5 @@ public enum SessionEndReason
 	GameOverStability,
 	GameOverPoor,
 	MainMenu,
-	ClosedGame,
 	none
 }

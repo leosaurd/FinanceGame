@@ -315,8 +315,9 @@ MonoBehaviour:
     name: 
     height: 0
     towerColor: 0
+    id: 
     affectedByEvent: 0
-    affectedField: 0
+    eventType: 0
   glowRenderer: {fileID: 0}
   iconRenderer: {fileID: 0}
   targetGlow: 1
@@ -540,7 +541,7 @@ MonoBehaviour:
   m_fontSizeMin: 4
   m_fontSizeMax: 10
   m_fontStyle: 16
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0

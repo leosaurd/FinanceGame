@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ShopItem : MonoBehaviour
 {
-	public BlockInstance block;
+	private BlockInstance block;
 	private Transform imageObj;
 	private Transform nameObj;
 	private Transform costObj;
@@ -22,7 +22,7 @@ public class ShopItem : MonoBehaviour
 
 	private bool canBuy = true;
 
-	void Start()
+	private void Awake()
 	{
 		imageObj = transform.Find("Image");
 		nameObj = transform.Find("Name");
@@ -31,7 +31,12 @@ public class ShopItem : MonoBehaviour
 		stabilityObj = transform.Find("Stability Images");
 		buttonObj = transform.Find("Button");
 		warningObj = transform.Find("Warning");
+	}
 
+	public void Refresh(BlockInstance block)
+	{
+		DoReset();
+		this.block = block;
 
 		DoFormatting();
 
@@ -49,7 +54,24 @@ public class ShopItem : MonoBehaviour
 
 		buttonObj.GetComponent<FadeButton>().block = this.block;
 
-		transform.Find("GreyOverlay").gameObject.SetActive(!canBuy);
+
+	}
+
+	private void DoReset()
+	{
+		transform.Find("GreyOverlay").gameObject.SetActive(false);
+		warningObj.gameObject.SetActive(false);
+
+		profitObj.GetComponent<TextMeshProUGUI>().color = new Color32(255, 255, 255, 255);
+		costObj.GetComponent<TextMeshProUGUI>().color = new Color32(255, 255, 255, 255);
+
+		int currCount = stabilityObj.childCount;
+
+		for (int i = 0; i < currCount; i++)
+		{
+			Destroy(stabilityObj.GetChild(i).gameObject);
+		}
+
 	}
 
 	private void DoProfit()
@@ -70,6 +92,8 @@ public class ShopItem : MonoBehaviour
 
 	private void DoStability()
 	{
+
+
 		Sprite stabilityImage;
 		int numberOfSprites;
 
@@ -118,6 +142,7 @@ public class ShopItem : MonoBehaviour
 		if (GameManager.Instance.Stability + block.stability <= -1)
 		{
 			canBuy = false;
+			transform.Find("GreyOverlay").gameObject.SetActive(true);
 			warningObj.gameObject.SetActive(true);
 		}
 	}
@@ -138,6 +163,7 @@ public class ShopItem : MonoBehaviour
 		if (block.cost > GameManager.Instance.portfolioValue)
 		{
 			canBuy = false;
+			transform.Find("GreyOverlay").gameObject.SetActive(true);
 			warningObj.gameObject.SetActive(true);
 		}
 	}
