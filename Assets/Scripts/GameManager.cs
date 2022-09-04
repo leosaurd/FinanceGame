@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 			eventChance += 5;
 		}
 		//If the generated number is less than or equal to event chance AND there is no event happening, then generate an event
-		if (Random.Range(0, 100) <= eventChance && lastingEvent == null)
+		if (Random.Range(0, 100) <= eventChance && lastingEvent == null && ownedBlocks.Count >= 5)
 		{
 			eventChance = 0f;
 
