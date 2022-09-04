@@ -6013,7 +6013,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'PORTFOLIO VALUE: $###,###'
+  m_text: 'TOTAL PORTFOLIO VALUE
+
+    $###########'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d277664a28013d844a819ccabc77384c, type: 2}
   m_sharedMaterial: {fileID: -1219962316674100960, guid: d277664a28013d844a819ccabc77384c, type: 2}
@@ -6077,7 +6079,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.39905167, y: 0, z: -0.75747865, w: 0}
+  m_margin: {x: -0.39905167, y: 0, z: -100.82159, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -14375,7 +14377,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 78.75, y: 180}
+  m_AnchoredPosition: {x: 83.75, y: 103.6}
   m_SizeDelta: {x: 127.5, y: 375}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1534922821
@@ -15876,14 +15878,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pages:
   - title: OBJECTIVE
-    description: Build the largest portfolio you can by adding new blocks to it.
-      Different assets you purchase will raise or lower the stability and profit
-      of your portfolio.
+    description: Grow your portfolio by purchasing new assets. Buy assets from the
+      marketplace to increase your income per round.
     Image: {fileID: 21300000, guid: 8c1d2a2b747cbf2419496778db1b53c9, type: 3}
   - title: STABILITY
-    description: "Generate enough profits to purchase new asset blocks while maintaining
-      your stability. If your portfolio becomes too unstable or you run out of funds,
-      it\u2019s game over."
+    description: Pay attention to the stability of your portfolio or it's game over.
+      Similarly, if you run out of available funds, the game will also end.
     Image: {fileID: 21300000, guid: 03df1b0328929dd40a15416522c27c40, type: 3}
   - title: EVENTS
     description: Throughout the game, random events may occur, these events can be
@@ -15891,14 +15891,13 @@ MonoBehaviour:
       out for the indicator.
     Image: {fileID: 21300000, guid: 46f8158d7542c354aa2a4e3f3393781a, type: 3}
   - title: BLOCKS
-    description: There are three asset classes; Low-risk, High-Risk and Insurance.
-      Each asset class shares common traits and an icon. High-risk assets provide
-      high profits at the cost of stability.
+    description: There are three asset classes; Low-risk, High-risk and Insurance.
+      High-risk assets provide high income at the cost of stability.
     Image: {fileID: 21300000, guid: e82c209c31f66674493cdb095b0cef4a, type: 3}
   - title: BLOCKS
-    description: 'Low-risk assets usually provide moderate profits with little impact
-      to stability. Insurance assets tend to give you little to no profits but increase
-      the stability of your portfolio. '
+    description: Low-risk assets usually provide moderate income with little impact
+      on stability. Insurance assets provide little to no income but increase the
+      stability of your portfolio.
     Image: {fileID: 21300000, guid: e82c209c31f66674493cdb095b0cef4a, type: 3}
   pageText: {fileID: 0}
   subtitle: {fileID: 0}
@@ -16598,7 +16597,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PROFITS
+  m_text: INCOME PER ROUND
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
   m_sharedMaterial: {fileID: -413981141519488313, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
@@ -16625,8 +16624,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 17
+  m_fontSizeBase: 17
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -16662,7 +16661,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -0.6934221, w: 0}
+  m_margin: {x: 0, y: 0, z: -37.893463, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -20068,7 +20067,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 20, y: -22.300003}
-  m_SizeDelta: {x: 184.8, y: 21.1}
+  m_SizeDelta: {x: 184.8, y: 25}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2004312622
 MonoBehaviour:
@@ -20090,7 +20089,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: WALLET
+  m_text: AVAILABLE FUNDS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
   m_sharedMaterial: {fileID: -413981141519488313, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
@@ -20117,8 +20116,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 17
+  m_fontSizeBase: 17
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -20154,7 +20153,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -37.200027, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

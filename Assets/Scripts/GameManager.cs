@@ -91,8 +91,8 @@ public class GameManager : MonoBehaviour
 
 		ownedBlocks.Add(block);
 
-		//Only if there is no event happening.
-		if (lastingEvent == null)
+		//Only if there is no event happening AND at least 5 blocks/rounds have occurred.
+		if (lastingEvent == null && ownedBlocks.Count>=5)
 		{
 			//Any time a block is added, the chance for an event increases.
 			eventChance += 5;
