@@ -69,9 +69,18 @@ public class MarketplaceUI : MonoBehaviour
 			instance.towerColor = (TowerColor)colorIndexes[i];
 			ShopItems[i].Refresh(instance);
 
-			if (instance.cost < GameManager.Instance.portfolioValue && GameManager.Instance.Stability + instance.stability > -1) canBuySomething = true;
-			if (instance.cost < GameManager.Instance.portfolioValue) canBuyCost = true;
-			if (GameManager.Instance.Stability + instance.stability > -1) canBuyStability = true;
+			if (instance.cost < GameManager.Instance.portfolioValue && GameManager.Instance.Stability + instance.stability > -1)
+			{
+				canBuySomething = true;
+			}
+			if (instance.cost < GameManager.Instance.portfolioValue)
+			{
+				canBuyCost = true;
+			}
+			if (GameManager.Instance.Stability + instance.stability > -1)
+			{
+				canBuyStability = true;
+			}
 		}
 
 		if (!canBuySomething)

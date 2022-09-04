@@ -11181,13 +11181,12 @@ MonoBehaviour:
   Session:
     SessionID: 
     gameVersion: 
-    Tower: []
     InsuranceCount: 0
     LowRiskCount: 0
     HighRiskCount: 0
-    TotalEarnings: 0
-    Stability: []
+    PortfolioValue: 0
     Time: 0
+    ClickedContact: 0
     SessionEndReason: 0
   ID: 
 --- !u!4 &1190186107

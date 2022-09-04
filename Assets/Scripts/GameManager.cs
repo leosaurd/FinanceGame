@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 		ownedBlocks.Add(block);
 
 		//Only if there is no event happening AND at least 5 blocks/rounds have occurred.
-		if (lastingEvent == null && ownedBlocks.Count>=5)
+		if (lastingEvent == null && ownedBlocks.Count >= 5)
 		{
 			//Any time a block is added, the chance for an event increases.
 			eventChance += 5;
@@ -195,9 +195,7 @@ public class GameManager : MonoBehaviour
 		}
 
 
-		SessionManager.Instance.Session.Stability.Add(Stability);
-		SessionManager.Instance.Session.TotalEarnings = totalEarnings;
-		SessionManager.Instance.Session.Tower = ownedBlocks.ToArray();
+		SessionManager.Instance.Session.PortfolioValue = totalEarnings;
 		SessionManager.Instance.Session.InsuranceCount = ownedBlocks.FindAll((BlockInstance b) => b.blockType == BlockType.Insurance).Count;
 		SessionManager.Instance.Session.LowRiskCount = ownedBlocks.FindAll((BlockInstance b) => b.blockType == BlockType.LowRiskInvestment).Count;
 		SessionManager.Instance.Session.HighRiskCount = ownedBlocks.FindAll((BlockInstance b) => b.blockType == BlockType.HighRiskInvestment).Count;
@@ -233,7 +231,7 @@ public class GameManager : MonoBehaviour
 
 	public void RetunToMainMenu()
 	{
-		if (SessionManager.Instance.Session.SessionEndReason == SessionEndReason.none && SessionManager.Instance.Session.Tower != null && SessionManager.Instance.Session.Tower.Length != 0)
+		if (SessionManager.Instance.Session.SessionEndReason == SessionEndReason.none)
 			SessionManager.Instance.EndSession(SessionEndReason.MainMenu);
 		SceneManager.LoadScene("MainMenu");
 	}
