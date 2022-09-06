@@ -26,11 +26,11 @@ public class StaticBlockStats
 	public StaticBlockStats GenerateStats()
 	{
 		roundScaling = (0.63f * GameManager.Instance.ownedBlocks.Count) + 1;
-		if (GameManager.Instance.ownedBlocks.Count >= 100)
+		if (GameManager.Instance.ownedBlocks.Count >= 90)
 		{
-			roundScaling = Mathf.Pow(GameManager.Instance.ownedBlocks.Count, 2) / 300 + 33;
+			roundScaling = Mathf.Pow(GameManager.Instance.ownedBlocks.Count, 2) / 150 - 1;
 		}
-		else if (GameManager.Instance.ownedBlocks.Count >= 50)
+		else if (GameManager.Instance.ownedBlocks.Count >= 40)
 		{
 			roundScaling = (0.66f * GameManager.Instance.ownedBlocks.Count);
 		}

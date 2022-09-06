@@ -6,13 +6,9 @@ public class MarketplaceUI : MonoBehaviour
 {
 	public static MarketplaceUI Instance { get; private set; }
 
-	public GameObject ShopItemPrefab;
+	public ShopItem[] ShopItems;
 
-	public Transform[] ShopItemLocations;
-
-	private List<GameObject> shop = new();
-
-	public int[] indexes = { 0, 1, 2, 3 };
+	private int[] indexes = { 0, 1, 2, 3 };
 
 	public T[] ReorderArray<T>(T[] arr)
 	{
@@ -35,15 +31,6 @@ public class MarketplaceUI : MonoBehaviour
 		RefreshShop();
 	}
 
-	private void ClearShop()
-	{
-		// Clear old shop
-		for (int i = 0; i < shop.Count; i++)
-		{
-			Destroy(shop[i]);
-		}
-		shop.Clear();
-	}
 
 	private List<BlockInstance> GenerateNewItems()
 	{
@@ -76,22 +63,24 @@ public class MarketplaceUI : MonoBehaviour
 
 		int[] colorIndexes = ReorderArray(indexes);
 
-		// Create actual gameobjects for the shop
-		for (int i = 0; i < blocks.Count; i++)
+		for (int i = 0; i < ShopItems.Length; i++)
 		{
 			BlockInstance instance = blocks[i];
-
 			instance.towerColor = (TowerColor)colorIndexes[i];
+			ShopItems[i].Refresh(instance);
 
-			if (instance.cost < GameManager.Instance.portfolioValue && GameManager.Instance.Stability + instance.stability > -1) canBuySomething = true;
-			if (instance.cost < GameManager.Instance.portfolioValue) canBuyCost = true;
-			if (GameManager.Instance.Stability + instance.stability > -1) canBuyStability = true;
-
-
-			GameObject item = Instantiate(ShopItemPrefab, ShopItemLocations[i]);
-			ShopItem shopItem = item.GetComponent<ShopItem>();
-			shopItem.block = instance;
-			shop.Add(item);
+			if (instance.cost < GameManager.Instance.portfolioValue && GameManager.Instance.Stability + instance.stability > -1)
+			{
+				canBuySomething = true;
+			}
+			if (instance.cost < GameManager.Instance.portfolioValue)
+			{
+				canBuyCost = true;
+			}
+			if (GameManager.Instance.Stability + instance.stability > -1)
+			{
+				canBuyStability = true;
+			}
 		}
 
 		if (!canBuySomething)
@@ -108,14 +97,12 @@ public class MarketplaceUI : MonoBehaviour
 			{
 				GameManager.Instance.EndGame(GameOverReason.Stability);
 			}
-
 		}
 	}
 
 
 	public void RefreshShop()
 	{
-		ClearShop();
 		List<BlockInstance> blocks = GenerateNewItems();
 		CreateShopGameobjects(blocks);
 	}

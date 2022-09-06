@@ -29,8 +29,15 @@ public class OngoingEvent : MonoBehaviour
 			imageComponent.sprite = TowerColorUtils.GetIsoIconSprite[GameManager.Instance.lastingEvent.AffectedGroup];
 
 			titleComponent.text = GameManager.Instance.lastingEvent.Title;
+			if (GameManager.Instance.lastingEvent.Duration - 1 == 0)
+			{
+				roundComponent.text = string.Format("Last Turn");
+			}
+			else
+			{
+				roundComponent.text = string.Format("{0} Turn{1} Left", GameManager.Instance.lastingEvent.Duration, GameManager.Instance.lastingEvent.Duration != 1 ? "s" : "");
+			}
 
-			roundComponent.text = string.Format("{0} Turn{1} Remaining", GameManager.Instance.lastingEvent.Duration - 1, GameManager.Instance.lastingEvent.Duration - 1 != 1 ? "s" : "");
 		}
 		else
 		{

@@ -87,7 +87,7 @@ public class BlockAnimator : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		ProfitUpdate();
+		//ProfitUpdate();
 
 		if (transform.localPosition.y > targetPosition)
 		{
