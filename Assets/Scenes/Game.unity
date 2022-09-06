@@ -14586,7 +14586,7 @@ MonoBehaviour:
   pages:
   - title: OBJECTIVE
     description: Grow your portfolio by purchasing new assets. Buy assets from the
-      marketplace to increase your income per round.
+      marketplace to increase your income per turn.
     Image: {fileID: 21300000, guid: 8c1d2a2b747cbf2419496778db1b53c9, type: 3}
   - title: STABILITY
     description: Pay attention to the stability of your portfolio or it's game over.
@@ -15168,7 +15168,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: INCOME PER ROUND
+  m_text: INCOME PER TURN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
   m_sharedMaterial: {fileID: -413981141519488313, guid: d3547d3ac6bbabd418aab531991ed92a, type: 2}
