@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class ValueText : MonoBehaviour
 {
@@ -27,8 +25,9 @@ public class ValueText : MonoBehaviour
 		if (gameManager.Stability < -0.7 || gameManager.portfolioValue - (250 * StaticBlockStats.roundScaling) < (250 * StaticBlockStats.roundScaling))
 		{
 			warningObj.gameObject.SetActive(true);
-        } else
-        {
+		}
+		else
+		{
 			warningObj.gameObject.SetActive(false);
 		}
 		if (gameManager.portfolioValue < 0)

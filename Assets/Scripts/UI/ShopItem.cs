@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopItem : MonoBehaviour
-{
+public class ShopItem : MonoBehaviour {
 	private BlockInstance block;
 	private Transform imageObj;
 	private Transform nameObj;
@@ -20,10 +17,7 @@ public class ShopItem : MonoBehaviour
 	public Color textColor;
 
 
-	private bool canBuy = true;
-
-	private void Awake()
-	{
+	private void Awake() {
 		imageObj = transform.Find("Image");
 		nameObj = transform.Find("Name");
 		costObj = transform.Find("CostValue");
@@ -33,8 +27,7 @@ public class ShopItem : MonoBehaviour
 		warningObj = transform.Find("Warning");
 	}
 
-	public void Refresh(BlockInstance block)
-	{
+	public void Refresh(BlockInstance block) {
 		DoReset();
 		this.block = block;
 
@@ -57,8 +50,7 @@ public class ShopItem : MonoBehaviour
 
 	}
 
-	private void DoReset()
-	{
+	private void DoReset() {
 		transform.Find("GreyOverlay").gameObject.SetActive(false);
 		warningObj.gameObject.SetActive(false);
 
@@ -67,22 +59,19 @@ public class ShopItem : MonoBehaviour
 
 		int currCount = stabilityObj.childCount;
 
-		for (int i = 0; i < currCount; i++)
-		{
+		for (int i = 0; i < currCount; i++) {
 			Destroy(stabilityObj.GetChild(i).gameObject);
 		}
 
 	}
 
-	private void DoProfit()
-	{
+	private void DoProfit() {
 		string profitText = "";
 		if (block.profit < 0)
 			profitText += "-";
 		profitText += "$" + Mathf.Abs(block.profit);
 
-		if (block.affectedByEvent)
-		{
+		if (block.affectedByEvent) {
 			if (block.eventType == EventType.ProfitIncrease)
 				profitObj.GetComponent<TextMeshProUGUI>().color = new Color32(33, 150, 243, 255);
 		}
@@ -90,36 +79,30 @@ public class ShopItem : MonoBehaviour
 		profitObj.GetComponent<TextMeshProUGUI>().text = profitText;
 	}
 
-	private void DoStability()
-	{
+	private void DoStability() {
 
 
 		Sprite stabilityImage;
 		int numberOfSprites;
 
-		if (block.stability < 0)
-		{
+		if (block.stability < 0) {
 			stabilityImage = Resources.Load<Sprite>("StabilityDown");
 			buttonObj.GetComponent<Image>().sprite = Resources.Load<Sprite>("MarketplaceItemOutlineRed");
 		}
-		else
-		{
+		else {
 			stabilityImage = Resources.Load<Sprite>("StabilityUp");
 			buttonObj.GetComponent<Image>().sprite = Resources.Load<Sprite>("MarketplaceItemOutlineGreen");
 		}
 
-		if (Mathf.Abs(block.stability) > 0.35)
-		{
+		if (Mathf.Abs(block.stability) > 0.35) {
 			numberOfSprites = 3;
 			buttonObj.GetComponent<FadeButton>().maxOpacity = 1;
 		}
-		else if (Mathf.Abs(block.stability) > 0.15)
-		{
+		else if (Mathf.Abs(block.stability) > 0.15) {
 			numberOfSprites = 2;
 			buttonObj.GetComponent<FadeButton>().maxOpacity = 0.75f;
 		}
-		else
-		{
+		else {
 			buttonObj.GetComponent<FadeButton>().maxOpacity = 0.5f;
 			numberOfSprites = 1;
 
@@ -127,8 +110,7 @@ public class ShopItem : MonoBehaviour
 		float width = GetComponent<RectTransform>().rect.width;
 		float unit = width / 24;
 
-		for (int i = 0; i < numberOfSprites; i++)
-		{
+		for (int i = 0; i < numberOfSprites; i++) {
 			GameObject stabilityChild = Instantiate(stabilityChildPrefab, stabilityObj);
 			stabilityChild.GetComponent<Image>().sprite = stabilityImage;
 
@@ -139,37 +121,30 @@ public class ShopItem : MonoBehaviour
 
 		}
 
-		if (GameManager.Instance.Stability + block.stability <= -1)
-		{
-			canBuy = false;
+		if (GameManager.Instance.Stability + block.stability <= -1) {
 			transform.Find("GreyOverlay").gameObject.SetActive(true);
 			warningObj.gameObject.SetActive(true);
 		}
 	}
 
-	private void DoCost()
-	{
+	private void DoCost() {
 		string costText = "$" + block.cost;
 		costObj.GetComponent<TextMeshProUGUI>().text = costText;
 
-		if (block.affectedByEvent)
-		{
+		if (block.affectedByEvent) {
 			if (block.eventType == EventType.CostIncrease)
 				costObj.GetComponent<TextMeshProUGUI>().color = new Color32(244, 67, 54, 255);
 			else if (block.eventType == EventType.CostDecrease)
 				costObj.GetComponent<TextMeshProUGUI>().color = new Color32(33, 150, 243, 255);
 		}
 
-		if (block.cost > GameManager.Instance.portfolioValue)
-		{
-			canBuy = false;
+		if (block.cost > GameManager.Instance.portfolioValue) {
 			transform.Find("GreyOverlay").gameObject.SetActive(true);
 			warningObj.gameObject.SetActive(true);
 		}
 	}
 
-	void DoFormatting()
-	{
+	void DoFormatting() {
 		float width = GetComponent<RectTransform>().rect.width;
 		float unit = width / 24;
 		float right = 0;
@@ -217,8 +192,7 @@ public class ShopItem : MonoBehaviour
 		right += size + unit * 2;
 	}
 
-	public void Buy()
-	{
+	public void Buy() {
 		if (GameManager.Instance.portfolioValue - block.cost > 0 && GameManager.Instance.Stability + block.stability > -1)
 			MarketplaceUI.Instance.Buy(block);
 	}

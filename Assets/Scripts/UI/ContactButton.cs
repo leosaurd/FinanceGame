@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Runtime.InteropServices;
 
 public class ContactButton : MonoBehaviour
 {
 
 	public void OpenURL(string url)
 	{
-		SessionManager.Instance.Session.ClickedContact = true;
-		SessionManager.Instance.SaveSession();
+		StartCoroutine(WebRequest.PUT("/api/v1/player/" + SessionManager.Instance.ID + "/clicked_contact",
+			"",
+			(string response) => { },
+			(long status) => { }));
 		Application.OpenURL(url);
 	}
 }

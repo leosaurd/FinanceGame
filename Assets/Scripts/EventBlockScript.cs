@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class EventBlockScript : MonoBehaviour
 {
@@ -12,7 +10,7 @@ public class EventBlockScript : MonoBehaviour
 
 	// Start is called before the first frame update
 	public void updateGraphics()
-    {
+	{
 		SpriteRenderer spriteRenderer = transform.GetComponentInChildren<SpriteRenderer>();
 		spriteRenderer.sprite = TowerColorUtils.GetBlockSprite(block.towerColor, block.height);
 

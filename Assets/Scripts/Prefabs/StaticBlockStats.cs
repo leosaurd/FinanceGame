@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class StaticBlockStats
-{
+public class StaticBlockStats {
 	private readonly float stabilityMultiplier = 0.05f;
 	private readonly float profitsMultiplier = 5f;
 
@@ -14,8 +11,7 @@ public class StaticBlockStats
 	public static float roundScaling;
 	public static int baseCostScaling;
 
-	public StaticBlockStats(int cost, int profits, float stability, int height)
-	{
+	public StaticBlockStats(int cost, int profits, float stability, int height) {
 		this.cost = cost;
 		this.profit = profits;
 		this.stability = stability;
@@ -23,15 +19,12 @@ public class StaticBlockStats
 	}
 
 	//  Turns a StaticBlockStats with their values into a StaticBlockStats with game usable values, and adds some randomness
-	public StaticBlockStats GenerateStats()
-	{
+	public StaticBlockStats GenerateStats() {
 		roundScaling = (0.63f * GameManager.Instance.ownedBlocks.Count) + 1;
-		if (GameManager.Instance.ownedBlocks.Count >= 90)
-		{
+		if (GameManager.Instance.ownedBlocks.Count >= 80) {
 			roundScaling = Mathf.Pow(GameManager.Instance.ownedBlocks.Count, 2) / 150 - 1;
 		}
-		else if (GameManager.Instance.ownedBlocks.Count >= 40)
-		{
+		else if (GameManager.Instance.ownedBlocks.Count >= 40) {
 			roundScaling = (0.66f * GameManager.Instance.ownedBlocks.Count);
 		}
 

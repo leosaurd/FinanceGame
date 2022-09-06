@@ -5,9 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EventUIManager : MonoBehaviour
-{
-	public static EventUIManager Instance { get; private set; }
+public class EventUIManager : MonoBehaviour {
+	public static EventUIManager Instance {
+		get; private set;
+	}
 
 	private CanvasGroup canvasGroup;
 	private Transform Body;
@@ -20,13 +21,12 @@ public class EventUIManager : MonoBehaviour
 
 	private bool overrideFadeOut = false;
 
-	public Transform blockObject;
+	public Transform? blockObject;
 
 
-
-	private void Awake()
-	{
-		if (Instance == null) Instance = this;
+	private void Awake() {
+		if (Instance == null)
+			Instance = this;
 
 		canvasGroup = GetComponent<CanvasGroup>();
 		Body = transform.Find("Body");
@@ -35,8 +35,7 @@ public class EventUIManager : MonoBehaviour
 		LoadPresets();
 	}
 
-	public void LoadPresets()
-	{
+	public void LoadPresets() {
 		presets.Add(EventType.CostIncrease, new EventUIPreset(Resources.Load<Sprite>("EventMultiplier"), new Color32(221, 114, 27, 255), new Color32(244, 138, 59, 255)));
 		presets.Add(EventType.ProfitIncrease, new EventUIPreset(Resources.Load<Sprite>("EventMultiplier"), new Color32(221, 114, 27, 255), new Color32(244, 138, 59, 255)));
 		presets.Add(EventType.CostDecrease, new EventUIPreset(Resources.Load<Sprite>("EventDivider"), new Color32(0, 146, 69, 255), new Color32(49, 175, 100, 255)));
@@ -45,24 +44,19 @@ public class EventUIManager : MonoBehaviour
 		presets.Add(EventType.BlockRemoval, new EventUIPreset(Resources.Load<Sprite>("EventRemoval"), new Color32(0, 113, 187, 255), new Color32(94, 192, 233, 255)));
 	}
 
-	public void ShowEvent(GameEvent gameEvent, Action? callback)
-	{
-		if (gameEvent.IsBeneficial)
-		{
+	public void ShowEvent(GameEvent gameEvent, Action? callback) {
+		if (gameEvent.IsBeneficial) {
 			SFXManager.Instance.PlaySFX(SFX.beneficialEvent, 0.25f);
 		}
-		else
-		{
+		else {
 			SFXManager.Instance.PlaySFX(SFX.harmfulEvent, 0.25f);
 		}
 
 		EventUIPreset eventPreset = presets[gameEvent.Type];
-		if (gameEvent is InstantEvent)
-		{
+		if (gameEvent is InstantEvent) {
 			overrideFadeOut = true;
 		}
-		else
-		{
+		else {
 			overrideFadeOut = false;
 		}
 
@@ -87,10 +81,8 @@ public class EventUIManager : MonoBehaviour
 	}
 
 
-	private void FixedUpdate()
-	{
-		if (GameManager.Instance.IsGameOver)
-		{
+	private void FixedUpdate() {
+		if (GameManager.Instance.IsGameOver && blockObject != null) {
 			blockObject.gameObject.SetActive(false);
 			canvasGroup.blocksRaycasts = false;
 			canvasGroup.interactable = false;
@@ -98,28 +90,25 @@ public class EventUIManager : MonoBehaviour
 		}
 	}
 
-	IEnumerator FadeIn()
-	{
+	IEnumerator FadeIn() {
 		canvasGroup.blocksRaycasts = true;
 		canvasGroup.interactable = true;
 
 		int steps = 30;
-		for (int i = 0; i <= steps; i++)
-		{
+		for (int i = 0; i <= steps; i++) {
 			canvasGroup.alpha = i / (float)steps;
 			yield return new WaitForFixedUpdate();
 		}
 	}
 
-	IEnumerator FadeOut()
-	{
-		blockObject.gameObject.SetActive(false);
+	IEnumerator FadeOut() {
+		if (blockObject != null)
+			blockObject.gameObject.SetActive(false);
 		canvasGroup.blocksRaycasts = false;
 		canvasGroup.interactable = false;
 
 		int steps = 30;
-		for (int i = steps; i >= 0; i--)
-		{
+		for (int i = steps; i >= 0; i--) {
 			canvasGroup.alpha = i / (float)steps;
 			yield return new WaitForFixedUpdate();
 		}
@@ -132,19 +121,17 @@ public class EventUIManager : MonoBehaviour
 
 
 
-	public void OnClose()
-	{
-		if (overrideFadeOut)
-		{
+	public void OnClose() {
+		if (overrideFadeOut) {
 			overrideFadeOut = false;
 
-			blockObject.gameObject.SetActive(true);
+			if (blockObject != null)
+				blockObject.gameObject.SetActive(true);
 			Body.Find("Background").GetComponent<Image>().sprite = Resources.Load<Sprite>("EventBlank");
 			Body.Find("Title").GetComponent<TextMeshProUGUI>().text = "";
 			Body.Find("Description").GetComponent<TextMeshProUGUI>().text = "";
 		}
-		else
-		{
+		else {
 			StartCoroutine(FadeOut());
 		}
 	}
@@ -152,15 +139,13 @@ public class EventUIManager : MonoBehaviour
 }
 
 [System.Serializable]
-public class EventUIPreset
-{
+public class EventUIPreset {
 	public Sprite background;
 	public Color buttonColor;
 	public Color buttonHoveredColor;
 
 
-	public EventUIPreset(Sprite background, Color buttonColor, Color buttonHoveredColor)
-	{
+	public EventUIPreset(Sprite background, Color buttonColor, Color buttonHoveredColor) {
 		this.background = background;
 		this.buttonColor = buttonColor;
 		this.buttonHoveredColor = buttonHoveredColor;

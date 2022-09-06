@@ -1,144 +1,124 @@
 ﻿
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class SessionManager : MonoBehaviour
-{
+public class SessionManager : MonoBehaviour {
 	#region extern functions
 	[DllImport("__Internal")]
 	private static extern void SetID(string id);
 
 	[DllImport("__Internal")]
 	private static extern string GetID();
+
+	[DllImport("__Internal")]
+	private static extern bool IsMobile();
 	#endregion
 
-	public static SessionManager Instance { get; private set; }
+	public static SessionManager Instance {
+		get; private set;
+	}
+
+	public string previous_game_id;
 
 	public GameSession Session = new();
 	public string ID = null;
 
 
-	public void Awake()
-	{
-		if (Instance != null) { Destroy(gameObject); return; }
+	public void Awake() {
+		if (Instance != null) {
+			Destroy(gameObject);
+			return;
+		}
 
 		DontDestroyOnLoad(gameObject);
 		Instance = this;
 
-		if (ID == null || ID == "")
-		{
+		FetchPlayerID();
+
+		StartSession();
+	}
+
+	private void FetchPlayerID() {
+		if (ID == null || ID == "") {
 #if UNITY_WEBGL && !UNITY_EDITOR
 			string storedID = GetID();
-			Debug.Log(storedID);
 #else
 			string storedID = null;
 #endif
-			if (storedID != null && storedID != "")
-			{
+			if (storedID != null && storedID != "") {
 				ID = storedID;
 			}
-			else
-			{
+			else {
 				ID = Guid.NewGuid().ToString();
+
 #if UNITY_WEBGL && !UNITY_EDITOR
 				SetID(ID);
 #endif
 			}
+#if UNITY_WEBGL && !UNITY_EDITOR
+			bool mobile = IsMobile();
+			string jsonString = JsonUtility.ToJson(mobile);
+
+			StartCoroutine(WebRequest.POST("/api/v1/player/" + ID, jsonString, (string response) => { }, (long status) => { Debug.Log("Failed to send player: " + status); }));
+#endif
 		}
-		StartSession();
 	}
 
-	public void StartSession()
-	{
-		Session = new()
-		{
-			gameVersion = Application.version,
-			SessionID = Guid.NewGuid().ToString(),
-			SessionEndReason = SessionEndReason.none,
+
+	public void StartSession() {
+		previous_game_id = Session.id;
+		Session = new() {
+			player_id = ID,
+			game_version = Application.version,
+			id = Guid.NewGuid().ToString(),
+			game_end_reason = SessionEndReason.none,
 		};
 	}
 
-	public void EndSession(SessionEndReason endReason)
-	{
-		Session.SessionEndReason = endReason;
-		StartCoroutine(SendSession(
-			() =>
-			{
+	public void EndSession(SessionEndReason endReason) {
+		Session.game_end_reason = endReason;
+		Session.game_time = Time.time;
+		string jsonString = JsonUtility.ToJson(Session);
+		StartCoroutine(WebRequest.POST("/api/v1/game/" + ID, jsonString,
+			(string response) => {
+				StartSession();
+			},
+			(long status) => {
+				Debug.Log("Failed to send game data: " + status);
 				StartSession();
 			}));
 	}
 
-	public void SaveSession()
-	{
-		StartCoroutine(SendSession());
-	}
-
-	IEnumerator SendSession()
-	{
-		Session.Time = Time.time;
-
+	public void SaveSession() {
+		Session.game_time = Time.time;
 		string jsonString = JsonUtility.ToJson(Session);
-
-		using UnityWebRequest webRequest = UnityWebRequest.Put("https://test.trentshailer.com/analytics/" + ID, jsonString);
-		webRequest.SetRequestHeader("Content-Type", "application/json");
-
-		yield return webRequest.SendWebRequest();
-
-		if (webRequest.result != UnityWebRequest.Result.Success)
-		{
-			Debug.Log(webRequest.error);
-		}
+		StartCoroutine(WebRequest.POST("/api/v1/game/" + ID, jsonString,
+			(string response) => { },
+			(long status) => { Debug.Log("Failed to send game data: " + status); }));
 	}
-
-	IEnumerator SendSession(Action callback)
-	{
-		Session.Time = Time.time;
-
-		string jsonString = JsonUtility.ToJson(Session);
-
-		using UnityWebRequest webRequest = UnityWebRequest.Put("https://test.trentshailer.com/analytics/" + ID, jsonString);
-		webRequest.SetRequestHeader("Content-Type", "application/json");
-
-		yield return webRequest.SendWebRequest();
-
-		if (webRequest.result != UnityWebRequest.Result.Success)
-		{
-			Debug.Log(webRequest.error);
-		}
-		else
-			callback.Invoke();
-	}
-
 }
 
 [System.Serializable]
-public class GameSession
-{
-	public string SessionID;
-
-
-	public string gameVersion;
-
-	public int InsuranceCount = 0;
-	public int LowRiskCount = 0;
-	public int HighRiskCount = 0;
-
-
-	public int PortfolioValue = 0;
-
-	public float Time = 0;
-
-	public bool ClickedContact = false;
-
-	public SessionEndReason SessionEndReason;
+public class GameSession {
+	public string id;
+	public string game_secret = WebRequest.SECRET;
+	public string player_id;
+	public string game_version;
+	public SessionEndReason game_end_reason;
+	public float game_time = 0;
+	public int positive_event_count = 0;
+	public int negative_event_count = 0;
+	public int portfolio_value = 0;
+	public int insurance_count = 0;
+	public int low_risk_count = 0;
+	public int high_risk_count = 0;
+	public int turns = 0;
 }
 [System.Serializable]
-public enum SessionEndReason
-{
+public enum SessionEndReason {
 	GameOverStability,
 	GameOverPoor,
 	MainMenu,

@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
+using UnityEngine.UI;
 using static UnityEngine.UI.Button;
 
 public class FadeButton : MonoBehaviour, Button
