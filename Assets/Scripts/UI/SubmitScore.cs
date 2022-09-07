@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class SubmitScore : MonoBehaviour {
-
+	public UnityEvent OnSubmit;
 	GameObject target;
 	bool details;
 
@@ -53,7 +53,6 @@ public class SubmitScore : MonoBehaviour {
 	}
 
 	public void Hide() {
-		target.SetActive(false);
 		if (details) {
 			target.transform.Find("DisplayName").GetComponent<TMP_InputField>().text = "";
 			target.transform.Find("FirstName").GetComponent<TMP_InputField>().text = "";
@@ -61,10 +60,13 @@ public class SubmitScore : MonoBehaviour {
 			target.transform.Find("Email").GetComponent<TMP_InputField>().text = "";
 			target.transform.Find("Mobile").GetComponent<TMP_InputField>().text = "";
 			target.transform.Find("Agree").GetComponent<Toggle>().isOn = false;
+			target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
 		}
 		else {
 			target.transform.Find("DisplayName").GetComponent<TMP_InputField>().text = "";
+			target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
 		}
+		target.SetActive(false);
 	}
 
 
@@ -79,32 +81,34 @@ public class SubmitScore : MonoBehaviour {
 		bool agree = target.transform.Find("Agree").GetComponent<Toggle>().isOn;
 
 		if (name == "" || first_name == "" || last_name == "" || email == "" || mobile == "") {
-			transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "Some fields are incomplete.";
+			target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "Some fields are incomplete.";
 			return;
 		}
 
 		if (!agree) {
-			transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "You must agree to the terms and conditions, and privacy policy.";
+			target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "You must agree to the terms and conditions, and privacy policy.";
 			return;
 		}
 
-		StartCoroutine(WebRequest.GET("/api/v1/valid_name?name=" + name,
+		StartCoroutine(WebRequest.GET("/api/v1/leaderboard/valid_name?name=" + name,
 			(string response) => {
 				Response result = JsonUtility.FromJson<Response>(response);
 				if (result.valid) {
-					transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
+					target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
+					OnSubmit.Invoke();
 					Leaderboard.Instance.SubmitScore(name, first_name, last_name, email, mobile, agree);
 				}
 				else {
 					if (result.reason != null)
-						transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = result.reason;
+						target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = result.reason;
 					else
-						transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "Inavlid Name";
+						target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "Inavlid Name";
 				}
+
 			},
 			(string status) => {
 				Debug.Log("Failed to validate name: " + status);
-				transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "Server Error! Failed to validate name";
+				target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "Server Error! Failed to validate name";
 			}
 			));
 	}
@@ -112,18 +116,19 @@ public class SubmitScore : MonoBehaviour {
 	public void TrySubmitNoDetails() {
 		string name = target.GetComponentInChildren<TMP_InputField>().text;
 
-		StartCoroutine(WebRequest.GET("/api/v1/valid_name?name=" + name,
+		StartCoroutine(WebRequest.GET("/api/v1/leaderboard/valid_name?name=" + name,
 			(string response) => {
 				Response result = JsonUtility.FromJson<Response>(response);
 				if (result.valid) {
-					transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
+					target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
+					OnSubmit.Invoke();
 					Leaderboard.Instance.SubmitScore(name);
 				}
 				else {
 					if (result.reason != null)
-						transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = result.reason;
+						target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = result.reason;
 					else
-						transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "Inavlid Name";
+						target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "Inavlid Name";
 				}
 			},
 			(string status) => {

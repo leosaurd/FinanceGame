@@ -7,6 +7,7 @@ public class CompetitionAlert : MonoBehaviour {
 
 	public void Awake() {
 		StartCoroutine(WebRequest.GET("/api/v1/competition/ongoing", (string response) => {
+			Debug.Log(response);
 			CompetitionInfo info = JsonUtility.FromJson<CompetitionInfo>(response);
 			transform.GetChild(0).Find("Background").Find("Ends").GetComponent<TextMeshProUGUI>().text = "Ends\n" + info.end_date;
 			transform.GetChild(0).Find("Background").Find("Description").GetComponent<TextMeshProUGUI>().text = info.details;

@@ -60,10 +60,16 @@ public class SessionManager : MonoBehaviour {
 			}
 #if UNITY_WEBGL && !UNITY_EDITOR
 			bool mobile = IsMobile();
-			string jsonString = JsonUtility.ToJson(mobile);
+#else
+			bool mobile = false;
+#endif
+			NewPlayer player = new() {
+				mobile = mobile
+			};
+			string jsonString = JsonUtility.ToJson(player);
 
 			StartCoroutine(WebRequest.POST("/api/v1/player/" + ID, jsonString, (string response) => { }, (long status) => { Debug.Log("Failed to send player: " + status); }));
-#endif
+
 		}
 	}
 
@@ -82,7 +88,7 @@ public class SessionManager : MonoBehaviour {
 		Session.game_end_reason = endReason;
 		Session.game_time = Time.time;
 		string jsonString = JsonUtility.ToJson(Session);
-		StartCoroutine(WebRequest.POST("/api/v1/game/" + ID, jsonString,
+		StartCoroutine(WebRequest.POST("/api/v1/game/" + Session.id, jsonString,
 			(string response) => {
 				StartSession();
 			},
@@ -95,10 +101,14 @@ public class SessionManager : MonoBehaviour {
 	public void SaveSession() {
 		Session.game_time = Time.time;
 		string jsonString = JsonUtility.ToJson(Session);
-		StartCoroutine(WebRequest.POST("/api/v1/game/" + ID, jsonString,
+		StartCoroutine(WebRequest.POST("/api/v1/game/" + Session.id, jsonString,
 			(string response) => { },
 			(long status) => { Debug.Log("Failed to send game data: " + status); }));
 	}
+}
+
+public class NewPlayer {
+	public bool mobile;
 }
 
 [System.Serializable]

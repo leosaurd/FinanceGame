@@ -205,6 +205,13 @@ public class GameManager : MonoBehaviour {
 
 
 	public void EndGame(GameOverReason reason) {
+		SessionManager.Instance.Session.portfolio_value = totalEarnings;
+		SessionManager.Instance.Session.insurance_count = ownedBlocks.FindAll((BlockInstance b) => b.blockType == BlockType.Insurance).Count;
+		SessionManager.Instance.Session.low_risk_count = ownedBlocks.FindAll((BlockInstance b) => b.blockType == BlockType.LowRiskInvestment).Count;
+		SessionManager.Instance.Session.high_risk_count = ownedBlocks.FindAll((BlockInstance b) => b.blockType == BlockType.HighRiskInvestment).Count;
+		SessionManager.Instance.Session.turns = ownedBlocks.Count;
+		SessionManager.Instance.SaveSession();
+
 		IsGameOver = true;
 		if (reason == GameOverReason.Stability) {
 			SessionManager.Instance.EndSession(SessionEndReason.GameOverStability);

@@ -14,7 +14,7 @@ public class Leaderboard : MonoBehaviour {
 
 	public GameObject leaderboardPrefab;
 
-	List<ScoreData> scores = new();
+	List<ScoreData> leaderboard = new();
 	List<GameObject> scoreObjects = new();
 
 	private void Awake() {
@@ -42,7 +42,7 @@ public class Leaderboard : MonoBehaviour {
 				if (GameManager.Instance.totalEarnings > result.portfolio_value) {
 					// If they are in top 10
 					// If they are in top 10
-					if (GameManager.Instance.totalEarnings > scores[scores.Count - 1].score || scores.Count < 10) {
+					if (leaderboard.Count < 10 || GameManager.Instance.totalEarnings > leaderboard[leaderboard.Count - 1].portfolio_value) {
 						callback(true);
 						return;
 					}
@@ -54,7 +54,7 @@ public class Leaderboard : MonoBehaviour {
 				// If no leaderboard entries
 				if (status == "404") {
 					// If they are in top 10
-					if (GameManager.Instance.totalEarnings > scores[scores.Count - 1].score || scores.Count < 10) {
+					if (leaderboard.Count < 10 || GameManager.Instance.totalEarnings > leaderboard[leaderboard.Count - 1].portfolio_value) {
 						callback(true);
 						return;
 					}
@@ -71,17 +71,16 @@ public class Leaderboard : MonoBehaviour {
 		scoreObjects.Clear();
 		loader.isActive = true;
 
-		scores.AddRange(scores);
 
-		for (int i = 0; i < scores.Count; i++) {
+		for (int i = 0; i < leaderboard.Count; i++) {
 			GameObject obj = Instantiate(leaderboardPrefab, transform);
 
 
 			obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -25f * (i));
 
 			obj.transform.Find("Place").GetComponent<TextMeshProUGUI>().text = (i + 1).ToString();
-			obj.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = scores[i].name;
-			obj.transform.Find("Score").GetComponent<TextMeshProUGUI>().text = "$" + (scores[i].score).ToString("N0");
+			obj.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = leaderboard[i].name;
+			obj.transform.Find("Score").GetComponent<TextMeshProUGUI>().text = "$" + (leaderboard[i].portfolio_value).ToString("N0");
 			scoreObjects.Add(obj);
 		}
 
@@ -93,7 +92,7 @@ public class Leaderboard : MonoBehaviour {
 		StartCoroutine(WebRequest.GET("/api/v1/leaderboard",
 			(string result) => {
 				ScoreDataCollection sdc = JsonUtility.FromJson<ScoreDataCollection>("{\"scoreData\":" + result + "}");
-				scores = sdc.scoreData.ToList();
+				leaderboard = sdc.scoreData.ToList();
 				CreateLeaderboard();
 			},
 			(string status) => {
@@ -110,6 +109,7 @@ public class Leaderboard : MonoBehaviour {
 			last_name = last_name,
 			mobile = mobile,
 			agree = agree,
+			portfolio_value = GameManager.Instance.totalEarnings,
 			game_id = SessionManager.Instance.previous_game_id
 		};
 		string jsonString = JsonUtility.ToJson(submitData);
@@ -142,7 +142,6 @@ class ScoreDataCollection {
 
 [System.Serializable]
 struct ScoreData {
-	public string score_id;
 	public string name;
-	public int score;
+	public int portfolio_value;
 }

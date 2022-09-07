@@ -36,10 +36,10 @@ public class GameOver : MonoBehaviour {
 
 		Leaderboard.Instance.CanSubmit((bool canSubmit) => {
 			if (canSubmit) {
-				transform.Find("Stage2").Find("Main").Find("GameOverSection").Find("SubmitScoreBtn").gameObject.SetActive(true);
+				transform.Find("Stage2").Find("Main").Find("SubmitScoreBtn").gameObject.SetActive(true);
 			}
 			else {
-				transform.Find("Stage2").Find("Main").Find("GameOverSection").Find("SubmitScoreBtn").gameObject.SetActive(false);
+				transform.Find("Stage2").Find("Main").Find("SubmitScoreBtn").gameObject.SetActive(false);
 			}
 		});
 
