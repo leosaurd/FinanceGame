@@ -4,7 +4,11 @@ using UnityEngine.Networking;
 
 public static class WebRequest {
 	public const string SECRET = "fmzAs9noj1eiNpNUuUl0ujrwOWN9DEjtLd1RHRtjyKoHb59paDWhzW3sklkBXsFY";
-	public const string URL = "http://localhost:4008";
+#if UNITY_EDITOR
+	public const string URL = "https://investible.trentshailer.com";
+#else
+	public const string URL = "";
+#endif
 
 	public static IEnumerator GET(string uri, Action<string> success, Action<string> fail) {
 		using UnityWebRequest webRequest = UnityWebRequest.Get(URL + uri);
@@ -37,7 +41,10 @@ public static class WebRequest {
 	}
 
 	public static IEnumerator PUT(string uri, string json, Action<string> success, Action<long> fail) {
-		using UnityWebRequest webRequest = UnityWebRequest.Put(URL + uri, json);
+		var webRequest = new UnityWebRequest(URL + uri, "PUT");
+		byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+		webRequest.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+		webRequest.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
 		webRequest.SetRequestHeader("Content-Type", "application/json");
 
 		yield return webRequest.SendWebRequest();
@@ -48,5 +55,6 @@ public static class WebRequest {
 		else {
 			fail(webRequest.responseCode);
 		}
+		webRequest.Dispose();
 	}
 }

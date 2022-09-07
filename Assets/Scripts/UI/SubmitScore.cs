@@ -71,7 +71,7 @@ public class SubmitScore : MonoBehaviour {
 
 
 	public void TrySubmitDetails() {
-		transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
+		target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
 
 		string name = target.transform.Find("DisplayName").GetComponent<TMP_InputField>().text;
 		string first_name = target.transform.Find("FirstName").GetComponent<TMP_InputField>().text;
@@ -96,7 +96,7 @@ public class SubmitScore : MonoBehaviour {
 				if (result.valid) {
 					target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
 					OnSubmit.Invoke();
-					Leaderboard.Instance.SubmitScore(name, first_name, last_name, email, mobile, agree);
+					Leaderboard.Instance.SubmitScore(name, email, first_name, last_name, mobile, agree);
 				}
 				else {
 					if (result.reason != null)
@@ -114,6 +114,8 @@ public class SubmitScore : MonoBehaviour {
 	}
 
 	public void TrySubmitNoDetails() {
+
+		target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
 		string name = target.GetComponentInChildren<TMP_InputField>().text;
 
 		StartCoroutine(WebRequest.GET("/api/v1/leaderboard/valid_name?name=" + name,

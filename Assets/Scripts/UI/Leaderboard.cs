@@ -100,7 +100,7 @@ public class Leaderboard : MonoBehaviour {
 			}));
 	}
 
-	public void SubmitScore(string name, string email = null, string first_name = null, string last_name = null, string mobile = null, bool? agree = null) {
+	public void SubmitScore(string name, string email = null, string first_name = null, string last_name = null, string mobile = null, bool agree = false) {
 
 		SubmitData submitData = new() {
 			name = name,
@@ -112,6 +112,7 @@ public class Leaderboard : MonoBehaviour {
 			portfolio_value = GameManager.Instance.totalEarnings,
 			game_id = SessionManager.Instance.previous_game_id
 		};
+
 		string jsonString = JsonUtility.ToJson(submitData);
 
 		StartCoroutine(
@@ -132,7 +133,7 @@ class SubmitData {
 	public string first_name = null;
 	public string last_name = null;
 	public string mobile = null;
-	public bool? agree = null;
+	public bool agree = false;
 }
 
 [System.Serializable]
