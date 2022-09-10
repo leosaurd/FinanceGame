@@ -226,9 +226,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void RetunToMainMenu() {
-		if (SessionManager.Instance.Session.game_end_reason == SessionEndReason.none)
+		if (SessionManager.Instance.Session.game_end_reason == SessionEndReason.none && SessionManager.Instance.Session.turns > 0)
 			SessionManager.Instance.EndSession(SessionEndReason.MainMenu);
 		SceneManager.LoadScene("MainMenu");
+
 	}
 
 	public void Retry() {
