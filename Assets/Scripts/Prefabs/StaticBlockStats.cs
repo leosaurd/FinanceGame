@@ -20,11 +20,12 @@ public class StaticBlockStats {
 
 	//  Turns a StaticBlockStats with their values into a StaticBlockStats with game usable values, and adds some randomness
 	public StaticBlockStats GenerateStats() {
+
 		roundScaling = (0.63f * GameManager.Instance.ownedBlocks.Count) + 1;
-		if (GameManager.Instance.ownedBlocks.Count >= 80) {
-			roundScaling = Mathf.Pow(GameManager.Instance.ownedBlocks.Count, 2) / 150 - 1;
+		if (GameManager.Instance.ownedBlocks.Count >= 100) {
+			roundScaling = Mathf.Pow(GameManager.Instance.ownedBlocks.Count, 2) / 300 + 33;
 		}
-		else if (GameManager.Instance.ownedBlocks.Count >= 40) {
+		else if (GameManager.Instance.ownedBlocks.Count >= 50) {
 			roundScaling = (0.66f * GameManager.Instance.ownedBlocks.Count);
 		}
 

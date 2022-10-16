@@ -5,9 +5,10 @@ using UnityEngine.Networking;
 public static class WebRequest {
 	public const string SECRET = "fmzAs9noj1eiNpNUuUl0ujrwOWN9DEjtLd1RHRtjyKoHb59paDWhzW3sklkBXsFY";
 #if UNITY_EDITOR
-	public const string URL = "https://investible.trentshailer.com";
+	//public const string URL = "https://investible.trentshailer.com";
+	public const string URL = "http://localhost:4008";
 #else
-	public const string URL = "";
+	public const string URL = "https://api_investible.ippfa.com";
 #endif
 
 	public static IEnumerator GET(string uri, Action<string> success, Action<string> fail) {

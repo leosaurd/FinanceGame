@@ -34,38 +34,6 @@ public class Leaderboard : MonoBehaviour {
 		GetLeaderboard();
 	}
 
-	public void CanSubmit(Action<bool> callback) {
-		StartCoroutine(WebRequest.GET("/api/v1/leaderboard/" + SessionManager.Instance.ID,
-			(string response) => {
-				GET_leaderboard_player_id result = JsonUtility.FromJson<GET_leaderboard_player_id>(response);
-				// If bet old score
-				if (GameManager.Instance.totalEarnings > result.portfolio_value) {
-					// If they are in top 10
-					// If they are in top 10
-					if (leaderboard.Count < 10 || GameManager.Instance.totalEarnings > leaderboard[leaderboard.Count - 1].portfolio_value) {
-						callback(true);
-						return;
-					}
-				}
-
-				callback(false);
-			},
-			(string status) => {
-				// If no leaderboard entries
-				if (status == "404") {
-					// If they are in top 10
-					if (leaderboard.Count < 10 || GameManager.Instance.totalEarnings > leaderboard[leaderboard.Count - 1].portfolio_value) {
-						callback(true);
-						return;
-					}
-				}
-				else {
-					Debug.Log("Failed to get player leaderboard data: " + status);
-				}
-				callback(false);
-			}));
-	}
-
 	void CreateLeaderboard() {
 		scoreObjects.ForEach(o => { Destroy(o); });
 		scoreObjects.Clear();
@@ -89,7 +57,7 @@ public class Leaderboard : MonoBehaviour {
 	}
 
 	void GetLeaderboard() {
-		StartCoroutine(WebRequest.GET("/api/v1/leaderboard",
+		/*StartCoroutine(WebRequest.GET("/api/v1/leaderboard",
 			(string result) => {
 				ScoreDataCollection sdc = JsonUtility.FromJson<ScoreDataCollection>("{\"scoreData\":" + result + "}");
 				leaderboard = sdc.scoreData.ToList();
@@ -97,19 +65,19 @@ public class Leaderboard : MonoBehaviour {
 			},
 			(string status) => {
 				Debug.Log("Failed to get leaderboard: " + status);
-			}));
+			}));*/
 	}
 
-	public void SubmitScore(string name, string email = null, string first_name = null, string last_name = null, string mobile = null, bool agree = false) {
+	/*public void SubmitScore(string name, string email = null, string first_name = null, string last_name = null, string mobile = null, bool agree = false) {
 
 		SubmitData submitData = new() {
 			name = name,
-			email = email,
 			first_name = first_name,
 			last_name = last_name,
+			email = email,
 			mobile = mobile,
-			agree = agree,
-			portfolio_value = GameManager.Instance.totalEarnings,
+			agree_terms = agree,
+			device_id = SessionManager.Instance.ID,
 			game_id = SessionManager.Instance.previous_game_id
 		};
 
@@ -117,23 +85,23 @@ public class Leaderboard : MonoBehaviour {
 
 		StartCoroutine(
 			WebRequest.POST("/api/v1/leaderboard/" + SessionManager.Instance.ID, jsonString,
-			(string response) => { GetLeaderboard(); },
+			(string response) => { *//*GetLeaderboard();*//* },
 			(long status) => { Debug.Log("Failed to submit: " + status); })
 			);
 
-	}
+	}*/
 }
 
 class SubmitData {
 	public string game_secret = WebRequest.SECRET;
 	public string name;
 	public string game_id;
-	public int portfolio_value;
+	public string device_id;
 	public string email = null;
 	public string first_name = null;
 	public string last_name = null;
 	public string mobile = null;
-	public bool agree = false;
+	public bool agree_terms = false;
 }
 
 [System.Serializable]

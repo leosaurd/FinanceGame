@@ -18,6 +18,9 @@ public class EventUIManager : MonoBehaviour {
 #nullable enable
 	private Action? okCallback;
 
+	public bool IsActive {
+		get; private set;
+	}
 
 	private bool overrideFadeOut = false;
 
@@ -45,6 +48,7 @@ public class EventUIManager : MonoBehaviour {
 	}
 
 	public void ShowEvent(GameEvent gameEvent, Action? callback) {
+		IsActive = true;
 		if (gameEvent.IsBeneficial) {
 			SFXManager.Instance.PlaySFX(SFX.beneficialEvent, 0.25f);
 		}
@@ -82,8 +86,9 @@ public class EventUIManager : MonoBehaviour {
 
 
 	private void FixedUpdate() {
-		if (GameManager.Instance.IsGameOver && blockObject != null) {
-			blockObject.gameObject.SetActive(false);
+		if (GameManager.Instance.IsGameOver) {
+			if (blockObject != null)
+				blockObject.gameObject.SetActive(false);
 			canvasGroup.blocksRaycasts = false;
 			canvasGroup.interactable = false;
 			canvasGroup.alpha = 0;
@@ -91,21 +96,21 @@ public class EventUIManager : MonoBehaviour {
 	}
 
 	IEnumerator FadeIn() {
-		canvasGroup.blocksRaycasts = true;
-		canvasGroup.interactable = true;
 
 		int steps = 30;
 		for (int i = 0; i <= steps; i++) {
 			canvasGroup.alpha = i / (float)steps;
 			yield return new WaitForFixedUpdate();
 		}
+		canvasGroup.blocksRaycasts = true;
+		canvasGroup.interactable = true;
 	}
 
 	IEnumerator FadeOut() {
 		if (blockObject != null)
 			blockObject.gameObject.SetActive(false);
-		canvasGroup.blocksRaycasts = false;
 		canvasGroup.interactable = false;
+		canvasGroup.blocksRaycasts = false;
 
 		int steps = 30;
 		for (int i = steps; i >= 0; i--) {
@@ -113,8 +118,7 @@ public class EventUIManager : MonoBehaviour {
 			yield return new WaitForFixedUpdate();
 		}
 
-		canvasGroup.blocksRaycasts = false;
-		canvasGroup.interactable = false;
+		IsActive = false;
 		okCallback?.Invoke();
 	}
 

@@ -34,14 +34,14 @@ public class GameOver : MonoBehaviour {
 		reasonComponent.text = gameoverMessages[reason];
 		scoreComponent.text = "$" + gm.totalEarnings.ToString("N0");
 
-		Leaderboard.Instance.CanSubmit((bool canSubmit) => {
+		/*Leaderboard.Instance.CanSubmit((bool canSubmit) => {
 			if (canSubmit) {
 				transform.Find("Stage2").Find("Main").Find("SubmitScoreBtn").gameObject.SetActive(true);
 			}
 			else {
 				transform.Find("Stage2").Find("Main").Find("SubmitScoreBtn").gameObject.SetActive(false);
 			}
-		});
+		});*/
 
 
 		StartCoroutine(FadeIn());

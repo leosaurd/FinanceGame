@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,7 +13,7 @@ public class SubmitScore : MonoBehaviour {
 	bool details;
 
 	private void Awake() {
-		StartCoroutine(WebRequest.GET("/api/v1/competition/ongoing",
+		StartCoroutine(WebRequest.GET("/api/v1/competition",
 			(string response) => {
 				target = transform.Find("Details").gameObject;
 				details = true;
@@ -23,9 +24,11 @@ public class SubmitScore : MonoBehaviour {
 			}));
 	}
 
+
+
 	public void Show() {
 		target.SetActive(true);
-		StartCoroutine(WebRequest.GET("/api/v1/leaderboard/" + SessionManager.Instance.ID,
+		/*StartCoroutine(WebRequest.GET("/api/v1/leaderboard/" + SessionManager.Instance.ID,
 			(string response) => {
 				GET_leaderboard_player_id result = JsonUtility.FromJson<GET_leaderboard_player_id>(response);
 
@@ -48,7 +51,7 @@ public class SubmitScore : MonoBehaviour {
 				if (status == "500") {
 					Debug.Log("Failed to get player leaderboard data: " + status);
 				}
-			}));
+			}));*/
 
 	}
 
@@ -85,6 +88,18 @@ public class SubmitScore : MonoBehaviour {
 			return;
 		}
 
+
+		if (name.Length < 2 || first_name.Length < 2 || last_name.Length < 2) {
+			target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "Names must be at least 2 characters long.";
+			return;
+		}
+
+		// if email does not match email regex
+		if (!System.Text.RegularExpressions.Regex.IsMatch(email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")) {
+			target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "Invalid email address.";
+			return;
+		}
+
 		if (!agree) {
 			target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "You must agree to the terms and conditions, and privacy policy.";
 			return;
@@ -96,7 +111,7 @@ public class SubmitScore : MonoBehaviour {
 				if (result.valid) {
 					target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
 					OnSubmit.Invoke();
-					Leaderboard.Instance.SubmitScore(name, email, first_name, last_name, mobile, agree);
+					Submit(name, email, first_name, last_name, mobile, agree);
 				}
 				else {
 					if (result.reason != null)
@@ -113,6 +128,31 @@ public class SubmitScore : MonoBehaviour {
 			));
 	}
 
+	public void Submit(string name, string email = null, string first_name = null, string last_name = null, string mobile = null, bool agree = false) {
+
+		SubmitData submitData = new() {
+			name = name,
+			first_name = first_name,
+			last_name = last_name,
+			email = email,
+			mobile = mobile,
+			agree_terms = agree,
+			device_id = SessionManager.Instance.ID,
+			game_id = SessionManager.Instance.Session.game_id
+		};
+
+		string jsonString = JsonUtility.ToJson(submitData);
+
+		StartCoroutine(
+			WebRequest.POST("/api/v1/leaderboard", jsonString,
+			(string response) => { },
+			(long status) => {
+				Debug.Log("Failed to submit: " + status);
+			})
+			);
+
+	}
+
 	public void TrySubmitNoDetails() {
 
 		target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
@@ -124,7 +164,7 @@ public class SubmitScore : MonoBehaviour {
 				if (result.valid) {
 					target.transform.Find("ErrorText").GetComponent<TextMeshProUGUI>().text = "";
 					OnSubmit.Invoke();
-					Leaderboard.Instance.SubmitScore(name);
+					Submit(name);
 				}
 				else {
 					if (result.reason != null)

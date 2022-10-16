@@ -234,6 +234,7 @@ public class GameManager : MonoBehaviour {
 
 	public void Retry() {
 		SceneManager.LoadScene("Game");
+		SessionManager.Instance.StartSession();
 	}
 
 

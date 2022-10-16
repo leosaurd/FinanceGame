@@ -21,8 +21,6 @@ public class SessionManager : MonoBehaviour {
 		get; private set;
 	}
 
-	public string previous_game_id;
-
 	public GameSession Session = new();
 	public string ID = null;
 
@@ -68,18 +66,17 @@ public class SessionManager : MonoBehaviour {
 			};
 			string jsonString = JsonUtility.ToJson(player);
 
-			StartCoroutine(WebRequest.POST("/api/v1/player/" + ID, jsonString, (string response) => { }, (long status) => { Debug.Log("Failed to send player: " + status); }));
+			StartCoroutine(WebRequest.POST("/api/v1/device/" + ID, jsonString, (string response) => { }, (long status) => { Debug.Log("Failed to send player: " + status); }));
 
 		}
 	}
 
 
 	public void StartSession() {
-		previous_game_id = Session.id;
 		Session = new() {
-			player_id = ID,
+			device_id = ID,
 			game_version = Application.version,
-			id = Guid.NewGuid().ToString(),
+			game_id = Guid.NewGuid().ToString(),
 			game_end_reason = SessionEndReason.none,
 		};
 	}
@@ -88,20 +85,20 @@ public class SessionManager : MonoBehaviour {
 		Session.game_end_reason = endReason;
 		Session.game_time = Time.time;
 		string jsonString = JsonUtility.ToJson(Session);
-		StartCoroutine(WebRequest.POST("/api/v1/game/" + Session.id, jsonString,
+		StartCoroutine(WebRequest.PUT("/api/v1/game/" + Session.game_id, jsonString,
 			(string response) => {
-				StartSession();
+				//StartSession();
 			},
 			(long status) => {
 				Debug.Log("Failed to send game data: " + status);
-				StartSession();
+				//StartSession();
 			}));
 	}
 
 	public void SaveSession() {
 		Session.game_time = Time.time;
 		string jsonString = JsonUtility.ToJson(Session);
-		StartCoroutine(WebRequest.POST("/api/v1/game/" + Session.id, jsonString,
+		StartCoroutine(WebRequest.PUT("/api/v1/game/" + Session.game_id, jsonString,
 			(string response) => { },
 			(long status) => { Debug.Log("Failed to send game data: " + status); }));
 	}
@@ -113,9 +110,9 @@ public class NewPlayer {
 
 [System.Serializable]
 public class GameSession {
-	public string id;
+	public string game_id;
 	public string game_secret = WebRequest.SECRET;
-	public string player_id;
+	public string device_id;
 	public string game_version;
 	public SessionEndReason game_end_reason;
 	public float game_time = 0;
