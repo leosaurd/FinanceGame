@@ -24,6 +24,10 @@ public class ColorButton : MonoBehaviour, Button, IPointerUpHandler, IPointerDow
 		targetColor = defaultColor;
 	}
 
+	void OnEnable() {
+		onCooldown = false;
+	}
+
 	void FixedUpdate()
 	{
 		float rDiff = targetColor.r - currentColor.r;

@@ -75,6 +75,7 @@ public class SessionManager : MonoBehaviour {
 	public void StartSession() {
 		Session = new() {
 			device_id = ID,
+			game_start_time = Time.time,
 			game_version = Application.version,
 			game_id = Guid.NewGuid().ToString(),
 			game_end_reason = SessionEndReason.none,
@@ -83,7 +84,7 @@ public class SessionManager : MonoBehaviour {
 
 	public void EndSession(SessionEndReason endReason) {
 		Session.game_end_reason = endReason;
-		Session.game_time = Time.time;
+		Session.game_time = Time.time - Session.game_start_time;
 		string jsonString = JsonUtility.ToJson(Session);
 		StartCoroutine(WebRequest.PUT("/api/v1/game/" + Session.game_id, jsonString,
 			(string response) => {
@@ -96,7 +97,7 @@ public class SessionManager : MonoBehaviour {
 	}
 
 	public void SaveSession() {
-		Session.game_time = Time.time;
+		Session.game_time = Time.time - Session.game_start_time;
 		string jsonString = JsonUtility.ToJson(Session);
 		StartCoroutine(WebRequest.PUT("/api/v1/game/" + Session.game_id, jsonString,
 			(string response) => { },
@@ -115,6 +116,7 @@ public class GameSession {
 	public string device_id;
 	public string game_version;
 	public SessionEndReason game_end_reason;
+	public float game_start_time = 0;
 	public float game_time = 0;
 	public int positive_event_count = 0;
 	public int negative_event_count = 0;
