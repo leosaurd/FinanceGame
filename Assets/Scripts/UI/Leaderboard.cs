@@ -12,9 +12,13 @@ public class Leaderboard : MonoBehaviour {
 	}
 	Loader loader;
 
+	public TextMeshProUGUI pageText;
+
 	public GameObject leaderboardPrefab;
 
-	List<ScoreData> leaderboard = new();
+	LeaderboardData leaderboardData = new();
+	int page = 1;
+
 	List<GameObject> scoreObjects = new();
 
 	private void Awake() {
@@ -34,21 +38,39 @@ public class Leaderboard : MonoBehaviour {
 		GetLeaderboard();
 	}
 
+	public void NextPage() {
+		if (page < leaderboardData.pageCount && page < 10) {
+			page++;
+			GetLeaderboard();
+		}
+	}
+
+	public void PreviousPage() {
+		if (page > 1) {
+			page--;
+			GetLeaderboard();
+		}
+	}
+
+
 	void CreateLeaderboard() {
 		scoreObjects.ForEach(o => { Destroy(o); });
 		scoreObjects.Clear();
+		int totalPageCount = leaderboardData.pageCount > 10 ? 10 : leaderboardData.pageCount;
+		pageText.text = page + "/" + totalPageCount;
 		loader.isActive = true;
 
 
-		for (int i = 0; i < leaderboard.Count; i++) {
+		for (int i = 0; i < leaderboardData.leaderboard.Length; i++) {
 			GameObject obj = Instantiate(leaderboardPrefab, transform);
 
 
 			obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -25f * (i));
 
-			obj.transform.Find("Place").GetComponent<TextMeshProUGUI>().text = (i + 1).ToString();
-			obj.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = leaderboard[i].name;
-			obj.transform.Find("Score").GetComponent<TextMeshProUGUI>().text = "$" + (leaderboard[i].portfolio_value).ToString("N0");
+			int place = (page - 1) * 10 + i + 1;
+			obj.transform.Find("Place").GetComponent<TextMeshProUGUI>().text = place.ToString();
+			obj.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = leaderboardData.leaderboard[i].name;
+			obj.transform.Find("Score").GetComponent<TextMeshProUGUI>().text = "$" + (leaderboardData.leaderboard[i].portfolio_value).ToString("N0");
 			scoreObjects.Add(obj);
 		}
 
@@ -57,56 +79,21 @@ public class Leaderboard : MonoBehaviour {
 	}
 
 	void GetLeaderboard() {
-		/*StartCoroutine(WebRequest.GET("/api/v1/leaderboard",
+		StartCoroutine(WebRequest.GET("/api/v1/leaderboard?page=" + page,
 			(string result) => {
-				ScoreDataCollection sdc = JsonUtility.FromJson<ScoreDataCollection>("{\"scoreData\":" + result + "}");
-				leaderboard = sdc.scoreData.ToList();
+				leaderboardData = JsonUtility.FromJson<LeaderboardData>(result);
 				CreateLeaderboard();
 			},
-			(string status) => {
+			(long status) => {
 				Debug.Log("Failed to get leaderboard: " + status);
-			}));*/
+			}));
 	}
-
-	/*public void SubmitScore(string name, string email = null, string first_name = null, string last_name = null, string mobile = null, bool agree = false) {
-
-		SubmitData submitData = new() {
-			name = name,
-			first_name = first_name,
-			last_name = last_name,
-			email = email,
-			mobile = mobile,
-			agree_terms = agree,
-			device_id = SessionManager.Instance.ID,
-			game_id = SessionManager.Instance.previous_game_id
-		};
-
-		string jsonString = JsonUtility.ToJson(submitData);
-
-		StartCoroutine(
-			WebRequest.POST("/api/v1/leaderboard/" + SessionManager.Instance.ID, jsonString,
-			(string response) => { *//*GetLeaderboard();*//* },
-			(long status) => { Debug.Log("Failed to submit: " + status); })
-			);
-
-	}*/
-}
-
-class SubmitData {
-	public string game_secret = WebRequest.SECRET;
-	public string name;
-	public string game_id;
-	public string device_id;
-	public string email = null;
-	public string first_name = null;
-	public string last_name = null;
-	public string mobile = null;
-	public bool agree_terms = false;
 }
 
 [System.Serializable]
-class ScoreDataCollection {
-	public ScoreData[] scoreData;
+class LeaderboardData {
+	public ScoreData[] leaderboard;
+	public int pageCount;
 }
 
 [System.Serializable]

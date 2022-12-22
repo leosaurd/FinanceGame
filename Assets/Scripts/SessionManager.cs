@@ -44,6 +44,7 @@ public class SessionManager : MonoBehaviour {
 #if UNITY_WEBGL && !UNITY_EDITOR
 			string storedID = GetID();
 #else
+			//string storedID = "00000000-0000-0000-0000-000000000000";
 			string storedID = null;
 #endif
 			if (storedID != null && storedID != "") {
