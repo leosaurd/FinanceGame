@@ -1,7 +1,5 @@
 # FinanceGame
 
-# https://investible.ippfa.com/game
-
 This project was commissioned by IPPFA(https://www.ippfa.com/), a financial planning company in Singapore.
 
 To play, either visit the website or rebuild it on your computer with permission from both IPPFA and the developers. 
